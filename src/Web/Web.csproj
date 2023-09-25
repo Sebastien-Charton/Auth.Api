@@ -27,10 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Endpoints\"/>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="config.nswag">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

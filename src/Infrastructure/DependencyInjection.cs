@@ -2,6 +2,7 @@
 using Auth.Api.Domain.Constants;
 using Auth.Api.Infrastructure.Data;
 using Auth.Api.Infrastructure.Data.Interceptors;
+using Auth.Api.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -24,7 +25,7 @@ public static class DependencyInjection
         services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
-            
+
             options.UseNpgsql(connectionString);
         });
 
@@ -37,7 +38,15 @@ public static class DependencyInjection
 
         services.AddAuthorizationBuilder();
 
+        services
+            .AddIdentityCore<ApplicationUser>()
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddApiEndpoints();
+
         services.AddSingleton(TimeProvider.System);
+
+        services.AddTransient<IIdentityService, IdentityService>();
 
         services.AddAuthorization(options =>
             options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));

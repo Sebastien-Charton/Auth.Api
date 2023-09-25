@@ -94,7 +94,15 @@ from repository root)
 
 For example, to add a new migration from the root folder:
 
-`dotnet ef migrations add "InitialMigration" --project src\Infrastructure --startup-project src\Web --output-dir Data\Migrations`
+```sh
+dotnet ef migrations add "IdentityTables" --project src\Infrastructure --startup-project src\Web --output-dir Data\Migrations
+```
+
+To create a database :
+
+```sh
+dotnet ef database update --verbose --project src\Infrastructure --startup-project src\Web
+```
 
 ## Help
 

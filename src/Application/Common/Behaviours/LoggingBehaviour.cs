@@ -6,16 +6,18 @@ namespace Auth.Api.Application.Common.Behaviours;
 
 public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where TRequest : notnull
 {
+    private readonly IIdentityService _identityService;
     private readonly ILogger _logger;
     private readonly IUser _user;
 
-    public LoggingBehaviour(ILogger<TRequest> logger, IUser user)
+    public LoggingBehaviour(ILogger<TRequest> logger, IUser user, IIdentityService identityService)
     {
         _logger = logger;
         _user = user;
+        _identityService = identityService;
     }
 
-    public Task Process(TRequest request, CancellationToken cancellationToken)
+    public async Task Process(TRequest request, CancellationToken cancellationToken)
     {
         string requestName = typeof(TRequest).Name;
         string userId = _user.Id ?? string.Empty;
@@ -23,11 +25,10 @@ public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where T
 
         if (!string.IsNullOrEmpty(userId))
         {
-            userName = "Logger";
+            userName = await _identityService.GetUserNameAsync(userId);
         }
 
-        _logger.LogInformation("Auth.Api Request: {Name} {@UserId} {@UserName} {@Request}",
+        _logger.LogInformation("CleanArchitecture Request: {Name} {@UserId} {@UserName} {@Request}",
             requestName, userId, userName, request);
-        return Task.CompletedTask;
     }
 }
