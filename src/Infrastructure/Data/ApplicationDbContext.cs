@@ -7,9 +7,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Auth.Api.Infrastructure.Data;
 
-public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Role, Guid>, IApplicationDbContext
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>, IApplicationDbContext
 {
+    public ApplicationDbContext()
+    {
+    }
+
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+
 
     public DbSet<TodoList> TodoLists => Set<TodoList>();
 
