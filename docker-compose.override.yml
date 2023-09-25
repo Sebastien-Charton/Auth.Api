@@ -11,4 +11,4 @@ services:
     ports:
       - "5100:5432"
     volumes:
-      - postgres_data_auth:/var/lib/postgresql/data/
+      - postgres_data_auth_database:/var/lib/postgresql/data/

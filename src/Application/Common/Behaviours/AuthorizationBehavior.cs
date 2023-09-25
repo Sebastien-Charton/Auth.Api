@@ -45,7 +45,7 @@ public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRe
                 {
                     foreach (string role in roles)
                     {
-                        bool isInRole = await _identityService.IsInRoleAsync(_user.Id, role.Trim());
+                        bool isInRole = await _identityService.IsInRoleAsync(_user.Id.Value, role.Trim());
                         if (isInRole)
                         {
                             authorized = true;
@@ -68,7 +68,7 @@ public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRe
             {
                 foreach (string policy in authorizeAttributesWithPolicies.Select(a => a.Policy))
                 {
-                    bool authorized = await _identityService.AuthorizeAsync(_user.Id, policy);
+                    bool authorized = await _identityService.AuthorizeAsync(_user.Id.Value, policy);
 
                     if (!authorized)
                     {

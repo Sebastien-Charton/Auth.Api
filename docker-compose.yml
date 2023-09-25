@@ -5,4 +5,4 @@ services:
     image: postgres
 
 volumes:
-  postgres_data_auth:
+  postgres_data_auth_database:

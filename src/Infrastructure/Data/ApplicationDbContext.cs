@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Auth.Api.Infrastructure.Data;
 
-public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Role, Guid>, IApplicationDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 

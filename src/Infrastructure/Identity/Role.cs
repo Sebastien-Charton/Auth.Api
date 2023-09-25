@@ -2,6 +2,6 @@
 
 namespace Auth.Api.Infrastructure.Identity;
 
-public class ApplicationUser : IdentityUser<Guid>
+public class Role : IdentityRole<Guid>
 {
 }
