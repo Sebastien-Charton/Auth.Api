@@ -15,7 +15,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-
     public DbSet<TodoList> TodoLists => Set<TodoList>();
 
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
