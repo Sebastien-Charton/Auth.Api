@@ -1,6 +1,7 @@
 ﻿# Auth.Api
 
-The project was generated using the [Clean.Architecture.Solution.Template](https://github.com/jasontaylordev/Auth.Api) version 8.0.0-preview.7.2.
+The project was generated using the [Clean.Architecture.Solution.Template](https://github.com/jasontaylordev/Auth.Api)
+version 8.0.0-preview.7.2.
 
 ## Build
 
@@ -19,7 +20,9 @@ Navigate to https://localhost:5001. The application will automatically reload if
 
 ## Code Styles & Formatting
 
-The template includes [EditorConfig](https://editorconfig.org/) support to help maintain consistent coding styles for multiple developers working on the same project across various editors and IDEs. The **.editorconfig** file defines the coding styles applicable to this solution.
+The template includes [EditorConfig](https://editorconfig.org/) support to help maintain consistent coding styles for
+multiple developers working on the same project across various editors and IDEs. The **.editorconfig** file defines the
+coding styles applicable to this solution.
 
 ## Code Scaffolding
 
@@ -39,7 +42,8 @@ Create a new query:
 dotnet new ca-usecase -n GetTodos -fn TodoLists -ut query -rt TodosVm
 ```
 
-If you encounter the error *"No templates or subcommands found matching: 'ca-usecase'."*, install the template and try again:
+If you encounter the error *"No templates or subcommands found matching: 'ca-usecase'."*, install the template and try
+again:
 
 ```bash
 dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.7.2
@@ -50,13 +54,16 @@ dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.7.2
 The solution contains unit, integration, and functional tests.
 
 To run the tests:
+
 ```bash
 dotnet test
 ```
+
 <!--#else -->
 The solution contains unit, integration, functional, and acceptance tests.
 
 To run the unit, integration, and functional tests (excluding acceptance tests):
+
 ```bash
 dotnet test --filter "FullyQualifiedName!~AcceptanceTests"
 ```
@@ -69,6 +76,7 @@ dotnet run
 ```
 
 Then, in a new console, run the tests:
+
 ```bash
 cd .\src\Web\
 dotnet test
@@ -106,4 +114,5 @@ dotnet ef database update --verbose --project src\Infrastructure --startup-proje
 
 ## Help
 
-To learn more about the template go to the [project website](https://github.com/JasonTaylorDev/Auth.Api). Here you can find additional guidance, request new features, report a bug, and discuss the template with other users.
+To learn more about the template go to the [project website](https://github.com/JasonTaylorDev/Auth.Api). Here you can
+find additional guidance, request new features, report a bug, and discuss the template with other users.

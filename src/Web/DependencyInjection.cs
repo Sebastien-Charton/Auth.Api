@@ -1,13 +1,13 @@
-﻿using Azure.Identity;
-using Auth.Api.Application.Common.Interfaces;
+﻿using Auth.Api.Application.Common.Interfaces;
 using Auth.Api.Infrastructure.Data;
 using Auth.Api.Web.Services;
+using Azure.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using ZymLabs.NSwag.FluentValidation;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace Auth.Api.Web;
 
 public static class DependencyInjection
 {

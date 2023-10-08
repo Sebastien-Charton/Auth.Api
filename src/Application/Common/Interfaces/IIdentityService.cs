@@ -10,7 +10,10 @@ public interface IIdentityService
 
     Task<bool> AuthorizeAsync(Guid userId, string policyName);
 
-    Task<(Result Result, Guid userId)> CreateUserAsync(string userName, string password);
+    Task<(Result Result, Guid userId)> CreateUserAsync(string userName, string password, string email,
+        string phoneNumber);
 
     Task<Result> DeleteUserAsync(Guid userId);
+    Task<string?> GetUserByUserNameAsync(string userName);
+    Task<string?> GetUserByEmailAsync(string email);
 }

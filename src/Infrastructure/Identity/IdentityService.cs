@@ -30,9 +30,24 @@ public class IdentityService : IIdentityService
         return user.UserName;
     }
 
-    public async Task<(Result Result, Guid userId)> CreateUserAsync(string userName, string password)
+    public async Task<string?> GetUserByUserNameAsync(string userName)
     {
-        ApplicationUser user = new ApplicationUser { UserName = userName, Email = userName };
+        ApplicationUser user = await _userManager.Users.FirstAsync(u => u.UserName == userName);
+
+        return user.UserName;
+    }
+
+    public async Task<string?> GetUserByEmailAsync(string email)
+    {
+        ApplicationUser user = await _userManager.Users.FirstAsync(u => u.Email == email);
+
+        return user.UserName;
+    }
+
+    public async Task<(Result Result, Guid userId)> CreateUserAsync(string userName, string email, string password,
+        string phoneNumber)
+    {
+        ApplicationUser user = new() { UserName = userName, Email = email, PhoneNumber = phoneNumber };
 
         IdentityResult result = await _userManager.CreateAsync(user, password);
 

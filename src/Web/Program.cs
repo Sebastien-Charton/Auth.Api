@@ -1,4 +1,5 @@
 using Auth.Api.Infrastructure.Data;
+using Auth.Api.Web;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 

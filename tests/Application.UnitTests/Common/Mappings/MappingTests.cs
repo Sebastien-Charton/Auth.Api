@@ -1,11 +1,11 @@
 ﻿using System.Reflection;
 using System.Runtime.Serialization;
-using AutoMapper;
 using Auth.Api.Application.Common.Interfaces;
 using Auth.Api.Application.Common.Models;
 using Auth.Api.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 using Auth.Api.Application.TodoLists.Queries.GetTodos;
 using Auth.Api.Domain.Entities;
+using AutoMapper;
 using Xunit;
 
 namespace Auth.Api.Application.UnitTests.Common.Mappings;

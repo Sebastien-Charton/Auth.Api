@@ -5,7 +5,8 @@
 
 # GET Identity Account Login
 # Get the @RequestVerificationToken necessary for logging in.
-GET {{Web_HostAddress}}/Identity/Account/Login
+GET
+{{Web_HostAddress}}/Identity/Account/Login
 
 ###
 
@@ -14,7 +15,8 @@ GET {{Web_HostAddress}}/Identity/Account/Login
 @Email=administrator@localhost
 @Password=Administrator1!
 @RequestVerificationToken=<RequestVerificationToken>
-POST {{Web_HostAddress}}/Identity/Account/Login
+POST
+{{Web_HostAddress}}/Identity/Account/Login
 Content-Type: application/x-www-form-urlencoded
 
 Input.Email = {{Email}} &
@@ -75,7 +77,8 @@ Cookie: {{AuthCookieName}}={{AuthCookieValue}}
 # GET TodoItems
 @PageNumber = 1
 @PageSize = 10
-GET {{Web_HostAddress}}/api/TodoItems?ListId=1&PageNumber={{PageNumber}}&PageSize={{PageSize}}
+GET
+{{Web_HostAddress}}/api/TodoItems?ListId=1&PageNumber={{PageNumber}}&PageSize={{PageSize}}
 Cookie: {{AuthCookieName}}={{AuthCookieValue}}
 
 ###
