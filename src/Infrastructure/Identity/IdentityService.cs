@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using Auth.Api.Application.Common.Interfaces;
+using Auth.Api.Application.Common.Interfaces.Identity;
 using Auth.Api.Application.Common.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -28,6 +29,13 @@ public class IdentityService : IIdentityService
         ApplicationUser user = await _userManager.Users.FirstAsync(u => u.Id == userId);
 
         return user.UserName;
+    }
+    
+    public async Task<IApplicationUser> GetUserAsync(Guid userId)
+    {
+        ApplicationUser user = await _userManager.Users.FirstAsync(u => u.Id == userId);
+
+        return user;
     }
 
     public async Task<string?> GetUserByUserNameAsync(string userName)

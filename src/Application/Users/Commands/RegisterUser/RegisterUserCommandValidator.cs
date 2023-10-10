@@ -4,11 +4,8 @@ namespace Auth.Api.Application.Users.Commands.RegisterUser;
 
 public class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
 {
-    private readonly IApplicationDbContext _context;
-
-    public RegisterUserCommandValidator(IApplicationDbContext context)
+    public RegisterUserCommandValidator()
     {
-        _context = context;
 
         RuleFor(x => x.Email)
             .NotEmpty()
@@ -25,7 +22,7 @@ public class RegisterUserCommandValidator : AbstractValidator<RegisterUserComman
             .NotEmpty()
             .MinimumLength(3)
             .MaximumLength(20)
-            .Matches(@"\^[a-zA-Z0-9_.-]*$").WithMessage("UserName must contain only letters, number and - _ .");
+            .Matches(@"^[\w.-]+$").WithMessage("UserName must contain only letters or number");
 
         RuleFor(x => x.PhoneNumber)
             .NotEmpty();
