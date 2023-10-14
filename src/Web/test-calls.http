@@ -1,0 +1,14 @@
+﻿### Get 200 image request
+GET {{fox_host}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.global.set("image_url", response.body.image);
+%}
+
+### GET image
+
+GET {{image_url}}
