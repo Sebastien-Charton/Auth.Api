@@ -1,5 +1,5 @@
 ﻿using Auth.Api.Application.Common.Interfaces;
-using Auth.Api.Application.Common.Models;
+using FluentValidation.Results;
 using ValidationException = System.ComponentModel.DataAnnotations.ValidationException;
 
 namespace Auth.Api.Application.Users.Commands.RegisterUser;
@@ -23,22 +23,29 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, G
 
     public async Task<Guid> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
-        Task<string?>? existingUserWithUserName = _identityService.GetUserByUserNameAsync(request.UserName);
+        string? existingUserWithUserName = await _identityService.GetUserByUserNameAsync(request.UserName);
 
         if (existingUserWithUserName is not null)
         {
             throw new ValidationException("UserName is already used.");
         }
 
-        Task<string?>? existingUserWithEmail = _identityService.GetUserByEmailAsync(request.Email);
+        string? existingUserWithEmail = await _identityService.GetUserByEmailAsync(request.Email);
 
         if (existingUserWithEmail is not null)
         {
             throw new ValidationException("Email is already used.");
         }
 
-        (Result Result, Guid userId) result = await _identityService.CreateUserAsync(request.UserName, request.Password,
+        (Common.Models.Result Result, Guid userId) result = await _identityService.CreateUserAsync(request.UserName,
+            request.Password,
             request.Email, request.PhoneNumber);
+
+        if (result.Result.Errors.Any())
+        {
+            throw new Common.Exceptions.ValidationException(
+                result.Result.Errors.Select(x => new ValidationFailure(nameof(RegisterUserCommand), x)));
+        }
 
         return result.userId;
     }

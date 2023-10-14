@@ -1,7 +1,7 @@
 ﻿using Auth.Api.Application.Users.Commands.RegisterUser;
+using Bogus;
 using FluentAssertions;
-using FluentValidation;
-using FluentValidation.TestHelper;
+using Shared.Tests;
 using Xunit;
 
 namespace Auth.Api.Application.UnitTests.Users.Commands.RegisterUser;
@@ -13,10 +13,12 @@ public class RegisterUserCommandValidatorTests
     {
         // Arrange
 
-        var registerUserCommand = new RegisterUserCommand()
-        {
-            Email = "example@gmail.com", Password = "Password1*,", UserName = "TEST", PhoneNumber = "+35905458484"
-        };
+        RegisterUserCommand? registerUserCommand = new Faker<RegisterUserCommand>()
+            .RuleFor(x => x.PhoneNumber, f => f.Person.Phone)
+            .RuleFor(x => x.Email, f => f.Internet.Email())
+            .RuleFor(x => x.UserName, f => f.Internet.UserName())
+            .RuleFor(x => x.Password, f => f.Internet.GeneratePassword())
+            .Generate();
 
         var validator = new RegisterUserCommandValidator();
 
@@ -28,7 +30,7 @@ public class RegisterUserCommandValidatorTests
 
         result.IsValid.Should().BeTrue();
     }
-    
+
     [Fact]
     public void RegisterUserCommandValidator_ShouldBeInvalid_WhenDataAreIncorrect()
     {
@@ -46,7 +48,7 @@ public class RegisterUserCommandValidatorTests
         var result = validator.Validate(registerUserCommand);
 
         // Assert
-        
+
         result.IsValid.Should().BeFalse();
         result.Errors.Count.Should().Be(11);
     }

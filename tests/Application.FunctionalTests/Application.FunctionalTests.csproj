@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bogus"/>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing"/>
     <PackageReference Include="Microsoft.NET.Test.Sdk"/>
     <PackageReference Include="coverlet.collector"/>
@@ -30,6 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Web\Web.csproj"/>
+    <ProjectReference Include="..\Shared.Tests\Shared.Tests.csproj"/>
   </ItemGroup>
 
 </Project>

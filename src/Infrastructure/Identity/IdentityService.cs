@@ -26,33 +26,26 @@ public class IdentityService : IIdentityService
 
     public async Task<string?> GetUserNameAsync(Guid userId)
     {
-        ApplicationUser user = await _userManager.Users.FirstAsync(u => u.Id == userId);
+        ApplicationUser? user = await _userManager.Users?.FirstOrDefaultAsync(u => u.Id == userId)!;
 
-        return user.UserName;
-    }
-    
-    public async Task<IApplicationUser> GetUserAsync(Guid userId)
-    {
-        ApplicationUser user = await _userManager.Users.FirstAsync(u => u.Id == userId);
-
-        return user;
+        return user?.UserName;
     }
 
     public async Task<string?> GetUserByUserNameAsync(string userName)
     {
-        ApplicationUser user = await _userManager.Users.FirstAsync(u => u.UserName == userName);
+        ApplicationUser? user = await _userManager.Users?.FirstOrDefaultAsync(u => u.UserName == userName)!;
 
-        return user.UserName;
+        return user?.UserName;
     }
 
     public async Task<string?> GetUserByEmailAsync(string email)
     {
-        ApplicationUser user = await _userManager.Users.FirstAsync(u => u.Email == email);
+        ApplicationUser? user = await _userManager.Users?.FirstOrDefaultAsync(u => u.Email == email)!;
 
-        return user.UserName;
+        return user?.UserName;
     }
 
-    public async Task<(Result Result, Guid userId)> CreateUserAsync(string userName, string email, string password,
+    public async Task<(Result Result, Guid userId)> CreateUserAsync(string userName, string password, string email,
         string phoneNumber)
     {
         ApplicationUser user = new() { UserName = userName, Email = email, PhoneNumber = phoneNumber };
@@ -90,6 +83,13 @@ public class IdentityService : IIdentityService
         ApplicationUser? user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
 
         return user != null ? await DeleteUserAsync(user) : Result.Success();
+    }
+
+    public async Task<IApplicationUser> GetUserAsync(Guid userId)
+    {
+        ApplicationUser user = await _userManager.Users.FirstAsync(u => u.Id == userId);
+
+        return user;
     }
 
     public async Task<Result> DeleteUserAsync(ApplicationUser user)

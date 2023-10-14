@@ -1,7 +1,7 @@
 ﻿using System.Data.Common;
 using Auth.Api.Infrastructure.Data;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using Respawn;
 using Respawn.Graph;
 using Testcontainers.PostgreSql;
@@ -28,7 +28,9 @@ public class TestcontainersTestDatabase : ITestDatabase
 
         _connectionString = _container.GetConnectionString();
 
-        _connection = new SqlConnection(_connectionString);
+        _connection = new NpgsqlConnection(_connectionString);
+
+        await _connection.OpenAsync();
 
         DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseNpgsql(_connectionString)
@@ -36,10 +38,13 @@ public class TestcontainersTestDatabase : ITestDatabase
 
         ApplicationDbContext context = new(options);
 
-        context.Database.Migrate();
+        await context.Database.MigrateAsync();
 
-        _respawner = await Respawner.CreateAsync(_connectionString,
-            new RespawnerOptions { TablesToIgnore = new Table[] { "__EFMigrationsHistory" } });
+        _respawner = await Respawner.CreateAsync(_connection,
+            new RespawnerOptions
+            {
+                TablesToIgnore = new Table[] { "__EFMigrationsHistory" }, DbAdapter = DbAdapter.Postgres
+            });
     }
 
     public DbConnection GetConnection()

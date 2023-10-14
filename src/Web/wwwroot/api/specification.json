@@ -1003,7 +1003,7 @@
           },
           "userName": {
             "type": "string",
-            "maxLength": 20,
+            "maxLength": 64,
             "minLength": 1,
             "pattern": "^[\\w.-]+$",
             "nullable": false
