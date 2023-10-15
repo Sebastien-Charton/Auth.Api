@@ -6,8 +6,8 @@ using Auth.Api.Infrastructure.Data;
 using Auth.Api.Infrastructure.Data.Interceptors;
 using Auth.Api.Infrastructure.Identity.Models;
 using Auth.Api.Infrastructure.Identity.Services;
+using Auth.Api.Infrastructure.Options;
 using Auth.Api.Infrastructure.Services;
-using Auth.Api.Infrastructure.Settings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -83,10 +83,7 @@ public static class DependencyInjection
         services.AddScoped<IJwtService, JwtService>();
 
         // Inject options
-        // TODO should I use the Ioptions interface ?
-        var jwtSettings = new JwtConfiguration();
-        configuration.Bind("Jwt", jwtSettings);
-        services.AddSingleton(jwtSettings);
+        services.Configure<JwtOptions>(jwtOptions => configuration.Bind(nameof(JwtOptions), jwtOptions));
 
         services.AddAuthorization(options =>
             options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));

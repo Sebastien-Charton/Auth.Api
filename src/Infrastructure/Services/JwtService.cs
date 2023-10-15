@@ -3,18 +3,19 @@ using System.Security.Claims;
 using System.Text;
 using Auth.Api.Application.Common.Interfaces.Identity.Models;
 using Auth.Api.Application.Common.Interfaces.Services;
-using Auth.Api.Infrastructure.Settings;
+using Auth.Api.Infrastructure.Options;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Auth.Api.Infrastructure.Services;
 
 public class JwtService : IJwtService
 {
-    private readonly JwtConfiguration _jwtConfiguration;
+    private readonly IOptions<JwtOptions> _jwtOptions;
 
-    public JwtService(JwtConfiguration jwtConfiguration)
+    public JwtService(IOptions<JwtOptions> jwtOptions)
     {
-        _jwtConfiguration = jwtConfiguration;
+        _jwtOptions = jwtOptions;
     }
 
     public string GenerateJwtToken(IApplicationUser user, List<string>? roles)
@@ -35,18 +36,18 @@ public class JwtService : IJwtService
             claims.Add(new Claim(ClaimTypes.Role, role));
         }
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtConfiguration.SecurityKey));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Value.SecurityKey));
 
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-        var jwtExpiry = DateTime.Now.AddDays(_jwtConfiguration.ExpiryInDays);
+        var jwtExpiry = DateTime.Now.AddDays(_jwtOptions.Value.ExpiryInDays);
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Expires = jwtExpiry,
             SigningCredentials = credentials,
             Subject = new ClaimsIdentity(claims),
-            Audience = _jwtConfiguration.Audience,
-            Issuer = _jwtConfiguration.Issuer
+            Audience = _jwtOptions.Value.Audience,
+            Issuer = _jwtOptions.Value.Issuer
         };
         var tokenHandler = new JwtSecurityTokenHandler();
         var token = tokenHandler.CreateToken(tokenDescriptor);

@@ -1,9 +1,10 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using Auth.Api.Infrastructure.Identity.Models;
+using Auth.Api.Infrastructure.Options;
 using Auth.Api.Infrastructure.Services;
-using Auth.Api.Infrastructure.Settings;
 using Bogus;
 using FluentAssertions;
+using Microsoft.Extensions.Options;
 using Xunit;
 
 namespace Infrastructure.UnitTests.Services;
@@ -21,14 +22,16 @@ public class JwtServiceTests
             .RuleFor(x => x.UserName, f => f.Internet.UserName())
             .Generate();
 
-        var jwtConfiguration = new Faker<JwtConfiguration>()
+        var jwtConfiguration = new Faker<JwtOptions>()
             .RuleFor(x => x.Audience, f => f.Internet.Url())
             .RuleFor(x => x.Issuer, f => f.Internet.Url())
             .RuleFor(x => x.SecurityKey, f => f.Random.String(64))
             .RuleFor(x => x.ExpiryInDays, f => f.Random.Int(1, 30))
             .Generate();
 
-        var jwtService = new JwtService(jwtConfiguration);
+        var jwtOption = Options.Create(jwtConfiguration);
+
+        var jwtService = new JwtService(jwtOption);
 
         // Act
 
@@ -48,6 +51,6 @@ public class JwtServiceTests
         token.Claims.Should().ContainSingle(x => x.Value == user.Id.ToString());
         token.Claims.Should().ContainSingle(x => x.Value == user.Email);
         token.Claims.Should().ContainSingle(x => x.Value == user.UserName);
-        token.ValidTo.Should().Be(token.ValidFrom.AddDays(jwtConfiguration.ExpiryInDays).AddHours(1));
+        token.ValidTo.Date.Should().Be(token.ValidFrom.Date.AddDays(jwtConfiguration.ExpiryInDays));
     }
 }

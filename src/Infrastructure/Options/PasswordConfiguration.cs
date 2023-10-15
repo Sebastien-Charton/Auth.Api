@@ -1,4 +1,4 @@
-﻿namespace Auth.Api.Infrastructure.Settings;
+﻿namespace Auth.Api.Infrastructure.Options;
 
 public class PasswordConfiguration
 {

@@ -1,6 +1,6 @@
-﻿namespace Auth.Api.Infrastructure.Settings;
+﻿namespace Auth.Api.Infrastructure.Options;
 
-public class JwtConfiguration
+public class JwtOptions
 {
     public string SecurityKey { get; set; } = null!;
 
