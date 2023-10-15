@@ -27,21 +27,21 @@ public class UserManagerService : IUserManagerService
 
     public async Task<string?> GetUserNameAsync(Guid userId)
     {
-        ApplicationUser? user = await _userManager.Users?.FirstOrDefaultAsync(u => u.Id == userId)!;
+        var user = await _userManager.Users.SingleOrDefaultAsync(u => u.Id == userId);
 
         return user?.UserName;
     }
 
     public async Task<string?> GetUserByUserNameAsync(string userName)
     {
-        ApplicationUser? user = await _userManager.Users?.FirstOrDefaultAsync(u => u.UserName == userName)!;
+        var user = await _userManager.Users.SingleOrDefaultAsync(u => u.UserName == userName);
 
         return user?.UserName;
     }
 
     public async Task<IApplicationUser?> GetUserByEmailAsync(string email)
     {
-        return await _userManager.Users.FirstOrDefaultAsync(u => u.Email == email);
+        return await _userManager.Users.SingleOrDefaultAsync(u => u.Email == email);
     }
 
     public async Task<(Result Result, Guid userId)> CreateUserAsync(string userName, string password, string email,
@@ -58,14 +58,14 @@ public class UserManagerService : IUserManagerService
     {
         ApplicationUser? user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
 
-        return user != null && await _userManager.IsInRoleAsync(user, role);
+        return user is not null && await _userManager.IsInRoleAsync(user, role);
     }
 
     public async Task<bool> AuthorizeAsync(Guid userId, string policyName)
     {
         ApplicationUser? user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
 
-        if (user == null)
+        if (user is null)
         {
             return false;
         }
@@ -84,11 +84,9 @@ public class UserManagerService : IUserManagerService
         return user != null ? await DeleteUserAsync(user) : Result.Success();
     }
 
-    public async Task<IApplicationUser> GetUserAsync(Guid userId)
+    public async Task<IApplicationUser?> GetUserAsync(Guid userId)
     {
-        ApplicationUser user = await _userManager.Users.FirstAsync(u => u.Id == userId);
-
-        return user;
+        return await _userManager.Users.SingleOrDefaultAsync(u => u.Id == userId);
     }
 
     public async Task<Result> DeleteUserAsync(ApplicationUser user)

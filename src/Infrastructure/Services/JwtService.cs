@@ -20,16 +20,17 @@ public class JwtService : IJwtService
 
     public string GenerateJwtToken(IApplicationUser user, List<string>? roles)
     {
-        // TODO should I put the guards or put a default value in the claims below
-        Guard.Against.Null(user.Email);
-        Guard.Against.Null(user.UserName);
+        var claims = new List<Claim> { new(ClaimTypes.NameIdentifier, user.Id.ToString()) };
 
-        var claims = new List<Claim>
+        if (user.Email is not null)
         {
-            new(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new(ClaimTypes.Name, user.Email),
-            new(ClaimTypes.Surname, user.UserName)
-        };
+            claims.Add(new Claim(ClaimTypes.Name, user.Email));
+        }
+
+        if (user.UserName is not null)
+        {
+            claims.Add(new Claim(ClaimTypes.Surname, user.UserName));
+        }
 
         foreach (var role in roles ?? Enumerable.Empty<string>())
         {
