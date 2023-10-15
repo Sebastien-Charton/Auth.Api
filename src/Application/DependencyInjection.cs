@@ -1,7 +1,8 @@
 ﻿using System.Reflection;
 using Auth.Api.Application.Common.Behaviours;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace Auth.Api.Application;
 
 public static class DependencyInjection
 {

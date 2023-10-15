@@ -1,20 +1,21 @@
 ﻿using System.Security.Claims;
-using Auth.Api.Application.Common.Interfaces;
-using Auth.Api.Application.Common.Interfaces.Identity;
+using Auth.Api.Application.Common.Interfaces.Identity.Models;
+using Auth.Api.Application.Common.Interfaces.Identity.Services;
 using Auth.Api.Application.Common.Models;
+using Auth.Api.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace Auth.Api.Infrastructure.Identity;
+namespace Auth.Api.Infrastructure.Identity.Services;
 
-public class IdentityService : IIdentityService
+public class UserManagerService : IUserManagerService
 {
     private readonly IAuthorizationService _authorizationService;
     private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public IdentityService(
+    public UserManagerService(
         UserManager<ApplicationUser> userManager,
         IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
         IAuthorizationService authorizationService)
@@ -38,11 +39,9 @@ public class IdentityService : IIdentityService
         return user?.UserName;
     }
 
-    public async Task<string?> GetUserByEmailAsync(string email)
+    public async Task<IApplicationUser?> GetUserByEmailAsync(string email)
     {
-        ApplicationUser? user = await _userManager.Users?.FirstOrDefaultAsync(u => u.Email == email)!;
-
-        return user?.UserName;
+        return await _userManager.Users.FirstOrDefaultAsync(u => u.Email == email);
     }
 
     public async Task<(Result Result, Guid userId)> CreateUserAsync(string userName, string password, string email,

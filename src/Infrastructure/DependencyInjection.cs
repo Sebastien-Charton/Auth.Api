@@ -1,14 +1,20 @@
 ﻿using Auth.Api.Application.Common.Interfaces;
+using Auth.Api.Application.Common.Interfaces.Identity.Services;
+using Auth.Api.Application.Common.Interfaces.Services;
 using Auth.Api.Domain.Constants;
 using Auth.Api.Infrastructure.Data;
 using Auth.Api.Infrastructure.Data.Interceptors;
-using Auth.Api.Infrastructure.Identity;
+using Auth.Api.Infrastructure.Identity.Models;
+using Auth.Api.Infrastructure.Identity.Services;
+using Auth.Api.Infrastructure.Services;
+using Auth.Api.Infrastructure.Settings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace Auth.Api.Infrastructure;
 
 public static class DependencyInjection
 {
@@ -26,7 +32,9 @@ public static class DependencyInjection
         {
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
 
-            options.UseNpgsql(connectionString);
+            options.UseNpgsql(connectionString, options =>
+            {
+            });
         });
 
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
@@ -69,7 +77,16 @@ public static class DependencyInjection
 
         services.AddSingleton(TimeProvider.System);
 
-        services.AddTransient<IIdentityService, IdentityService>();
+        // Inject service
+        services.AddTransient<IUserManagerService, UserManagerService>();
+        services.AddTransient<ISignInService, SignInService>();
+        services.AddScoped<IJwtService, JwtService>();
+
+        // Inject options
+        // TODO should I use the Ioptions interface ?
+        var jwtSettings = new JwtConfiguration();
+        configuration.Bind("Jwt", jwtSettings);
+        services.AddSingleton(jwtSettings);
 
         services.AddAuthorization(options =>
             options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));

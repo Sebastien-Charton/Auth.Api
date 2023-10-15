@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Auth.Api.Application.Common.Exceptions;
 using Auth.Api.Application.Common.Interfaces;
+using Auth.Api.Application.Common.Interfaces.Identity.Services;
 using Auth.Api.Application.Common.Security;
 
 namespace Auth.Api.Application.Common.Behaviours;
@@ -8,15 +9,15 @@ namespace Auth.Api.Application.Common.Behaviours;
 public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull
 {
-    private readonly IIdentityService _identityService;
     private readonly IUser _user;
+    private readonly IUserManagerService _userManagerService;
 
     public AuthorizationBehaviour(
         IUser user,
-        IIdentityService identityService)
+        IUserManagerService userManagerService)
     {
         _user = user;
-        _identityService = identityService;
+        _userManagerService = userManagerService;
     }
 
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next,
@@ -45,7 +46,7 @@ public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRe
                 {
                     foreach (string role in roles)
                     {
-                        bool isInRole = await _identityService.IsInRoleAsync(_user.Id.Value, role.Trim());
+                        bool isInRole = await _userManagerService.IsInRoleAsync(_user.Id.Value, role.Trim());
                         if (isInRole)
                         {
                             authorized = true;
@@ -68,7 +69,7 @@ public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRe
             {
                 foreach (string policy in authorizeAttributesWithPolicies.Select(a => a.Policy))
                 {
-                    bool authorized = await _identityService.AuthorizeAsync(_user.Id.Value, policy);
+                    bool authorized = await _userManagerService.AuthorizeAsync(_user.Id.Value, policy);
 
                     if (!authorized)
                     {

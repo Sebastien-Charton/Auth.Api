@@ -1,26 +1,27 @@
 ﻿using System.Diagnostics;
 using Auth.Api.Application.Common.Interfaces;
+using Auth.Api.Application.Common.Interfaces.Identity.Services;
 using Microsoft.Extensions.Logging;
 
 namespace Auth.Api.Application.Common.Behaviours;
 
 public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
 {
-    private readonly IIdentityService _identityService;
     private readonly ILogger<TRequest> _logger;
     private readonly Stopwatch _timer;
     private readonly IUser _user;
+    private readonly IUserManagerService _userManagerService;
 
     public PerformanceBehaviour(
         ILogger<TRequest> logger,
         IUser user,
-        IIdentityService identityService)
+        IUserManagerService userManagerService)
     {
         _timer = new Stopwatch();
 
         _logger = logger;
         _user = user;
-        _identityService = identityService;
+        _userManagerService = userManagerService;
     }
 
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next,
@@ -42,7 +43,7 @@ public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequ
 
             if (userId.HasValue)
             {
-                userName = await _identityService.GetUserNameAsync(userId.Value);
+                userName = await _userManagerService.GetUserNameAsync(userId.Value);
             }
 
             _logger.LogWarning(

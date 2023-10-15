@@ -24,12 +24,13 @@ public class RegisterUserTests : BaseTestFixture
 
         // Assert
 
+        var getUserByIdCommand = new GetUserByIdCommand { Id = result };
         await FluentActions.Invoking(() =>
-            SendAsync(new GetUserByIdCommand() { Id = result })).Should().NotThrowAsync();
+            SendAsync(getUserByIdCommand)).Should().NotThrowAsync();
     }
 
     [Fact]
-    public async Task RegisterUser_ShouldReturnValidationException_WhenUserIsInValid()
+    public async Task RegisterUser_ShouldReturnValidationException_WhenUserIsInvalid()
     {
         // Arrange
         RegisterUserCommand? registerUserCommand = new Faker<RegisterUserCommand>()

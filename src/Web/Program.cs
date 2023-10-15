@@ -1,9 +1,11 @@
+using Auth.Api.Application;
+using Auth.Api.Infrastructure;
 using Auth.Api.Infrastructure.Data;
 using Auth.Api.Web;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// TODO where is logging ?
 builder.Services.AddKeyVaultIfConfigured(builder.Configuration);
 
 builder.Services.AddApplicationServices();

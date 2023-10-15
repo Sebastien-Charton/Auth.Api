@@ -1,4 +1,4 @@
-﻿namespace Auth.Api.Application.Common.Interfaces.Identity;
+﻿namespace Auth.Api.Application.Common.Interfaces.Identity.Models;
 
 public interface IApplicationUser
 {

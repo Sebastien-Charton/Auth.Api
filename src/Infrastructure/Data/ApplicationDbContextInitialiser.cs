@@ -1,6 +1,6 @@
 ﻿using Auth.Api.Domain.Constants;
 using Auth.Api.Domain.Entities;
-using Auth.Api.Infrastructure.Identity;
+using Auth.Api.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

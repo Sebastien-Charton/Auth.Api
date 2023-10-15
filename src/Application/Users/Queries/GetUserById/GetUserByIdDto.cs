@@ -1,4 +1,4 @@
-﻿using Auth.Api.Application.Common.Interfaces.Identity;
+﻿using Auth.Api.Application.Common.Interfaces.Identity.Models;
 
 namespace Auth.Api.Application.Users.Queries.GetUserById;
 

@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Auth.Api.Application.Common.Interfaces;
 using Auth.Api.Domain.Entities;
-using Auth.Api.Infrastructure.Identity;
+using Auth.Api.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

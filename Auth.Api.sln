@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sdk", "src\Sdks\Sdk\Sdk.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Tests", "tests\Shared.Tests\Shared.Tests.csproj", "{90F65F5E-669F-4F87-8CA0-CEE0DF1449E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.UnitTests", "tests\Infrastructure.UnitTests\Infrastructure.UnitTests.csproj", "{4AFE16AE-F9EB-4511-A0C0-2440C744A713}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{90F65F5E-669F-4F87-8CA0-CEE0DF1449E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90F65F5E-669F-4F87-8CA0-CEE0DF1449E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90F65F5E-669F-4F87-8CA0-CEE0DF1449E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AFE16AE-F9EB-4511-A0C0-2440C744A713}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AFE16AE-F9EB-4511-A0C0-2440C744A713}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AFE16AE-F9EB-4511-A0C0-2440C744A713}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AFE16AE-F9EB-4511-A0C0-2440C744A713}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +109,7 @@ Global
 		{E5289133-D9C9-4FA3-BC02-3F05BCBC0019} = {6ED356A7-8B47-4613-AD01-C85CF28491BD}
 		{DB2D0116-4ED4-4211-A6C5-BD704CFD7739} = {E5289133-D9C9-4FA3-BC02-3F05BCBC0019}
 		{90F65F5E-669F-4F87-8CA0-CEE0DF1449E7} = {664D406C-2F83-48F0-BFC3-408D5CB53C65}
+		{4AFE16AE-F9EB-4511-A0C0-2440C744A713} = {664D406C-2F83-48F0-BFC3-408D5CB53C65}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3CB609D9-5D54-4C11-A371-DAAC8B74E430}

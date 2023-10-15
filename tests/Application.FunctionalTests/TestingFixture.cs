@@ -7,9 +7,9 @@ namespace Auth.Api.Application.FunctionalTests;
 
 public class TestingFixture : IAsyncDisposable
 {
-    private static ITestDatabase _database = null!;
-    private static CustomWebApplicationFactory _factory = null!;
-    private static IServiceScopeFactory _scopeFactory = null!;
+    private readonly ITestDatabase _database = null!;
+    private readonly CustomWebApplicationFactory _factory = null!;
+    private readonly IServiceScopeFactory _scopeFactory = null!;
 
     public TestingFixture()
     {

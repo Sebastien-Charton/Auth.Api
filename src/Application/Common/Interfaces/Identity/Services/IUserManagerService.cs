@@ -1,8 +1,9 @@
-﻿using Auth.Api.Application.Common.Models;
+﻿using Auth.Api.Application.Common.Interfaces.Identity.Models;
+using Auth.Api.Application.Common.Models;
 
-namespace Auth.Api.Application.Common.Interfaces;
+namespace Auth.Api.Application.Common.Interfaces.Identity.Services;
 
-public interface IIdentityService
+public interface IUserManagerService
 {
     Task<string?> GetUserNameAsync(Guid userId);
 
@@ -15,5 +16,5 @@ public interface IIdentityService
 
     Task<Result> DeleteUserAsync(Guid userId);
     Task<string?> GetUserByUserNameAsync(string userName);
-    Task<string?> GetUserByEmailAsync(string email);
+    Task<IApplicationUser?> GetUserByEmailAsync(string email);
 }
