@@ -13,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using IdentityOptions = Auth.Api.Infrastructure.Options.IdentityOptions;
 
 namespace Auth.Api.Infrastructure;
 
@@ -48,33 +50,6 @@ public static class DependencyInjection
 
         services.AddAuthorizationBuilder();
 
-        services
-            .AddIdentityCore<ApplicationUser>()
-            .AddRoles<ApplicationRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddApiEndpoints();
-
-        services.Configure<IdentityOptions>(options =>
-        {
-            // Password settings.
-            options.Password.RequireDigit = true;
-            options.Password.RequireLowercase = true;
-            options.Password.RequireNonAlphanumeric = true;
-            options.Password.RequireUppercase = true;
-            options.Password.RequiredLength = 8;
-            options.Password.RequiredUniqueChars = 1;
-
-            // Lockout settings.
-            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-            options.Lockout.MaxFailedAccessAttempts = 5;
-            options.Lockout.AllowedForNewUsers = true;
-
-            // User settings.
-            options.User.AllowedUserNameCharacters =
-                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-            options.User.RequireUniqueEmail = false;
-        });
-
         services.AddSingleton(TimeProvider.System);
 
         // Inject service
@@ -84,6 +59,39 @@ public static class DependencyInjection
 
         // Inject options
         services.Configure<JwtOptions>(jwtOptions => configuration.Bind(nameof(JwtOptions), jwtOptions));
+
+        services.Configure<IdentityOptions>(identityOptions =>
+            configuration.Bind(nameof(IdentityOptions), identityOptions));
+
+
+        services
+            .AddIdentityCore<ApplicationUser>()
+            .AddRoles<ApplicationRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddApiEndpoints();
+
+        var identityOptions = services.BuildServiceProvider().GetRequiredService<IOptions<IdentityOptions>>();
+
+        services.Configure<Microsoft.AspNetCore.Identity.IdentityOptions>(options =>
+        {
+            // Password settings.
+            options.Password.RequireDigit = identityOptions.Value.Password.RequireDigit;
+            options.Password.RequireLowercase = identityOptions.Value.Password.RequireLowercase;
+            options.Password.RequireNonAlphanumeric = identityOptions.Value.Password.RequireNonAlphanumeric;
+            options.Password.RequireUppercase = identityOptions.Value.Password.RequireUppercase;
+            options.Password.RequiredLength = identityOptions.Value.Password.RequiredLength;
+            options.Password.RequiredUniqueChars = identityOptions.Value.Password.RequiredUniqueChars;
+
+            // Lockout settings.
+            options.Lockout.DefaultLockoutTimeSpan =
+                TimeSpan.FromMilliseconds(identityOptions.Value.Lockout.DefaultLockoutTimeSpanInMs);
+            options.Lockout.MaxFailedAccessAttempts = identityOptions.Value.Lockout.MaxFailedAccessAttempts;
+            options.Lockout.AllowedForNewUsers = identityOptions.Value.Lockout.AllowedForNewUsers;
+
+            // User settings.
+            options.User.AllowedUserNameCharacters = identityOptions.Value.User.AllowedUserNameCharacters;
+            options.User.RequireUniqueEmail = identityOptions.Value.User.RequireUniqueEmail;
+        });
 
         services.AddAuthorization(options =>
             options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));

@@ -34,6 +34,11 @@ public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginUs
 
         var result = await _signInService.CheckPasswordSignInAsync(existingUserWithEmail, request.Password);
 
+        if (result.IsLockedOut)
+        {
+            throw new UnauthorizedAccessException("To many tries the account is locked");
+        }
+
         if (!result.Succeeded)
         {
             throw new UnauthorizedAccessException();

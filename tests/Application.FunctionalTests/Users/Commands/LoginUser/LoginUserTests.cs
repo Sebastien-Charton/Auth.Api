@@ -78,4 +78,47 @@ public class LoginUserTests : BaseTestFixture
         await FluentActions.Invoking(() =>
             SendAsync(loginUserCommand)).Should().ThrowAsync<UnauthorizedAccessException>();
     }
+
+    [Theory]
+    [InlineData(1)]
+    [InlineData(3)]
+    [InlineData(5)]
+    public async Task LoginUser_ShouldLockAccount_WhenUserFailToLoginMultipleTimes(int maxRetry)
+    {
+        // Arrange
+
+        var registerUserCommand = new Faker<RegisterUserCommand>()
+            .RuleFor(x => x.PhoneNumber, f => f.Person.Phone)
+            .RuleFor(x => x.Email, f => f.Person.Email)
+            .RuleFor(x => x.UserName, f => f.Internet.UserName())
+            .RuleFor(x => x.Password, f => f.Internet.GeneratePassword())
+            .Generate();
+
+        await SendAsync(registerUserCommand);
+
+        for (int i = 0; i < maxRetry; i++)
+        {
+            var loginUserCommandWithWrongPassword = new Faker<LoginUserCommand>()
+                .RuleFor(x => x.Email, registerUserCommand.Email)
+                .RuleFor(x => x.Password, f => f.Internet.GeneratePassword())
+                .Generate();
+
+            await FluentActions.Invoking(() =>
+                SendAsync(loginUserCommandWithWrongPassword)
+            ).Should().ThrowAsync<UnauthorizedAccessException>();
+        }
+
+        // Act
+
+        var loginUserCommand = new LoginUserCommand
+        {
+            Email = registerUserCommand.Email, Password = registerUserCommand.Password
+        };
+
+        // Assert
+
+        await FluentActions.Invoking(() =>
+            SendAsync(loginUserCommand)
+        ).Should().ThrowAsync<UnauthorizedAccessException>();
+    }
 }

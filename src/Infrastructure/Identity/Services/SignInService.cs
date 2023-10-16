@@ -17,7 +17,7 @@ public class SignInService : ISignInService
     public async Task<ICheckPasswordSignInResponse> CheckPasswordSignInAsync(IApplicationUser user, string password)
     {
         // TODO lockout to false
-        var result = await _signInManager.CheckPasswordSignInAsync((ApplicationUser)user, password, false);
+        var result = await _signInManager.CheckPasswordSignInAsync((ApplicationUser)user, password, true);
         return new CheckPasswordSignInResponse(result.Succeeded, result.IsLockedOut, result.IsNotAllowed,
             result.RequiresTwoFactor);
     }
