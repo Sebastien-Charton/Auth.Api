@@ -71,10 +71,16 @@ public class ApplicationDbContextInitialiser
     {
         // Default roles
         ApplicationRole administratorRole = new(Roles.Administrator);
+        ApplicationRole userRole = new(Roles.User);
 
         if (_roleManager.Roles.All(r => r.Name != administratorRole.Name))
         {
             await _roleManager.CreateAsync(administratorRole);
+        }
+
+        if (_roleManager.Roles.All(r => r.Name != userRole.Name))
+        {
+            await _roleManager.CreateAsync(userRole);
         }
 
         // Default users
@@ -84,9 +90,13 @@ public class ApplicationDbContextInitialiser
         if (_userManager.Users.All(u => u.UserName != administrator.UserName))
         {
             await _userManager.CreateAsync(administrator, "Administrator1!");
+
             if (!string.IsNullOrWhiteSpace(administratorRole.Name))
-            {
                 await _userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
+
+            if (!string.IsNullOrWhiteSpace(userRole.Name))
+            {
+                await _userManager.AddToRolesAsync(administrator, new[] { userRole.Name });
             }
         }
 

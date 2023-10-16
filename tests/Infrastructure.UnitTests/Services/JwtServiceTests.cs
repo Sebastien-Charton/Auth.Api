@@ -1,4 +1,5 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
+using Auth.Api.Domain.Constants;
 using Auth.Api.Infrastructure.Identity.Models;
 using Auth.Api.Infrastructure.Options;
 using Auth.Api.Infrastructure.Services;
@@ -22,6 +23,8 @@ public class JwtServiceTests
             .RuleFor(x => x.UserName, f => f.Internet.UserName())
             .Generate();
 
+        var roles = new List<string> { Roles.User, Roles.Administrator };
+
         var jwtConfiguration = new Faker<JwtOptions>()
             .RuleFor(x => x.Audience, f => f.Internet.Url())
             .RuleFor(x => x.Issuer, f => f.Internet.Url())
@@ -35,7 +38,7 @@ public class JwtServiceTests
 
         // Act
 
-        var result = jwtService.GenerateJwtToken(user, null);
+        var result = jwtService.GenerateJwtToken(user, roles);
 
         // Assert
 
@@ -52,5 +55,7 @@ public class JwtServiceTests
         token.Claims.Should().ContainSingle(x => x.Value == user.Email);
         token.Claims.Should().ContainSingle(x => x.Value == user.UserName);
         token.ValidTo.Date.Should().Be(token.ValidFrom.Date.AddDays(jwtConfiguration.ExpiryInDays));
+        token.Claims.Should().ContainSingle(x => x.Value == Roles.User);
+        token.Claims.Should().ContainSingle(x => x.Value == Roles.Administrator);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Auth.Api.Application.Common.Interfaces.Identity.Services;
+using Auth.Api.Domain.Constants;
 using FluentValidation.Results;
 using ValidationException = System.ComponentModel.DataAnnotations.ValidationException;
 
@@ -46,6 +47,8 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, G
             throw new Common.Exceptions.ValidationException(
                 result.Result.Errors.Select(x => new ValidationFailure(nameof(RegisterUserCommand), x)));
         }
+
+        await _userManagerService.AddToRolesAsync(result.userId, new[] { Roles.User });
 
         return result.userId;
     }

@@ -84,6 +84,19 @@ public class UserManagerService : IUserManagerService
         return user != null ? await DeleteUserAsync(user) : Result.Success();
     }
 
+    public async Task<List<string>> GetUserRolesAsync(IApplicationUser user)
+    {
+        var roles = await _userManager.GetRolesAsync((ApplicationUser)user);
+        return roles.ToList();
+    }
+
+    public async Task<Result> AddToRolesAsync(Guid userId, IEnumerable<string> roles)
+    {
+        var user = await GetUserAsync(userId);
+        var result = await _userManager.AddToRolesAsync((ApplicationUser)user!, roles);
+        return result.ToApplicationResult();
+    }
+
     public async Task<IApplicationUser?> GetUserAsync(Guid userId)
     {
         return await _userManager.Users.SingleOrDefaultAsync(u => u.Id == userId);

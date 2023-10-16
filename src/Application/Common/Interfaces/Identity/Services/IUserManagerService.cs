@@ -16,5 +16,7 @@ public interface IUserManagerService
 
     Task<Result> DeleteUserAsync(Guid userId);
     Task<string?> GetUserByUserNameAsync(string userName);
+    Task<List<string>> GetUserRolesAsync(IApplicationUser user);
+    Task<Result> AddToRolesAsync(Guid userId, IEnumerable<string> roles);
     Task<IApplicationUser?> GetUserByEmailAsync(string email);
 }

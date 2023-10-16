@@ -39,10 +39,9 @@ public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginUs
             throw new UnauthorizedAccessException();
         }
 
-        // TODO get roles and add them to token
-        // var roles = await _userManagerService.GetRolesAsync(user);
+        var roles = await _userManagerService.GetUserRolesAsync(existingUserWithEmail);
 
-        var token = _jwtService.GenerateJwtToken(existingUserWithEmail, null);
+        var token = _jwtService.GenerateJwtToken(existingUserWithEmail, roles.ToList());
 
         return new LoginUserResponse { Token = token };
     }
