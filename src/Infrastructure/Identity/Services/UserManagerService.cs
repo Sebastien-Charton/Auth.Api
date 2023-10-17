@@ -66,9 +66,7 @@ public class UserManagerService : IUserManagerService
         ApplicationUser? user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
 
         if (user is null)
-        {
             return false;
-        }
 
         ClaimsPrincipal principal = await _userClaimsPrincipalFactory.CreateAsync(user);
 

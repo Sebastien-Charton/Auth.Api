@@ -3,6 +3,7 @@
   <PropertyGroup>
     <RootNamespace>Auth.Api.Web</RootNamespace>
     <AssemblyName>Auth.Api.Web</AssemblyName>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +25,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="FluentValidation.AspNetCore"/>
+    <PackageReference Include="Serilog.AspNetCore"/>
+    <PackageReference Include="Serilog.Enrichers.Environment"/>
+    <PackageReference Include="Serilog.Sinks.Elasticsearch"/>
     <PackageReference Include="ZymLabs.NSwag.FluentValidation.AspNetCore"/>
   </ItemGroup>
 

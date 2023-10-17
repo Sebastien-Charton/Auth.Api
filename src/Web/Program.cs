@@ -2,10 +2,12 @@ using Auth.Api.Application;
 using Auth.Api.Infrastructure;
 using Auth.Api.Infrastructure.Data;
 using Auth.Api.Web;
+using Serilog;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-// TODO where is logging ?
+builder.Host.UseSerilog(Serilogger.Configure);
+
 builder.Services.AddKeyVaultIfConfigured(builder.Configuration);
 
 builder.Services.AddApplicationServices();
