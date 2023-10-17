@@ -84,7 +84,6 @@ public class UserManagerService : IUserManagerService
         return user != null ? await DeleteUserAsync(user) : Result.Success();
     }
 
-    // TODO put roles method to another service RoleManagerService
     public async Task<List<string>> GetUserRolesAsync(IApplicationUser user)
     {
         var roles = await _userManager.GetRolesAsync((ApplicationUser)user);
