@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   authdatabase:
-    container_name: authdb
+    container_name: authdatabase
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin1234
@@ -12,3 +12,39 @@ services:
       - "5100:5432"
     volumes:
       - postgres_data_auth_database:/var/lib/postgresql/data/
+
+  cache:
+    container_name: cache
+    restart: always
+    ports:
+      - "6390:6379"
+
+  elasticsearch:
+    container_name: elasticsearch
+    environment:
+      - xpack.monitoring.enabled=true
+      - xpack.watcher.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
+    ports:
+      - "9210:9200"
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+
+  kibana:
+    container_name: kibana
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9210
+    depends_on:
+      - elasticsearch
+    ports:
+      - "5610:5601"
+
+  portainer:
+    container_name: portainer
+    restart: always
+    ports:
+      - "9010:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
