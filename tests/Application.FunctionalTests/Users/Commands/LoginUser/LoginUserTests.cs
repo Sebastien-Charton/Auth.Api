@@ -117,8 +117,17 @@ public class LoginUserTests : BaseTestFixture
 
         // Assert
 
-        await FluentActions.Invoking(() =>
-            SendAsync(loginUserCommand)
-        ).Should().ThrowAsync<UnauthorizedAccessException>();
+        if (maxRetry < 5)
+        {
+            await FluentActions.Invoking(() =>
+                SendAsync(loginUserCommand)
+            ).Should().NotThrowAsync<UnauthorizedAccessException>();
+        }
+        else
+        {
+            await FluentActions.Invoking(() =>
+                SendAsync(loginUserCommand)
+            ).Should().ThrowAsync<UnauthorizedAccessException>();
+        }
     }
 }
