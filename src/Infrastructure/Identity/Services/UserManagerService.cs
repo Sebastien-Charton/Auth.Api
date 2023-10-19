@@ -95,6 +95,47 @@ public class UserManagerService : IUserManagerService
         return result.ToApplicationResult();
     }
 
+    public async Task<string?> GenerateEmailConfirmation(Guid userId)
+    {
+        var user = await GetUserAsync(userId);
+
+        if (user is null)
+        {
+            return null;
+        }
+
+        return await _userManager.GenerateEmailConfirmationTokenAsync((ApplicationUser)user);
+    }
+
+    public async Task<Result> ConfirmEmailAsync(Guid userId, string token)
+    {
+        var user = await GetUserAsync(userId);
+        // TODO replace magic string
+
+        if (user is null)
+        {
+            return Result.Failure(new List<string> { "User doesn't exists." });
+        }
+
+        var result = await _userManager.ConfirmEmailAsync((ApplicationUser)user, token);
+
+        return result.ToApplicationResult();
+    }
+
+    public async Task<bool> IsEmailConfirmed(Guid userId)
+    {
+        var user = await GetUserAsync(userId);
+
+        if (user is null)
+        {
+            return false;
+        }
+
+        var result = await _userManager.IsEmailConfirmedAsync((ApplicationUser)user);
+
+        return result;
+    }
+
     public async Task<IApplicationUser?> GetUserAsync(Guid userId)
     {
         return await _userManager.Users.SingleOrDefaultAsync(u => u.Id == userId);

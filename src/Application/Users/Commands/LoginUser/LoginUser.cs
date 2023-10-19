@@ -1,5 +1,6 @@
 ﻿using Auth.Api.Application.Common.Interfaces.Identity.Services;
 using Auth.Api.Application.Common.Interfaces.Services;
+using Auth.Api.Domain.Constants;
 
 namespace Auth.Api.Application.Users.Commands.LoginUser;
 
@@ -32,7 +33,9 @@ public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginUs
             throw new UnauthorizedAccessException();
         }
 
-        var result = await _signInService.CheckPasswordSignInAsync(existingUserWithEmail, request.Password);
+        var isAdmin = await _userManagerService.IsInRoleAsync(existingUserWithEmail.Id, Roles.Administrator);
+
+        var result = await _signInService.CheckPasswordSignInAsync(existingUserWithEmail, request.Password, !isAdmin);
 
         if (result.IsLockedOut)
         {

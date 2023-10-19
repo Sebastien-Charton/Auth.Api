@@ -13,6 +13,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools"/>
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI"/>
+    <PackageReference Include="SendGrid"/>
+    <PackageReference Include="SendGrid.Extensions.DependencyInjection"/>
     <PackageReference Include="System.IdentityModel.Tokens.Jwt"/>
   </ItemGroup>
 

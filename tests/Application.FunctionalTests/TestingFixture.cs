@@ -1,4 +1,5 @@
-﻿using Auth.Api.Infrastructure.Data;
+﻿using Auth.Api.Application.Common.Interfaces.Identity.Services;
+using Auth.Api.Infrastructure.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -86,5 +87,16 @@ public class TestingFixture : IAsyncDisposable
         ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
         return await context.Set<TEntity>().CountAsync();
+    }
+
+    public async Task<string?> GenerateConfirmationEmail(Guid userId)
+    {
+        using IServiceScope scope = _scopeFactory.CreateScope();
+
+        var context = scope.ServiceProvider.GetRequiredService<IUserManagerService>();
+
+        var token = await context.GenerateEmailConfirmation(userId);
+
+        return token;
     }
 }

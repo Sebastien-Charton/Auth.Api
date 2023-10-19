@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using SendGrid.Extensions.DependencyInjection;
 using IdentityOptions = Auth.Api.Infrastructure.Options.IdentityOptions;
 
 namespace Auth.Api.Infrastructure;
@@ -60,6 +61,9 @@ public static class DependencyInjection
         // Inject options
         services.Configure<JwtOptions>(jwtOptions => configuration.Bind(nameof(JwtOptions), jwtOptions));
 
+        services.Configure<MailOptions>(sendGridOptions =>
+            configuration.Bind(nameof(MailOptions), sendGridOptions));
+
         services.Configure<IdentityOptions>(identityOptions =>
             configuration.Bind(nameof(IdentityOptions), identityOptions));
 
@@ -95,6 +99,13 @@ public static class DependencyInjection
 
         services.AddAuthorization(options =>
             options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
+
+        var mailOptions = services.BuildServiceProvider().GetRequiredService<IOptions<MailOptions>>();
+
+        services.AddSendGrid(options =>
+        {
+            options.ApiKey = mailOptions.Value.ApiKey;
+        });
 
         return services;
     }

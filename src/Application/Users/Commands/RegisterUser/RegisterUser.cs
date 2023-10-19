@@ -1,7 +1,7 @@
 ﻿using Auth.Api.Application.Common.Interfaces.Identity.Services;
 using Auth.Api.Domain.Constants;
 using FluentValidation.Results;
-using ValidationException = System.ComponentModel.DataAnnotations.ValidationException;
+using ValidationException = Auth.Api.Application.Common.Exceptions.ValidationException;
 
 namespace Auth.Api.Application.Users.Commands.RegisterUser;
 
@@ -26,16 +26,26 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, G
     {
         string? existingUserWithUserName = await _userManagerService.GetUserByUserNameAsync(request.UserName);
 
+        var validationExceptions = new List<ValidationFailure>();
         if (existingUserWithUserName is not null)
         {
-            throw new ValidationException("UserName is already used.");
+            // TODO error message magic string
+            var validationException = new ValidationFailure(nameof(request.UserName), "UserName is already used.");
+            validationExceptions.Add(validationException);
         }
 
         var existingUserWithEmail = await _userManagerService.GetUserByEmailAsync(request.Email);
 
         if (existingUserWithEmail is not null)
         {
-            throw new ValidationException("Email is already used.");
+            // TODO error message magic string
+            var validationException = new ValidationFailure(nameof(request.Email), "Email is already used.");
+            validationExceptions.Add(validationException);
+        }
+
+        if (validationExceptions.Any())
+        {
+            throw new ValidationException(validationExceptions);
         }
 
         (Common.Models.Result Result, Guid userId) result = await _userManagerService.CreateUserAsync(request.UserName,
@@ -44,7 +54,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, G
 
         if (result.Result.Errors.Any())
         {
-            throw new Common.Exceptions.ValidationException(
+            throw new ValidationException(
                 result.Result.Errors.Select(x => new ValidationFailure(nameof(RegisterUserCommand), x)));
         }
 

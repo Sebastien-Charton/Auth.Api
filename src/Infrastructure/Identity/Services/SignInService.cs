@@ -14,10 +14,11 @@ public class SignInService : ISignInService
         _signInManager = signInManager;
     }
 
-    public async Task<ICheckPasswordSignInResponse> CheckPasswordSignInAsync(IApplicationUser user, string password)
+    public async Task<ICheckPasswordSignInResponse> CheckPasswordSignInAsync(IApplicationUser user, string password,
+        bool lockoutOnFailure = true)
     {
         // TODO lockout to false
-        var result = await _signInManager.CheckPasswordSignInAsync((ApplicationUser)user, password, true);
+        var result = await _signInManager.CheckPasswordSignInAsync((ApplicationUser)user, password, lockoutOnFailure);
         return new CheckPasswordSignInResponse(result.Succeeded, result.IsLockedOut, result.IsNotAllowed,
             result.RequiresTwoFactor);
     }

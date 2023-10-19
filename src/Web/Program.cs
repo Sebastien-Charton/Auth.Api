@@ -6,6 +6,10 @@ using Serilog;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+// TODO verify testing coverage
+// TODO add testing
+// TODO add end2end testing
+// 
 builder.Host.UseSerilog(Serilogger.Configure);
 
 builder.Services.AddKeyVaultIfConfigured(builder.Configuration);

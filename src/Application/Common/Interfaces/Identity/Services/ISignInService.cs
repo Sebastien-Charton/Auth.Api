@@ -4,5 +4,6 @@ namespace Auth.Api.Application.Common.Interfaces.Identity.Services;
 
 public interface ISignInService
 {
-    Task<ICheckPasswordSignInResponse> CheckPasswordSignInAsync(IApplicationUser user, string password);
+    Task<ICheckPasswordSignInResponse> CheckPasswordSignInAsync(IApplicationUser user, string password,
+        bool lockoutOnFailure = true);
 }

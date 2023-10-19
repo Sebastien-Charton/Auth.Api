@@ -19,4 +19,7 @@ public interface IUserManagerService
     Task<List<string>> GetUserRolesAsync(IApplicationUser user);
     Task<Result> AddToRolesAsync(Guid userId, IEnumerable<string> roles);
     Task<IApplicationUser?> GetUserByEmailAsync(string email);
+    Task<string?> GenerateEmailConfirmation(Guid userId);
+    Task<Result> ConfirmEmailAsync(Guid userId, string token);
+    Task<bool> IsEmailConfirmed(Guid userId);
 }
