@@ -1,4 +1,5 @@
 ﻿using Auth.Api.Application.Common.Interfaces.Identity.Services;
+using Auth.Api.Application.Common.Interfaces.ServiceAgents;
 using Auth.Api.Domain.Constants;
 using FluentValidation.Results;
 using ValidationException = Auth.Api.Application.Common.Exceptions.ValidationException;
@@ -15,11 +16,13 @@ public record RegisterUserCommand : IRequest<Guid>
 
 public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, Guid>
 {
+    private readonly IMailServiceAgent _mailServiceAgent;
     private readonly IUserManagerService _userManagerService;
 
-    public RegisterUserCommandHandler(IUserManagerService userManagerService)
+    public RegisterUserCommandHandler(IUserManagerService userManagerService, IMailServiceAgent mailServiceAgent)
     {
         _userManagerService = userManagerService;
+        _mailServiceAgent = mailServiceAgent;
     }
 
     public async Task<Guid> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
@@ -59,6 +62,14 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, G
         }
 
         await _userManagerService.AddToRolesAsync(result.userId, new[] { Roles.User });
+
+        // TODO send validation mail
+        // TODO implement retry mechanism if mail is not send
+        // TODO mail templates
+
+        var token = await _userManagerService.GenerateEmailConfirmation(result.userId);
+        await _mailServiceAgent.SendMail("sebastiencharton@protonmail.com", "Sebastien Charton",
+            "Register to application", $"Hello here is the token : {token}", "");
 
         return result.userId;
     }

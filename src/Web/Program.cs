@@ -6,6 +6,13 @@ using Serilog;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+builder.Configuration
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile($"appsettings.{environment}.secrets.json", false, true)
+    .Build();
+
 // TODO verify testing coverage
 // TODO add testing
 // TODO add end2end testing

@@ -6,12 +6,12 @@ using SendGrid.Helpers.Mail;
 
 namespace Auth.Api.Infrastructure.ServiceAgents;
 
-public class MailServiceAgent : IMailServiceAgent
+public class SendGridServiceAgent : IMailServiceAgent
 {
     private readonly IOptions<MailOptions> _mailOptions;
     private readonly ISendGridClient _sendGridClient;
 
-    public MailServiceAgent(ISendGridClient sendGridClient, IOptions<MailOptions> mailOptions)
+    public SendGridServiceAgent(ISendGridClient sendGridClient, IOptions<MailOptions> mailOptions)
     {
         _sendGridClient = sendGridClient;
         _mailOptions = mailOptions;

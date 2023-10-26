@@ -1,5 +1,6 @@
 ﻿using Auth.Api.Application.Common.Interfaces;
 using Auth.Api.Application.Common.Interfaces.Identity.Services;
+using Auth.Api.Application.Common.Interfaces.ServiceAgents;
 using Auth.Api.Application.Common.Interfaces.Services;
 using Auth.Api.Domain.Constants;
 using Auth.Api.Infrastructure.Data;
@@ -7,6 +8,7 @@ using Auth.Api.Infrastructure.Data.Interceptors;
 using Auth.Api.Infrastructure.Identity.Models;
 using Auth.Api.Infrastructure.Identity.Services;
 using Auth.Api.Infrastructure.Options;
+using Auth.Api.Infrastructure.ServiceAgents;
 using Auth.Api.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -57,6 +59,7 @@ public static class DependencyInjection
         services.AddTransient<IUserManagerService, UserManagerService>();
         services.AddTransient<ISignInService, SignInService>();
         services.AddScoped<IJwtService, JwtService>();
+        services.AddScoped<IMailServiceAgent, SendGridServiceAgent>();
 
         // Inject options
         services.Configure<JwtOptions>(jwtOptions => configuration.Bind(nameof(JwtOptions), jwtOptions));

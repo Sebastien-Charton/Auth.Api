@@ -67,6 +67,6 @@ public class RegisterUserTests : BaseTestFixture
 
         await FluentActions.Invoking(() =>
                 SendAsync(registerUserCommand)).Should()
-            .ThrowAsync<System.ComponentModel.DataAnnotations.ValidationException>();
+            .ThrowAsync<ValidationException>();
     }
 }
