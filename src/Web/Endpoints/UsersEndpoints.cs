@@ -5,7 +5,7 @@ using Auth.Api.Application.Users.Commands.RegisterUser;
 
 namespace Auth.Api.Web.Endpoints;
 
-public class Users : EndpointGroupBase
+public class UsersEndpoints : EndpointGroupBase
 {
     public override void Map(WebApplication app)
     {

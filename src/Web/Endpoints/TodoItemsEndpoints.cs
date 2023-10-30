@@ -7,7 +7,7 @@ using Auth.Api.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 
 namespace Auth.Api.Web.Endpoints;
 
-public class TodoItems : EndpointGroupBase
+public class TodoItemsEndpoints : EndpointGroupBase
 {
     public override void Map(WebApplication app)
     {
