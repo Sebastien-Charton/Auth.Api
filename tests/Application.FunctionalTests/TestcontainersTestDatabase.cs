@@ -2,8 +2,6 @@
 using Auth.Api.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
-using Respawn;
-using Respawn.Graph;
 using Testcontainers.PostgreSql;
 
 namespace Auth.Api.Application.FunctionalTests;
@@ -13,7 +11,6 @@ public class TestcontainersTestDatabase : ITestDatabase
     private readonly PostgreSqlContainer _container;
     private DbConnection _connection = null!;
     private string _connectionString = null!;
-    private Respawner _respawner = null!;
 
     public TestcontainersTestDatabase()
     {
@@ -39,22 +36,11 @@ public class TestcontainersTestDatabase : ITestDatabase
         ApplicationDbContext context = new(options);
 
         await context.Database.MigrateAsync();
-
-        _respawner = await Respawner.CreateAsync(_connection,
-            new RespawnerOptions
-            {
-                TablesToIgnore = new Table[] { "__EFMigrationsHistory" }, DbAdapter = DbAdapter.Postgres
-            });
     }
 
     public DbConnection GetConnection()
     {
         return _connection;
-    }
-
-    public async Task ResetAsync()
-    {
-        await _respawner.ResetAsync(_connectionString);
     }
 
     public async Task DisposeAsync()

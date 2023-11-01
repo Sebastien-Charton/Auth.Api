@@ -8,7 +8,5 @@ public interface ITestDatabase
 
     DbConnection GetConnection();
 
-    Task ResetAsync();
-
     Task DisposeAsync();
 }

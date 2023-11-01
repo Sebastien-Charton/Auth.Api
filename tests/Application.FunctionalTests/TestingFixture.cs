@@ -20,7 +20,10 @@ public class TestingFixture : IAsyncDisposable
 
         _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
 
-        ResetState().Wait();
+        ApplicationDbContextInitialiser initialiser =
+            _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
+
+        initialiser.SeedAsync().Wait();
     }
 
     public async ValueTask DisposeAsync()
@@ -45,17 +48,6 @@ public class TestingFixture : IAsyncDisposable
         ISender mediator = scope.ServiceProvider.GetRequiredService<ISender>();
 
         await mediator.Send(request);
-    }
-
-    public async Task ResetState()
-    {
-        try
-        {
-            await _database.ResetAsync();
-        }
-        catch (Exception)
-        {
-        }
     }
 
     public async Task<TEntity?> FindAsync<TEntity>(params object[] keyValues)
