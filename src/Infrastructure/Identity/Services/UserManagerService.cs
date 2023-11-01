@@ -110,7 +110,6 @@ public class UserManagerService : IUserManagerService
     public async Task<Result> ConfirmEmailAsync(Guid userId, string token)
     {
         var user = await GetUserAsync(userId);
-        // TODO replace magic string
 
         if (user is null)
         {

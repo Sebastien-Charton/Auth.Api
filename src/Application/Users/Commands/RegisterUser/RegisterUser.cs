@@ -32,7 +32,6 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, G
         var validationExceptions = new List<ValidationFailure>();
         if (existingUserWithUserName is not null)
         {
-            // TODO error message magic string
             var validationException = new ValidationFailure(nameof(request.UserName), "UserName is already used.");
             validationExceptions.Add(validationException);
         }
@@ -41,7 +40,6 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, G
 
         if (existingUserWithEmail is not null)
         {
-            // TODO error message magic string
             var validationException = new ValidationFailure(nameof(request.Email), "Email is already used.");
             validationExceptions.Add(validationException);
         }
@@ -62,10 +60,6 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, G
         }
 
         await _userManagerService.AddToRolesAsync(result.userId, new[] { Roles.User });
-
-        // TODO send validation mail
-        // TODO implement retry mechanism if mail is not send
-        // TODO mail templates
 
         var token = await _userManagerService.GenerateEmailConfirmation(result.userId);
         await _mailServiceAgent.SendMail("sebastiencharton@protonmail.com", "Sebastien Charton",

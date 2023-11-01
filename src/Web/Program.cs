@@ -15,10 +15,6 @@ builder.Configuration
     .AddJsonFile($"appsettings.{environment}.json", false, true)
     .Build();
 
-// TODO verify testing coverage
-// TODO add testing
-// TODO add end2end testing
-
 builder.Host.UseSerilog(Serilogger.Configure);
 
 builder.Services.AddKeyVaultIfConfigured(builder.Configuration);

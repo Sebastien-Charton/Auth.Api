@@ -20,7 +20,6 @@ public class SendGridServiceAgent : IMailServiceAgent
     public async Task<bool> SendMail(string toEmail, string toName, string subject, string plainTextContent,
         string htmlContent)
     {
-        // TODO retry mechanism and how to handle unsuccessful status code
         var from = new EmailAddress(_mailOptions.Value.FromEmail, _mailOptions.Value.FromName);
         var to = new EmailAddress(toEmail, toName);
 
