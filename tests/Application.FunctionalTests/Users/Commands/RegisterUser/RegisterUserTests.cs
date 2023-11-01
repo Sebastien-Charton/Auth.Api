@@ -24,7 +24,7 @@ public class RegisterUserTests : BaseTestFixture
 
         // Assert
 
-        var getUserByIdCommand = new GetUserByIdCommand { Id = result };
+        var getUserByIdCommand = new GetUserByIdQuery { Id = result };
         await FluentActions.Invoking(() =>
             SendAsync(getUserByIdCommand)).Should().NotThrowAsync();
     }
