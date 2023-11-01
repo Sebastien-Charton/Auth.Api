@@ -22,96 +22,131 @@ namespace Clean.Architecture.Sdk
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial interface IAuthApiClient
     {
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<PaginatedListOfTodoItemBriefDto> GetTodoItemsWithPaginationAsync(int listId, int pageNumber, int pageSize);
+        System.Threading.Tasks.Task<GetEnvironmentDto> GetEnvironmentAsync(AcceptLanguage? accept_Language);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<PaginatedListOfTodoItemBriefDto> GetTodoItemsWithPaginationAsync(int listId, int pageNumber, int pageSize, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<GetEnvironmentDto> GetEnvironmentAsync(AcceptLanguage? accept_Language, System.Threading.CancellationToken cancellationToken);
 
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<int> CreateTodoItemAsync(CreateTodoItemCommand command);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<int> CreateTodoItemAsync(CreateTodoItemCommand command, System.Threading.CancellationToken cancellationToken);
-
-        /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UpdateTodoItemAsync(int id, UpdateTodoItemCommand command);
+        System.Threading.Tasks.Task<PaginatedListOfTodoItemBriefDto> GetTodoItemsWithPaginationAsync(int listId, int pageNumber, int pageSize, AcceptLanguage2? accept_Language);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UpdateTodoItemAsync(int id, UpdateTodoItemCommand command, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<PaginatedListOfTodoItemBriefDto> GetTodoItemsWithPaginationAsync(int listId, int pageNumber, int pageSize, AcceptLanguage2? accept_Language, System.Threading.CancellationToken cancellationToken);
 
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task DeleteTodoItemAsync(int id);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task DeleteTodoItemAsync(int id, System.Threading.CancellationToken cancellationToken);
-
-        /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UpdateTodoItemDetailAsync(int id, UpdateTodoItemDetailCommand command);
+        System.Threading.Tasks.Task<int> CreateTodoItemAsync(AcceptLanguage3? accept_Language, CreateTodoItemCommand command);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UpdateTodoItemDetailAsync(int id, UpdateTodoItemDetailCommand command, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<int> CreateTodoItemAsync(AcceptLanguage3? accept_Language, CreateTodoItemCommand command, System.Threading.CancellationToken cancellationToken);
 
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<TodosVm> GetTodoListsAsync();
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<TodosVm> GetTodoListsAsync(System.Threading.CancellationToken cancellationToken);
-
-        /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<int> CreateTodoListAsync(CreateTodoListCommand command);
+        System.Threading.Tasks.Task UpdateTodoItemAsync(int id, AcceptLanguage4? accept_Language, UpdateTodoItemCommand command);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<int> CreateTodoListAsync(CreateTodoListCommand command, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task UpdateTodoItemAsync(int id, AcceptLanguage4? accept_Language, UpdateTodoItemCommand command, System.Threading.CancellationToken cancellationToken);
 
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UpdateTodoListAsync(int id, UpdateTodoListCommand command);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UpdateTodoListAsync(int id, UpdateTodoListCommand command, System.Threading.CancellationToken cancellationToken);
-
-        /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task DeleteTodoListAsync(int id);
+        System.Threading.Tasks.Task DeleteTodoItemAsync(int id, AcceptLanguage5? accept_Language);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task DeleteTodoListAsync(int id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task DeleteTodoItemAsync(int id, AcceptLanguage5? accept_Language, System.Threading.CancellationToken cancellationToken);
 
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> RegisterUserAsync(RegisterUserCommand registerUserCommand);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> RegisterUserAsync(RegisterUserCommand registerUserCommand, System.Threading.CancellationToken cancellationToken);
-
-        /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<LoginUserResponse> LoginUserAsync(LoginUserCommand loginUserCommand);
+        System.Threading.Tasks.Task UpdateTodoItemDetailAsync(int id, AcceptLanguage6? accept_Language, UpdateTodoItemDetailCommand command);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<LoginUserResponse> LoginUserAsync(LoginUserCommand loginUserCommand, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task UpdateTodoItemDetailAsync(int id, AcceptLanguage6? accept_Language, UpdateTodoItemDetailCommand command, System.Threading.CancellationToken cancellationToken);
 
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<bool> ConfirmEmailAsync(ConfirmEmailCommand confirmEmailCommand);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<bool> ConfirmEmailAsync(ConfirmEmailCommand confirmEmailCommand, System.Threading.CancellationToken cancellationToken);
-
-        /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<bool> IsEmailConfirmedAsync(System.Guid userId);
+        System.Threading.Tasks.Task<TodosVm> GetTodoListsAsync(AcceptLanguage7? accept_Language);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<bool> IsEmailConfirmedAsync(System.Guid userId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<TodosVm> GetTodoListsAsync(AcceptLanguage7? accept_Language, System.Threading.CancellationToken cancellationToken);
+
+        /// <param name="accept_Language">Language preference for the response.</param>
+        /// <exception cref="RestException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<int> CreateTodoListAsync(AcceptLanguage8? accept_Language, CreateTodoListCommand command);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
+        /// <exception cref="RestException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<int> CreateTodoListAsync(AcceptLanguage8? accept_Language, CreateTodoListCommand command, System.Threading.CancellationToken cancellationToken);
+
+        /// <param name="accept_Language">Language preference for the response.</param>
+        /// <exception cref="RestException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task UpdateTodoListAsync(int id, AcceptLanguage9? accept_Language, UpdateTodoListCommand command);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
+        /// <exception cref="RestException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task UpdateTodoListAsync(int id, AcceptLanguage9? accept_Language, UpdateTodoListCommand command, System.Threading.CancellationToken cancellationToken);
+
+        /// <param name="accept_Language">Language preference for the response.</param>
+        /// <exception cref="RestException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task DeleteTodoListAsync(int id, AcceptLanguage10? accept_Language);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
+        /// <exception cref="RestException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task DeleteTodoListAsync(int id, AcceptLanguage10? accept_Language, System.Threading.CancellationToken cancellationToken);
+
+        /// <param name="accept_Language">Language preference for the response.</param>
+        /// <exception cref="RestException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Guid> RegisterUserAsync(AcceptLanguage11? accept_Language, RegisterUserCommand registerUserCommand);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
+        /// <exception cref="RestException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Guid> RegisterUserAsync(AcceptLanguage11? accept_Language, RegisterUserCommand registerUserCommand, System.Threading.CancellationToken cancellationToken);
+
+        /// <param name="accept_Language">Language preference for the response.</param>
+        /// <exception cref="RestException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<LoginUserResponse> LoginUserAsync(AcceptLanguage12? accept_Language, LoginUserCommand loginUserCommand);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
+        /// <exception cref="RestException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<LoginUserResponse> LoginUserAsync(AcceptLanguage12? accept_Language, LoginUserCommand loginUserCommand, System.Threading.CancellationToken cancellationToken);
+
+        /// <param name="accept_Language">Language preference for the response.</param>
+        /// <exception cref="RestException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<bool> ConfirmEmailAsync(AcceptLanguage13? accept_Language, ConfirmEmailCommand confirmEmailCommand);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
+        /// <exception cref="RestException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<bool> ConfirmEmailAsync(AcceptLanguage13? accept_Language, ConfirmEmailCommand confirmEmailCommand, System.Threading.CancellationToken cancellationToken);
+
+        /// <param name="accept_Language">Language preference for the response.</param>
+        /// <exception cref="RestException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<bool> IsEmailConfirmedAsync(System.Guid userId, AcceptLanguage14? accept_Language);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
+        /// <exception cref="RestException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<bool> IsEmailConfirmedAsync(System.Guid userId, AcceptLanguage14? accept_Language, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -142,15 +177,95 @@ namespace Clean.Architecture.Sdk
         partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<PaginatedListOfTodoItemBriefDto> GetTodoItemsWithPaginationAsync(int listId, int pageNumber, int pageSize)
+        public virtual System.Threading.Tasks.Task<GetEnvironmentDto> GetEnvironmentAsync(AcceptLanguage? accept_Language)
         {
-            return GetTodoItemsWithPaginationAsync(listId, pageNumber, pageSize, System.Threading.CancellationToken.None);
+            return GetEnvironmentAsync(accept_Language, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<PaginatedListOfTodoItemBriefDto> GetTodoItemsWithPaginationAsync(int listId, int pageNumber, int pageSize, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<GetEnvironmentDto> GetEnvironmentAsync(AcceptLanguage? accept_Language, System.Threading.CancellationToken cancellationToken)
+        {
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append("api/EnvironmentEndpoints");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+
+                    if (accept_Language == null)
+                        throw new System.ArgumentNullException("accept_Language");
+                    request_.Headers.TryAddWithoutValidation("Accept-Language", ConvertToString(accept_Language, System.Globalization.CultureInfo.InvariantCulture));
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<GetEnvironmentDto>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new RestException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new RestException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="accept_Language">Language preference for the response.</param>
+        /// <exception cref="RestException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<PaginatedListOfTodoItemBriefDto> GetTodoItemsWithPaginationAsync(int listId, int pageNumber, int pageSize, AcceptLanguage2? accept_Language)
+        {
+            return GetTodoItemsWithPaginationAsync(listId, pageNumber, pageSize, accept_Language, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
+        /// <exception cref="RestException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<PaginatedListOfTodoItemBriefDto> GetTodoItemsWithPaginationAsync(int listId, int pageNumber, int pageSize, AcceptLanguage2? accept_Language, System.Threading.CancellationToken cancellationToken)
         {
             if (listId == null)
                 throw new System.ArgumentNullException("listId");
@@ -174,6 +289,10 @@ namespace Clean.Architecture.Sdk
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+
+                    if (accept_Language == null)
+                        throw new System.ArgumentNullException("accept_Language");
+                    request_.Headers.TryAddWithoutValidation("Accept-Language", ConvertToString(accept_Language, System.Globalization.CultureInfo.InvariantCulture));
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
@@ -227,15 +346,17 @@ namespace Clean.Architecture.Sdk
             }
         }
 
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<int> CreateTodoItemAsync(CreateTodoItemCommand command)
+        public virtual System.Threading.Tasks.Task<int> CreateTodoItemAsync(AcceptLanguage3? accept_Language, CreateTodoItemCommand command)
         {
-            return CreateTodoItemAsync(command, System.Threading.CancellationToken.None);
+            return CreateTodoItemAsync(accept_Language, command, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<int> CreateTodoItemAsync(CreateTodoItemCommand command, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<int> CreateTodoItemAsync(AcceptLanguage3? accept_Language, CreateTodoItemCommand command, System.Threading.CancellationToken cancellationToken)
         {
             if (command == null)
                 throw new System.ArgumentNullException("command");
@@ -249,6 +370,10 @@ namespace Clean.Architecture.Sdk
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+
+                    if (accept_Language == null)
+                        throw new System.ArgumentNullException("accept_Language");
+                    request_.Headers.TryAddWithoutValidation("Accept-Language", ConvertToString(accept_Language, System.Globalization.CultureInfo.InvariantCulture));
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(command, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -306,15 +431,17 @@ namespace Clean.Architecture.Sdk
             }
         }
 
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task UpdateTodoItemAsync(int id, UpdateTodoItemCommand command)
+        public virtual System.Threading.Tasks.Task UpdateTodoItemAsync(int id, AcceptLanguage4? accept_Language, UpdateTodoItemCommand command)
         {
-            return UpdateTodoItemAsync(id, command, System.Threading.CancellationToken.None);
+            return UpdateTodoItemAsync(id, accept_Language, command, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task UpdateTodoItemAsync(int id, UpdateTodoItemCommand command, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task UpdateTodoItemAsync(int id, AcceptLanguage4? accept_Language, UpdateTodoItemCommand command, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -332,6 +459,10 @@ namespace Clean.Architecture.Sdk
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+
+                    if (accept_Language == null)
+                        throw new System.ArgumentNullException("accept_Language");
+                    request_.Headers.TryAddWithoutValidation("Accept-Language", ConvertToString(accept_Language, System.Globalization.CultureInfo.InvariantCulture));
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(command, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -383,15 +514,17 @@ namespace Clean.Architecture.Sdk
             }
         }
 
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task DeleteTodoItemAsync(int id)
+        public virtual System.Threading.Tasks.Task DeleteTodoItemAsync(int id, AcceptLanguage5? accept_Language)
         {
-            return DeleteTodoItemAsync(id, System.Threading.CancellationToken.None);
+            return DeleteTodoItemAsync(id, accept_Language, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task DeleteTodoItemAsync(int id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task DeleteTodoItemAsync(int id, AcceptLanguage5? accept_Language, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -406,6 +539,10 @@ namespace Clean.Architecture.Sdk
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+
+                    if (accept_Language == null)
+                        throw new System.ArgumentNullException("accept_Language");
+                    request_.Headers.TryAddWithoutValidation("Accept-Language", ConvertToString(accept_Language, System.Globalization.CultureInfo.InvariantCulture));
                     request_.Method = new System.Net.Http.HttpMethod("DELETE");
 
                     PrepareRequest(client_, request_, urlBuilder_);
@@ -453,15 +590,17 @@ namespace Clean.Architecture.Sdk
             }
         }
 
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task UpdateTodoItemDetailAsync(int id, UpdateTodoItemDetailCommand command)
+        public virtual System.Threading.Tasks.Task UpdateTodoItemDetailAsync(int id, AcceptLanguage6? accept_Language, UpdateTodoItemDetailCommand command)
         {
-            return UpdateTodoItemDetailAsync(id, command, System.Threading.CancellationToken.None);
+            return UpdateTodoItemDetailAsync(id, accept_Language, command, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task UpdateTodoItemDetailAsync(int id, UpdateTodoItemDetailCommand command, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task UpdateTodoItemDetailAsync(int id, AcceptLanguage6? accept_Language, UpdateTodoItemDetailCommand command, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -479,6 +618,10 @@ namespace Clean.Architecture.Sdk
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+
+                    if (accept_Language == null)
+                        throw new System.ArgumentNullException("accept_Language");
+                    request_.Headers.TryAddWithoutValidation("Accept-Language", ConvertToString(accept_Language, System.Globalization.CultureInfo.InvariantCulture));
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(command, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -530,15 +673,17 @@ namespace Clean.Architecture.Sdk
             }
         }
 
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<TodosVm> GetTodoListsAsync()
+        public virtual System.Threading.Tasks.Task<TodosVm> GetTodoListsAsync(AcceptLanguage7? accept_Language)
         {
-            return GetTodoListsAsync(System.Threading.CancellationToken.None);
+            return GetTodoListsAsync(accept_Language, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<TodosVm> GetTodoListsAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<TodosVm> GetTodoListsAsync(AcceptLanguage7? accept_Language, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/TodoListsEndpoints");
@@ -549,6 +694,10 @@ namespace Clean.Architecture.Sdk
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+
+                    if (accept_Language == null)
+                        throw new System.ArgumentNullException("accept_Language");
+                    request_.Headers.TryAddWithoutValidation("Accept-Language", ConvertToString(accept_Language, System.Globalization.CultureInfo.InvariantCulture));
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
@@ -602,15 +751,17 @@ namespace Clean.Architecture.Sdk
             }
         }
 
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<int> CreateTodoListAsync(CreateTodoListCommand command)
+        public virtual System.Threading.Tasks.Task<int> CreateTodoListAsync(AcceptLanguage8? accept_Language, CreateTodoListCommand command)
         {
-            return CreateTodoListAsync(command, System.Threading.CancellationToken.None);
+            return CreateTodoListAsync(accept_Language, command, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<int> CreateTodoListAsync(CreateTodoListCommand command, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<int> CreateTodoListAsync(AcceptLanguage8? accept_Language, CreateTodoListCommand command, System.Threading.CancellationToken cancellationToken)
         {
             if (command == null)
                 throw new System.ArgumentNullException("command");
@@ -624,6 +775,10 @@ namespace Clean.Architecture.Sdk
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+
+                    if (accept_Language == null)
+                        throw new System.ArgumentNullException("accept_Language");
+                    request_.Headers.TryAddWithoutValidation("Accept-Language", ConvertToString(accept_Language, System.Globalization.CultureInfo.InvariantCulture));
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(command, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -681,15 +836,17 @@ namespace Clean.Architecture.Sdk
             }
         }
 
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task UpdateTodoListAsync(int id, UpdateTodoListCommand command)
+        public virtual System.Threading.Tasks.Task UpdateTodoListAsync(int id, AcceptLanguage9? accept_Language, UpdateTodoListCommand command)
         {
-            return UpdateTodoListAsync(id, command, System.Threading.CancellationToken.None);
+            return UpdateTodoListAsync(id, accept_Language, command, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task UpdateTodoListAsync(int id, UpdateTodoListCommand command, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task UpdateTodoListAsync(int id, AcceptLanguage9? accept_Language, UpdateTodoListCommand command, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -707,6 +864,10 @@ namespace Clean.Architecture.Sdk
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+
+                    if (accept_Language == null)
+                        throw new System.ArgumentNullException("accept_Language");
+                    request_.Headers.TryAddWithoutValidation("Accept-Language", ConvertToString(accept_Language, System.Globalization.CultureInfo.InvariantCulture));
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(command, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -758,15 +919,17 @@ namespace Clean.Architecture.Sdk
             }
         }
 
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task DeleteTodoListAsync(int id)
+        public virtual System.Threading.Tasks.Task DeleteTodoListAsync(int id, AcceptLanguage10? accept_Language)
         {
-            return DeleteTodoListAsync(id, System.Threading.CancellationToken.None);
+            return DeleteTodoListAsync(id, accept_Language, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task DeleteTodoListAsync(int id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task DeleteTodoListAsync(int id, AcceptLanguage10? accept_Language, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -781,6 +944,10 @@ namespace Clean.Architecture.Sdk
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+
+                    if (accept_Language == null)
+                        throw new System.ArgumentNullException("accept_Language");
+                    request_.Headers.TryAddWithoutValidation("Accept-Language", ConvertToString(accept_Language, System.Globalization.CultureInfo.InvariantCulture));
                     request_.Method = new System.Net.Http.HttpMethod("DELETE");
 
                     PrepareRequest(client_, request_, urlBuilder_);
@@ -828,15 +995,17 @@ namespace Clean.Architecture.Sdk
             }
         }
 
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Guid> RegisterUserAsync(RegisterUserCommand registerUserCommand)
+        public virtual System.Threading.Tasks.Task<System.Guid> RegisterUserAsync(AcceptLanguage11? accept_Language, RegisterUserCommand registerUserCommand)
         {
-            return RegisterUserAsync(registerUserCommand, System.Threading.CancellationToken.None);
+            return RegisterUserAsync(accept_Language, registerUserCommand, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Guid> RegisterUserAsync(RegisterUserCommand registerUserCommand, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Guid> RegisterUserAsync(AcceptLanguage11? accept_Language, RegisterUserCommand registerUserCommand, System.Threading.CancellationToken cancellationToken)
         {
             if (registerUserCommand == null)
                 throw new System.ArgumentNullException("registerUserCommand");
@@ -850,6 +1019,10 @@ namespace Clean.Architecture.Sdk
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+
+                    if (accept_Language == null)
+                        throw new System.ArgumentNullException("accept_Language");
+                    request_.Headers.TryAddWithoutValidation("Accept-Language", ConvertToString(accept_Language, System.Globalization.CultureInfo.InvariantCulture));
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(registerUserCommand, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -907,15 +1080,17 @@ namespace Clean.Architecture.Sdk
             }
         }
 
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<LoginUserResponse> LoginUserAsync(LoginUserCommand loginUserCommand)
+        public virtual System.Threading.Tasks.Task<LoginUserResponse> LoginUserAsync(AcceptLanguage12? accept_Language, LoginUserCommand loginUserCommand)
         {
-            return LoginUserAsync(loginUserCommand, System.Threading.CancellationToken.None);
+            return LoginUserAsync(accept_Language, loginUserCommand, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<LoginUserResponse> LoginUserAsync(LoginUserCommand loginUserCommand, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<LoginUserResponse> LoginUserAsync(AcceptLanguage12? accept_Language, LoginUserCommand loginUserCommand, System.Threading.CancellationToken cancellationToken)
         {
             if (loginUserCommand == null)
                 throw new System.ArgumentNullException("loginUserCommand");
@@ -929,6 +1104,10 @@ namespace Clean.Architecture.Sdk
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+
+                    if (accept_Language == null)
+                        throw new System.ArgumentNullException("accept_Language");
+                    request_.Headers.TryAddWithoutValidation("Accept-Language", ConvertToString(accept_Language, System.Globalization.CultureInfo.InvariantCulture));
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(loginUserCommand, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -986,15 +1165,17 @@ namespace Clean.Architecture.Sdk
             }
         }
 
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<bool> ConfirmEmailAsync(ConfirmEmailCommand confirmEmailCommand)
+        public virtual System.Threading.Tasks.Task<bool> ConfirmEmailAsync(AcceptLanguage13? accept_Language, ConfirmEmailCommand confirmEmailCommand)
         {
-            return ConfirmEmailAsync(confirmEmailCommand, System.Threading.CancellationToken.None);
+            return ConfirmEmailAsync(accept_Language, confirmEmailCommand, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<bool> ConfirmEmailAsync(ConfirmEmailCommand confirmEmailCommand, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<bool> ConfirmEmailAsync(AcceptLanguage13? accept_Language, ConfirmEmailCommand confirmEmailCommand, System.Threading.CancellationToken cancellationToken)
         {
             if (confirmEmailCommand == null)
                 throw new System.ArgumentNullException("confirmEmailCommand");
@@ -1008,6 +1189,10 @@ namespace Clean.Architecture.Sdk
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+
+                    if (accept_Language == null)
+                        throw new System.ArgumentNullException("accept_Language");
+                    request_.Headers.TryAddWithoutValidation("Accept-Language", ConvertToString(accept_Language, System.Globalization.CultureInfo.InvariantCulture));
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(confirmEmailCommand, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -1065,15 +1250,17 @@ namespace Clean.Architecture.Sdk
             }
         }
 
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<bool> IsEmailConfirmedAsync(System.Guid userId)
+        public virtual System.Threading.Tasks.Task<bool> IsEmailConfirmedAsync(System.Guid userId, AcceptLanguage14? accept_Language)
         {
-            return IsEmailConfirmedAsync(userId, System.Threading.CancellationToken.None);
+            return IsEmailConfirmedAsync(userId, accept_Language, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<bool> IsEmailConfirmedAsync(System.Guid userId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<bool> IsEmailConfirmedAsync(System.Guid userId, AcceptLanguage14? accept_Language, System.Threading.CancellationToken cancellationToken)
         {
             if (userId == null)
                 throw new System.ArgumentNullException("userId");
@@ -1088,6 +1275,10 @@ namespace Clean.Architecture.Sdk
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+
+                    if (accept_Language == null)
+                        throw new System.ArgumentNullException("accept_Language");
+                    request_.Headers.TryAddWithoutValidation("Accept-Language", ConvertToString(accept_Language, System.Globalization.CultureInfo.InvariantCulture));
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
@@ -1242,6 +1433,14 @@ namespace Clean.Architecture.Sdk
             var result = System.Convert.ToString(value, cultureInfo);
             return result == null ? "" : result;
         }
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class GetEnvironmentDto
+    {
+        [Newtonsoft.Json.JsonProperty("environment", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Environment { get; set; }
+
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
@@ -1483,6 +1682,174 @@ namespace Clean.Architecture.Sdk
         [Newtonsoft.Json.JsonProperty("token", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public string Token { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum AcceptLanguage
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"en-US")]
+        EnUS = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"fr-FR")]
+        FrFR = 1,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum AcceptLanguage2
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"en-US")]
+        EnUS = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"fr-FR")]
+        FrFR = 1,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum AcceptLanguage3
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"en-US")]
+        EnUS = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"fr-FR")]
+        FrFR = 1,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum AcceptLanguage4
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"en-US")]
+        EnUS = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"fr-FR")]
+        FrFR = 1,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum AcceptLanguage5
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"en-US")]
+        EnUS = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"fr-FR")]
+        FrFR = 1,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum AcceptLanguage6
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"en-US")]
+        EnUS = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"fr-FR")]
+        FrFR = 1,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum AcceptLanguage7
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"en-US")]
+        EnUS = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"fr-FR")]
+        FrFR = 1,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum AcceptLanguage8
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"en-US")]
+        EnUS = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"fr-FR")]
+        FrFR = 1,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum AcceptLanguage9
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"en-US")]
+        EnUS = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"fr-FR")]
+        FrFR = 1,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum AcceptLanguage10
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"en-US")]
+        EnUS = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"fr-FR")]
+        FrFR = 1,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum AcceptLanguage11
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"en-US")]
+        EnUS = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"fr-FR")]
+        FrFR = 1,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum AcceptLanguage12
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"en-US")]
+        EnUS = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"fr-FR")]
+        FrFR = 1,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum AcceptLanguage13
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"en-US")]
+        EnUS = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"fr-FR")]
+        FrFR = 1,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum AcceptLanguage14
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"en-US")]
+        EnUS = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"fr-FR")]
+        FrFR = 1,
 
     }
 

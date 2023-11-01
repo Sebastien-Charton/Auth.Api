@@ -61,6 +61,8 @@ public static class DependencyInjection
                     Description = "Type into the textbox: Bearer {your JWT token}."
                 });
 
+            configure.OperationProcessors.Add(new AcceptedLanguageOperationFilter());
+
             configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
         });
 

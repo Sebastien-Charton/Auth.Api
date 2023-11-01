@@ -2,6 +2,7 @@
 using Auth.Api.Application.Common.Interfaces.ServiceAgents;
 using Auth.Api.Domain.Constants;
 using FluentValidation.Results;
+using Resource;
 using ValidationException = Auth.Api.Application.Common.Exceptions.ValidationException;
 
 namespace Auth.Api.Application.Users.Commands.RegisterUser;
@@ -32,7 +33,8 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, G
         var validationExceptions = new List<ValidationFailure>();
         if (existingUserWithUserName is not null)
         {
-            var validationException = new ValidationFailure(nameof(request.UserName), "UserName is already used.");
+            var validationException =
+                new ValidationFailure(nameof(request.UserName), ErrorMessages.UserNameAlreadyExists);
             validationExceptions.Add(validationException);
         }
 
@@ -40,7 +42,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, G
 
         if (existingUserWithEmail is not null)
         {
-            var validationException = new ValidationFailure(nameof(request.Email), "Email is already used.");
+            var validationException = new ValidationFailure(nameof(request.Email), ErrorMessages.EmailAlreadyExists);
             validationExceptions.Add(validationException);
         }
 

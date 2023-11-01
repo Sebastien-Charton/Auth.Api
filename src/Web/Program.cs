@@ -1,8 +1,10 @@
+using System.Globalization;
 using Auth.Api.Application;
 using Auth.Api.Infrastructure;
 using Auth.Api.Infrastructure.Data;
 using Auth.Api.Web;
 using Auth.Api.Web.Infrastructure.Logging;
+using Microsoft.AspNetCore.Localization;
 using Serilog;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -23,6 +25,22 @@ builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddWebServices();
 
+var defaultCulture = builder.Configuration
+    .GetValue<string>("CultureInfo:DefaultCulture")!;
+
+var supportedCultures = builder.Configuration
+    .GetSection("CultureInfo:SupportedCultures")
+    .Get<string[]>()!
+    .Select(x => new CultureInfo(x))
+    .ToList();
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    options.DefaultRequestCulture = new RequestCulture(defaultCulture);
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+});
+
 WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -39,6 +57,8 @@ else
 app.UseHealthChecks("/health");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseRequestLocalization();
 
 app.UseSwaggerUi3(settings =>
 {

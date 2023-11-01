@@ -1,6 +1,7 @@
 ﻿using Auth.Api.Application.Common.Interfaces.Identity.Services;
 using Auth.Api.Application.Common.Interfaces.Services;
 using Auth.Api.Domain.Constants;
+using Resource;
 
 namespace Auth.Api.Application.Users.Commands.LoginUser;
 
@@ -39,7 +40,7 @@ public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginUs
 
         if (result.IsLockedOut)
         {
-            throw new UnauthorizedAccessException("To many tries the account is locked");
+            throw new UnauthorizedAccessException(ErrorMessages.ToManyAttempts);
         }
 
         if (!result.Succeeded)

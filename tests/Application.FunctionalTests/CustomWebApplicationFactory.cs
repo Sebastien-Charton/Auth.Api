@@ -22,8 +22,8 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Test");
-        var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        System.Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Test");
+        var environment = System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
         IConfigurationRoot configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())

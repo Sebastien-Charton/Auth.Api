@@ -6,6 +6,46 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/EnvironmentEndpoints": {
+      "get": {
+        "tags": [
+          "EnvironmentEndpoints"
+        ],
+        "operationId": "GetEnvironment",
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "description": "Language preference for the response.",
+            "schema": {
+              "type": "string",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "en-US",
+                "fr-FR"
+              ]
+            },
+            "default": "en-US",
+            "nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetEnvironmentDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/TodoItemsEndpoints": {
       "get": {
         "tags": [
@@ -42,6 +82,24 @@
               "format": "int32"
             },
             "x-position": 3
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "description": "Language preference for the response.",
+            "schema": {
+              "type": "string",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "en-US",
+                "fr-FR"
+              ]
+            },
+            "default": "en-US",
+            "nullable": true
           }
         ],
         "responses": {
@@ -62,6 +120,26 @@
           "TodoItemsEndpoints"
         ],
         "operationId": "CreateTodoItem",
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "description": "Language preference for the response.",
+            "schema": {
+              "type": "string",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "en-US",
+                "fr-FR"
+              ]
+            },
+            "default": "en-US",
+            "nullable": true
+          }
+        ],
         "requestBody": {
           "x-name": "command",
           "description": "",
@@ -106,6 +184,24 @@
               "format": "int32"
             },
             "x-position": 1
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "description": "Language preference for the response.",
+            "schema": {
+              "type": "string",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "en-US",
+                "fr-FR"
+              ]
+            },
+            "default": "en-US",
+            "nullable": true
           }
         ],
         "requestBody": {
@@ -142,6 +238,24 @@
               "format": "int32"
             },
             "x-position": 1
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "description": "Language preference for the response.",
+            "schema": {
+              "type": "string",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "en-US",
+                "fr-FR"
+              ]
+            },
+            "default": "en-US",
+            "nullable": true
           }
         ],
         "responses": {
@@ -167,6 +281,24 @@
               "format": "int32"
             },
             "x-position": 1
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "description": "Language preference for the response.",
+            "schema": {
+              "type": "string",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "en-US",
+                "fr-FR"
+              ]
+            },
+            "default": "en-US",
+            "nullable": true
           }
         ],
         "requestBody": {
@@ -195,6 +327,26 @@
           "TodoListsEndpoints"
         ],
         "operationId": "GetTodoLists",
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "description": "Language preference for the response.",
+            "schema": {
+              "type": "string",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "en-US",
+                "fr-FR"
+              ]
+            },
+            "default": "en-US",
+            "nullable": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -213,6 +365,26 @@
           "TodoListsEndpoints"
         ],
         "operationId": "CreateTodoList",
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "description": "Language preference for the response.",
+            "schema": {
+              "type": "string",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "en-US",
+                "fr-FR"
+              ]
+            },
+            "default": "en-US",
+            "nullable": true
+          }
+        ],
         "requestBody": {
           "x-name": "command",
           "description": "",
@@ -257,6 +429,24 @@
               "format": "int32"
             },
             "x-position": 1
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "description": "Language preference for the response.",
+            "schema": {
+              "type": "string",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "en-US",
+                "fr-FR"
+              ]
+            },
+            "default": "en-US",
+            "nullable": true
           }
         ],
         "requestBody": {
@@ -293,6 +483,24 @@
               "format": "int32"
             },
             "x-position": 1
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "description": "Language preference for the response.",
+            "schema": {
+              "type": "string",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "en-US",
+                "fr-FR"
+              ]
+            },
+            "default": "en-US",
+            "nullable": true
           }
         ],
         "responses": {
@@ -308,6 +516,26 @@
           "UsersEndpoints"
         ],
         "operationId": "RegisterUser",
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "description": "Language preference for the response.",
+            "schema": {
+              "type": "string",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "en-US",
+                "fr-FR"
+              ]
+            },
+            "default": "en-US",
+            "nullable": true
+          }
+        ],
         "requestBody": {
           "x-name": "registerUserCommand",
           "description": "",
@@ -342,6 +570,26 @@
           "UsersEndpoints"
         ],
         "operationId": "LoginUser",
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "description": "Language preference for the response.",
+            "schema": {
+              "type": "string",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "en-US",
+                "fr-FR"
+              ]
+            },
+            "default": "en-US",
+            "nullable": true
+          }
+        ],
         "requestBody": {
           "x-name": "loginUserCommand",
           "description": "",
@@ -375,6 +623,26 @@
           "UsersEndpoints"
         ],
         "operationId": "ConfirmEmail",
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "description": "Language preference for the response.",
+            "schema": {
+              "type": "string",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "en-US",
+                "fr-FR"
+              ]
+            },
+            "default": "en-US",
+            "nullable": true
+          }
+        ],
         "requestBody": {
           "x-name": "confirmEmailCommand",
           "description": "",
@@ -418,6 +686,24 @@
               "format": "guid"
             },
             "x-position": 1
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "description": "Language preference for the response.",
+            "schema": {
+              "type": "string",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "en-US",
+                "fr-FR"
+              ]
+            },
+            "default": "en-US",
+            "nullable": true
           }
         ],
         "responses": {
@@ -437,6 +723,15 @@
   },
   "components": {
     "schemas": {
+      "GetEnvironmentDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "environment": {
+            "type": "string"
+          }
+        }
+      },
       "PaginatedListOfTodoItemBriefDto": {
         "type": "object",
         "additionalProperties": false,
