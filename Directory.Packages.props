@@ -10,6 +10,7 @@
     <PackageVersion Include="Azure.Identity" Version="1.10.3"/>
     <PackageVersion Include="Bogus" Version="34.0.2"/>
     <PackageVersion Include="coverlet.collector" Version="6.0.0"/>
+    <PackageVersion Include="DotLiquid" Version="2.2.692"/>
     <PackageVersion Include="FluentAssertions" Version="7.0.0-alpha.1"/>
     <PackageVersion Include="FluentValidation.AspNetCore" Version="11.3.0"/>
     <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="11.8.0"/>

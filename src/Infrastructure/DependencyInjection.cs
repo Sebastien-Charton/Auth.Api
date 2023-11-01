@@ -10,6 +10,7 @@ using Auth.Api.Infrastructure.Identity.Services;
 using Auth.Api.Infrastructure.Options;
 using Auth.Api.Infrastructure.ServiceAgents;
 using Auth.Api.Infrastructure.Services;
+using Auth.Api.Infrastructure.Services.HtmlGeneration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -60,6 +61,7 @@ public static class DependencyInjection
         services.AddTransient<ISignInService, SignInService>();
         services.AddScoped<IJwtService, JwtService>();
         services.AddScoped<IMailServiceAgent, SendGridServiceAgent>();
+        services.AddScoped<IHtmlGenerator, DotLiquidHtmlGenerator>();
 
         // Inject options
         services.Configure<JwtOptions>(jwtOptions => configuration.Bind(nameof(JwtOptions), jwtOptions));

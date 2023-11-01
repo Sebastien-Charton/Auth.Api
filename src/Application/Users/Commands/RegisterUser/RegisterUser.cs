@@ -1,7 +1,9 @@
-﻿using Auth.Api.Application.Common.Interfaces.Identity.Services;
+﻿using Auth.Api.Application.Common.Interfaces;
+using Auth.Api.Application.Common.Interfaces.Identity.Services;
 using Auth.Api.Application.Common.Interfaces.ServiceAgents;
 using Auth.Api.Domain.Constants;
 using FluentValidation.Results;
+using Microsoft.Extensions.Logging;
 using Resource;
 using ValidationException = Auth.Api.Application.Common.Exceptions.ValidationException;
 
@@ -17,13 +19,18 @@ public record RegisterUserCommand : IRequest<Guid>
 
 public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, Guid>
 {
+    private readonly IHtmlGenerator _htmlGenerator;
+    private readonly ILogger<RegisterUserCommandHandler> _logger;
     private readonly IMailServiceAgent _mailServiceAgent;
     private readonly IUserManagerService _userManagerService;
 
-    public RegisterUserCommandHandler(IUserManagerService userManagerService, IMailServiceAgent mailServiceAgent)
+    public RegisterUserCommandHandler(IUserManagerService userManagerService, IMailServiceAgent mailServiceAgent,
+        IHtmlGenerator htmlGenerator, ILogger<RegisterUserCommandHandler> logger)
     {
         _userManagerService = userManagerService;
         _mailServiceAgent = mailServiceAgent;
+        _htmlGenerator = htmlGenerator;
+        _logger = logger;
     }
 
     public async Task<Guid> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
@@ -64,8 +71,11 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, G
         await _userManagerService.AddToRolesAsync(result.userId, new[] { Roles.User });
 
         var token = await _userManagerService.GenerateEmailConfirmation(result.userId);
-        await _mailServiceAgent.SendMail("sebastiencharton@protonmail.com", "Sebastien Charton",
-            "Register to application", $"Hello here is the token : {token}", "");
+
+        var htmlContent = _htmlGenerator.GenerateConfirmationEmail(request.UserName, token!);
+
+        await _mailServiceAgent.SendMail(request.Email, request.UserName,
+            HtmlTemplates.EmailConfirmationTemplateTitle, "", htmlContent);
 
         return result.userId;
     }
