@@ -17,8 +17,6 @@ public class PostgreSqlTestDatabase : ITestDatabase
     public PostgreSqlTestDatabase()
     {
         IConfigurationRoot configuration = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json")
-            .AddEnvironmentVariables()
             .Build();
 
         string? connectionString = configuration.GetConnectionString("DefaultConnection");
