@@ -6,10 +6,10 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/api/TodoItems": {
+    "/api/TodoItemsEndpoints": {
       "get": {
         "tags": [
-          "TodoItems"
+          "TodoItemsEndpoints"
         ],
         "operationId": "GetTodoItemsWithPagination",
         "parameters": [
@@ -59,7 +59,7 @@
       },
       "post": {
         "tags": [
-          "TodoItems"
+          "TodoItemsEndpoints"
         ],
         "operationId": "CreateTodoItem",
         "requestBody": {
@@ -90,10 +90,10 @@
         }
       }
     },
-    "/api/TodoItems/{id}": {
+    "/api/TodoItemsEndpoints/{id}": {
       "put": {
         "tags": [
-          "TodoItems"
+          "TodoItemsEndpoints"
         ],
         "operationId": "UpdateTodoItem",
         "parameters": [
@@ -129,7 +129,7 @@
       },
       "delete": {
         "tags": [
-          "TodoItems"
+          "TodoItemsEndpoints"
         ],
         "operationId": "DeleteTodoItem",
         "parameters": [
@@ -151,10 +151,10 @@
         }
       }
     },
-    "/api/TodoItems/UpdateDetail/{id}": {
+    "/api/TodoItemsEndpoints/UpdateDetail/{id}": {
       "put": {
         "tags": [
-          "TodoItems"
+          "TodoItemsEndpoints"
         ],
         "operationId": "UpdateTodoItemDetail",
         "parameters": [
@@ -189,10 +189,10 @@
         }
       }
     },
-    "/api/TodoLists": {
+    "/api/TodoListsEndpoints": {
       "get": {
         "tags": [
-          "TodoLists"
+          "TodoListsEndpoints"
         ],
         "operationId": "GetTodoLists",
         "responses": {
@@ -210,7 +210,7 @@
       },
       "post": {
         "tags": [
-          "TodoLists"
+          "TodoListsEndpoints"
         ],
         "operationId": "CreateTodoList",
         "requestBody": {
@@ -241,10 +241,10 @@
         }
       }
     },
-    "/api/TodoLists/{id}": {
+    "/api/TodoListsEndpoints/{id}": {
       "put": {
         "tags": [
-          "TodoLists"
+          "TodoListsEndpoints"
         ],
         "operationId": "UpdateTodoList",
         "parameters": [
@@ -280,7 +280,7 @@
       },
       "delete": {
         "tags": [
-          "TodoLists"
+          "TodoListsEndpoints"
         ],
         "operationId": "DeleteTodoList",
         "parameters": [
@@ -302,10 +302,10 @@
         }
       }
     },
-    "/api/Users/register": {
+    "/api/UsersEndpoints/register": {
       "post": {
         "tags": [
-          "Users"
+          "UsersEndpoints"
         ],
         "operationId": "RegisterUser",
         "requestBody": {
@@ -336,10 +336,10 @@
         }
       }
     },
-    "/api/Users/login": {
+    "/api/UsersEndpoints/login": {
       "post": {
         "tags": [
-          "Users"
+          "UsersEndpoints"
         ],
         "operationId": "LoginUser",
         "requestBody": {
@@ -369,10 +369,10 @@
         }
       }
     },
-    "/api/Users/confirm-email": {
+    "/api/UsersEndpoints/confirm-email": {
       "post": {
         "tags": [
-          "Users"
+          "UsersEndpoints"
         ],
         "operationId": "ConfirmEmail",
         "requestBody": {
@@ -402,10 +402,10 @@
         }
       }
     },
-    "/api/Users/is-email-confirmed/{userId}": {
+    "/api/UsersEndpoints/is-email-confirmed/{userId}": {
       "get": {
         "tags": [
-          "Users"
+          "UsersEndpoints"
         ],
         "operationId": "IsEmailConfirmed",
         "parameters": [

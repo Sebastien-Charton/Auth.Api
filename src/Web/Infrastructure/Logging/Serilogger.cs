@@ -1,7 +1,7 @@
 ﻿using Serilog;
 using Serilog.Sinks.Elasticsearch;
 
-namespace Auth.Api.Web.Infrastructure;
+namespace Auth.Api.Web.Infrastructure.Logging;
 
 public class Serilogger
 {
@@ -12,7 +12,6 @@ public class Serilogger
 
             configuration
                 .Enrich.FromLogContext()
-                .Enrich.WithMachineName()
                 .WriteTo.Debug()
                 .WriteTo.Console()
                 .WriteTo.Elasticsearch(
@@ -28,6 +27,12 @@ public class Serilogger
                     context.HostingEnvironment.EnvironmentName ?? throw new InvalidOperationException())
                 .Enrich.WithProperty("Application",
                     context.HostingEnvironment.ApplicationName ?? throw new InvalidOperationException())
+                .Enrich.WithMachineName()
+                .Enrich.WithProcessId()
+                .Enrich.WithProcessName()
+                .Enrich.WithThreadId()
+                .Enrich.WithThreadName()
+                .Enrich.WithEnvironmentUserName()
                 .ReadFrom.Configuration(context.Configuration);
         };
 }

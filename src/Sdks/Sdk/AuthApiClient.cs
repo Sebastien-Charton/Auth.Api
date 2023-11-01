@@ -162,7 +162,7 @@ namespace Clean.Architecture.Sdk
                 throw new System.ArgumentNullException("pageSize");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/TodoItems?");
+            urlBuilder_.Append("api/TodoItemsEndpoints?");
             urlBuilder_.Append(System.Uri.EscapeDataString("ListId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(listId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             urlBuilder_.Append(System.Uri.EscapeDataString("PageNumber") + "=").Append(System.Uri.EscapeDataString(ConvertToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             urlBuilder_.Append(System.Uri.EscapeDataString("PageSize") + "=").Append(System.Uri.EscapeDataString(ConvertToString(pageSize, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
@@ -241,7 +241,7 @@ namespace Clean.Architecture.Sdk
                 throw new System.ArgumentNullException("command");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/TodoItems");
+            urlBuilder_.Append("api/TodoItemsEndpoints");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -323,7 +323,7 @@ namespace Clean.Architecture.Sdk
                 throw new System.ArgumentNullException("command");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/TodoItems/{id}");
+            urlBuilder_.Append("api/TodoItemsEndpoints/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -397,7 +397,7 @@ namespace Clean.Architecture.Sdk
                 throw new System.ArgumentNullException("id");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/TodoItems/{id}");
+            urlBuilder_.Append("api/TodoItemsEndpoints/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -470,7 +470,7 @@ namespace Clean.Architecture.Sdk
                 throw new System.ArgumentNullException("command");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/TodoItems/UpdateDetail/{id}");
+            urlBuilder_.Append("api/TodoItemsEndpoints/UpdateDetail/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -541,7 +541,7 @@ namespace Clean.Architecture.Sdk
         public virtual async System.Threading.Tasks.Task<TodosVm> GetTodoListsAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/TodoLists");
+            urlBuilder_.Append("api/TodoListsEndpoints");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -616,7 +616,7 @@ namespace Clean.Architecture.Sdk
                 throw new System.ArgumentNullException("command");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/TodoLists");
+            urlBuilder_.Append("api/TodoListsEndpoints");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -698,7 +698,7 @@ namespace Clean.Architecture.Sdk
                 throw new System.ArgumentNullException("command");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/TodoLists/{id}");
+            urlBuilder_.Append("api/TodoListsEndpoints/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -772,7 +772,7 @@ namespace Clean.Architecture.Sdk
                 throw new System.ArgumentNullException("id");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/TodoLists/{id}");
+            urlBuilder_.Append("api/TodoListsEndpoints/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -842,7 +842,7 @@ namespace Clean.Architecture.Sdk
                 throw new System.ArgumentNullException("registerUserCommand");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/Users/register");
+            urlBuilder_.Append("api/UsersEndpoints/register");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -921,7 +921,7 @@ namespace Clean.Architecture.Sdk
                 throw new System.ArgumentNullException("loginUserCommand");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/Users/login");
+            urlBuilder_.Append("api/UsersEndpoints/login");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1000,7 +1000,7 @@ namespace Clean.Architecture.Sdk
                 throw new System.ArgumentNullException("confirmEmailCommand");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/Users/confirm-email");
+            urlBuilder_.Append("api/UsersEndpoints/confirm-email");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1079,7 +1079,7 @@ namespace Clean.Architecture.Sdk
                 throw new System.ArgumentNullException("userId");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/Users/is-email-confirmed/{userId}");
+            urlBuilder_.Append("api/UsersEndpoints/is-email-confirmed/{userId}");
             urlBuilder_.Replace("{userId}", System.Uri.EscapeDataString(ConvertToString(userId, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
