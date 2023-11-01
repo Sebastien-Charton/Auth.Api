@@ -73,12 +73,12 @@ public class ApplicationDbContextInitialiser
         ApplicationRole administratorRole = new(Roles.Administrator);
         ApplicationRole userRole = new(Roles.User);
 
-        if (_roleManager.Roles.All(r => r.Name != administratorRole.Name))
+        if (!await _roleManager.Roles.AnyAsync(r => r.Name == administratorRole.Name))
         {
             await _roleManager.CreateAsync(administratorRole);
         }
 
-        if (_roleManager.Roles.All(r => r.Name != userRole.Name))
+        if (!await _roleManager.Roles.AnyAsync(r => r.Name == userRole.Name))
         {
             await _roleManager.CreateAsync(userRole);
         }
@@ -87,7 +87,7 @@ public class ApplicationDbContextInitialiser
         ApplicationUser administrator =
             new() { UserName = "administrator@localhost", Email = "administrator@localhost" };
 
-        if (_userManager.Users.All(u => u.UserName != administrator.UserName))
+        if (!await _userManager.Users.AnyAsync(u => u.UserName != administrator.UserName))
         {
             await _userManager.CreateAsync(administrator, "Administrator1!");
 
@@ -97,6 +97,18 @@ public class ApplicationDbContextInitialiser
             if (!string.IsNullOrWhiteSpace(userRole.Name))
             {
                 await _userManager.AddToRolesAsync(administrator, new[] { userRole.Name });
+            }
+        }
+
+        ApplicationUser user = new() { UserName = "user@localhost", Email = "user@localhost" };
+
+        if (await _userManager.Users.AnyAsync(u => u.UserName != user.UserName))
+        {
+            await _userManager.CreateAsync(user, "BasicUser1!");
+
+            if (!string.IsNullOrWhiteSpace(userRole.Name))
+            {
+                await _userManager.AddToRolesAsync(user, new[] { userRole.Name });
             }
         }
 
