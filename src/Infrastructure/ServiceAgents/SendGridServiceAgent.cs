@@ -10,10 +10,10 @@ namespace Auth.Api.Infrastructure.ServiceAgents;
 public class SendGridServiceAgent : IMailServiceAgent
 {
     private readonly ILogger<SendGridServiceAgent> _logger;
-    private readonly IOptions<MailOptions> _mailOptions;
+    private readonly IOptions<SendGridOptions> _mailOptions;
     private readonly ISendGridClient _sendGridClient;
 
-    public SendGridServiceAgent(ISendGridClient sendGridClient, IOptions<MailOptions> mailOptions,
+    public SendGridServiceAgent(ISendGridClient sendGridClient, IOptions<SendGridOptions> mailOptions,
         ILogger<SendGridServiceAgent> logger)
     {
         _sendGridClient = sendGridClient;

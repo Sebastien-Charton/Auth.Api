@@ -1,6 +1,6 @@
 ﻿namespace Auth.Api.Infrastructure.Options;
 
-public class MailOptions
+public class SendGridOptions
 {
     public string ApiKey { get; set; } = null!;
     public string FromEmail { get; set; } = null!;

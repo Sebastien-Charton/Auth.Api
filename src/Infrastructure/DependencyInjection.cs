@@ -11,6 +11,7 @@ using Auth.Api.Infrastructure.Options;
 using Auth.Api.Infrastructure.ServiceAgents;
 using Auth.Api.Infrastructure.Services;
 using Auth.Api.Infrastructure.Services.HtmlGeneration;
+using Mailjet.Client;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -56,22 +57,73 @@ public static class DependencyInjection
 
         services.AddSingleton(TimeProvider.System);
 
+        // Inject options
+
+        services
+            .AddOptionsWithValidateOnStart<JwtOptions>()
+            .Configure(jwtOptions => configuration.Bind(nameof(JwtOptions), jwtOptions))
+            .Validate(x => x.Audience is not null, $"{nameof(JwtOptions.Audience)} is null")
+            .Validate(x => x.Issuer is not null, $"{nameof(JwtOptions.Issuer)} is null")
+            .Validate(x => x.SecurityKey is not null, $"{nameof(JwtOptions.SecurityKey)} is null")
+            .Validate(x => x.ExpiryInDays > 0, $"{nameof(JwtOptions.ExpiryInDays)} is less than 1")
+            .ValidateOnStart();
+
+        services
+            .AddOptionsWithValidateOnStart<SendGridOptions>()
+            .Configure(sendGridOptions =>
+                configuration.Bind(nameof(SendGridOptions), sendGridOptions))
+            .Validate(x => x.ApiKey is not null, $"{nameof(SendGridOptions.ApiKey)} is null")
+            .Validate(x => x.FromEmail is not null, $"{nameof(SendGridOptions.FromEmail)} is null")
+            .Validate(x => x.FromName is not null, $"{nameof(SendGridOptions.FromName)} is null")
+            .ValidateOnStart();
+
+        services
+            .AddOptionsWithValidateOnStart<MailJetOptions>()
+            .Configure(mailJetOptions =>
+                configuration.Bind(nameof(MailJetOptions), mailJetOptions))
+            .Validate(x => x.ApiKey is not null, $"{nameof(MailJetOptions.ApiKey)} is null")
+            .Validate(x => x.ApiSecret is not null, $"{nameof(MailJetOptions.ApiSecret)} is null")
+            .Validate(x => x.FromEmail is not null, $"{nameof(MailJetOptions.FromEmail)} is null")
+            .Validate(x => x.FromName is not null, $"{nameof(MailJetOptions.FromName)} is null")
+            .ValidateOnStart();
+
+        services
+            .AddOptionsWithValidateOnStart<IdentityOptions>()
+            .Configure(identityOptions =>
+                configuration.Bind(nameof(IdentityOptions), identityOptions))
+            .Validate(x => x.Password is not null, $"{nameof(IdentityOptions.Password)} is null")
+            .Validate(x => x.Password.RequiredLength > 0,
+                $"{nameof(IdentityOptions.Password.RequiredLength)} is less than 1")
+            .Validate(x => x.Password.RequiredUniqueChars > 0,
+                $"{nameof(IdentityOptions.Password.RequiredUniqueChars)} is less than 1")
+            .Validate(x => x.Lockout is not null, $"{nameof(IdentityOptions.Lockout)} is null")
+            .Validate(x => x.Lockout.DefaultLockoutTimeSpanInMs > 0,
+                $"{nameof(IdentityOptions.Lockout.DefaultLockoutTimeSpanInMs)} is less than 1")
+            .Validate(x => x.Lockout.MaxFailedAccessAttempts > 0, $"{nameof(IdentityOptions.Lockout)} is less than 1")
+            .Validate(x => x.User is not null, $"{nameof(IdentityOptions.User)} is null")
+            .Validate(x => x.User.AllowedUserNameCharacters is not null,
+                $"{nameof(IdentityOptions.User.AllowedUserNameCharacters)} is less than 1")
+            .Validate(x => x.SignIn is not null, $"{nameof(IdentityOptions.SignIn)} is null")
+            .ValidateOnStart();
+
         // Inject service
         services.AddTransient<IUserManagerService, UserManagerService>();
         services.AddTransient<ISignInService, SignInService>();
         services.AddScoped<IJwtService, JwtService>();
-        services.AddScoped<IMailServiceAgent, SendGridServiceAgent>();
+        services.AddScoped<IMailServiceAgent, MailJetServiceAgent>();
         services.AddScoped<IHtmlGenerator, DotLiquidHtmlGenerator>();
 
-        // Inject options
-        services.Configure<JwtOptions>(jwtOptions => configuration.Bind(nameof(JwtOptions), jwtOptions));
+        var serviceProvider = services.BuildServiceProvider();
+        var mailJetOptions = serviceProvider.GetRequiredService<IOptions<MailJetOptions>>();
 
-        services.Configure<MailOptions>(sendGridOptions =>
-            configuration.Bind(nameof(MailOptions), sendGridOptions));
+        var jwt = serviceProvider.GetRequiredService<IOptions<JwtOptions>>();
 
-        services.Configure<IdentityOptions>(identityOptions =>
-            configuration.Bind(nameof(IdentityOptions), identityOptions));
+        services.AddHttpClient<IMailjetClient, MailjetClient>(client =>
+        {
+            client.SetDefaultSettings();
 
+            client.UseBasicAuthentication(mailJetOptions.Value.ApiKey, mailJetOptions.Value.ApiSecret);
+        });
 
         services
             .AddIdentityCore<ApplicationUser>()
@@ -79,7 +131,7 @@ public static class DependencyInjection
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddApiEndpoints();
 
-        var identityOptions = services.BuildServiceProvider().GetRequiredService<IOptions<IdentityOptions>>();
+        var identityOptions = serviceProvider.GetRequiredService<IOptions<IdentityOptions>>();
 
         services.Configure<Microsoft.AspNetCore.Identity.IdentityOptions>(options =>
         {
@@ -105,7 +157,7 @@ public static class DependencyInjection
         services.AddAuthorization(options =>
             options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
 
-        var mailOptions = services.BuildServiceProvider().GetRequiredService<IOptions<MailOptions>>();
+        var mailOptions = services.BuildServiceProvider().GetRequiredService<IOptions<SendGridOptions>>();
 
         services.AddSendGrid(options =>
         {
