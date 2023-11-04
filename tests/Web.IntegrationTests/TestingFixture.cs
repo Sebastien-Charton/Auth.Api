@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Web.IntegrationTests;
+namespace Auth.Api.Web.IntegrationTests;
 
 public abstract class TestingFixture : IAsyncDisposable
 {

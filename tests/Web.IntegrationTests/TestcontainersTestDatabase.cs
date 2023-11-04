@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using Testcontainers.PostgreSql;
 
-namespace Web.IntegrationTests;
+namespace Auth.Api.Web.IntegrationTests;
 
 public class TestcontainersTestDatabase : ITestDatabase
 {

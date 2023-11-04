@@ -5,7 +5,7 @@ using Auth.Api.Shared.Tests;
 using Microsoft.Extensions.DependencyInjection;
 using Resource;
 
-namespace Web.IntegrationTests.Users.Commands.ConfirmEmail;
+namespace Auth.Api.Web.IntegrationTests.Users.Commands.ConfirmEmail;
 
 public class ConfirmEmailTests : TestingFixture
 {

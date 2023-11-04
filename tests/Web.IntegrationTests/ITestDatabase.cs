@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 
-namespace Web.IntegrationTests;
+namespace Auth.Api.Web.IntegrationTests;
 
 public interface ITestDatabase
 {

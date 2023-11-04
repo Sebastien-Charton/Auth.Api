@@ -1,4 +1,4 @@
-﻿namespace Web.IntegrationTests;
+﻿namespace Auth.Api.Web.IntegrationTests;
 
 public static class TestDatabaseFactory
 {

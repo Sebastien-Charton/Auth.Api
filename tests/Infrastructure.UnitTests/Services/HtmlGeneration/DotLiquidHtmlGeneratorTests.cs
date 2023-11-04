@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Xunit;
 
-namespace Infrastructure.UnitTests.Services.HtmlGeneration;
+namespace Auth.Api.Infrastructure.UnitTests.Services.HtmlGeneration;
 
 public class DotLiquidHtmlGeneratorTests
 {

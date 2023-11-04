@@ -5,10 +5,9 @@ using Auth.Api.Infrastructure.Options;
 using Auth.Api.Infrastructure.Services;
 using Bogus;
 using FluentAssertions;
-using Microsoft.Extensions.Options;
 using Xunit;
 
-namespace Infrastructure.UnitTests.Services;
+namespace Auth.Api.Infrastructure.UnitTests.Services;
 
 public class JwtServiceTests
 {
@@ -32,7 +31,7 @@ public class JwtServiceTests
             .RuleFor(x => x.ExpiryInDays, f => f.Random.Int(1, 30))
             .Generate();
 
-        var jwtOption = Options.Create(jwtConfiguration);
+        var jwtOption = Microsoft.Extensions.Options.Options.Create(jwtConfiguration);
 
         var jwtService = new JwtService(jwtOption);
 

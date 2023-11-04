@@ -82,6 +82,9 @@ app.MapEndpoints();
 
 app.Run();
 
-public partial class Program
+namespace Auth.Api.Web
 {
+    public class Program
+    {
+    }
 }

@@ -1,6 +1,5 @@
 ﻿using Mailjet.Client;
 using Microsoft.Extensions.DependencyInjection;
-using Web.IntegrationTests;
 
 namespace Auth.Api.Web.IntegrationTests.Users.Commands.RegisterUser;
 
