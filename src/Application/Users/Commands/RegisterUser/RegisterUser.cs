@@ -35,21 +35,22 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, G
 
     public async Task<Guid> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
-        string? existingUserWithUserName = await _userManagerService.GetUserByUserNameAsync(request.UserName);
+        var existingUserWithUserName = await _userManagerService.IsUserNameExists(request.UserName);
 
         var validationExceptions = new List<ValidationFailure>();
-        if (existingUserWithUserName is not null)
+        if (existingUserWithUserName)
         {
             var validationException =
-                new ValidationFailure(nameof(request.UserName), ErrorMessages.UserNameAlreadyExists);
+                new ValidationFailure(nameof(request.UserName), UserErrorMessages.UserNameAlreadyExists);
             validationExceptions.Add(validationException);
         }
 
-        var existingUserWithEmail = await _userManagerService.GetUserByEmailAsync(request.Email);
+        var existingUserWithEmail = await _userManagerService.IsEmailExists(request.Email);
 
-        if (existingUserWithEmail is not null)
+        if (existingUserWithEmail)
         {
-            var validationException = new ValidationFailure(nameof(request.Email), ErrorMessages.EmailAlreadyExists);
+            var validationException =
+                new ValidationFailure(nameof(request.Email), UserErrorMessages.EmailAlreadyExists);
             validationExceptions.Add(validationException);
         }
 
@@ -65,12 +66,12 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, G
         if (result.Result.Errors.Any())
         {
             throw new ValidationException(
-                result.Result.Errors.Select(x => new ValidationFailure(nameof(RegisterUserCommand), x)));
+                result.Result.Errors.Select(x => new ValidationFailure(nameof(RegisterUserCommand), "error")));
         }
 
         await _userManagerService.AddToRolesAsync(result.userId, new[] { Roles.User });
 
-        var token = await _userManagerService.GenerateEmailConfirmation(result.userId);
+        var token = await _userManagerService.GenerateEmailConfirmationToken(result.userId);
 
         var htmlContent = _htmlGenerator.GenerateConfirmationEmail(request.UserName, token!);
 

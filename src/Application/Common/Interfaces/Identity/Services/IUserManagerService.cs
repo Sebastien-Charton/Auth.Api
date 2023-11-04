@@ -15,11 +15,14 @@ public interface IUserManagerService
         string phoneNumber);
 
     Task<Result> DeleteUserAsync(Guid userId);
-    Task<string?> GetUserByUserNameAsync(string userName);
     Task<List<string>> GetUserRolesAsync(IApplicationUser user);
     Task<Result> AddToRolesAsync(Guid userId, IEnumerable<string> roles);
     Task<IApplicationUser?> GetUserByEmailAsync(string email);
-    Task<string?> GenerateEmailConfirmation(Guid userId);
-    Task<Result> ConfirmEmailAsync(Guid userId, string token);
+    Task<string?> GenerateEmailConfirmationToken(Guid userId);
+    Task<Result> ConfirmEmailAsync(IApplicationUser userId, string token);
     Task<bool> IsEmailConfirmed(Guid userId);
+    Task<bool> IsUserNameExists(string userName);
+    Task<bool> IsUserExists(Guid userId);
+    Task<bool> IsEmailExists(string userName);
+    Task<IApplicationUser?> GetUserByIdAsync(Guid id);
 }

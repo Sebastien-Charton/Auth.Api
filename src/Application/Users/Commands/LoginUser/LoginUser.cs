@@ -27,20 +27,20 @@ public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginUs
 
     public async Task<LoginUserResponse> Handle(LoginUserCommand request, CancellationToken cancellationToken)
     {
-        var existingUserWithEmail = await _userManagerService.GetUserByEmailAsync(request.Email);
+        var user = await _userManagerService.GetUserByEmailAsync(request.Email);
 
-        if (existingUserWithEmail is null)
+        if (user is null)
         {
             throw new UnauthorizedAccessException();
         }
 
-        var isAdmin = await _userManagerService.IsInRoleAsync(existingUserWithEmail.Id, Roles.Administrator);
+        var isAdmin = await _userManagerService.IsInRoleAsync(user.Id, Roles.Administrator);
 
-        var result = await _signInService.CheckPasswordSignInAsync(existingUserWithEmail, request.Password, !isAdmin);
+        var result = await _signInService.CheckPasswordSignInAsync(user, request.Password, !isAdmin);
 
         if (result.IsLockedOut)
         {
-            throw new UnauthorizedAccessException(ErrorMessages.ToManyAttempts);
+            throw new UnauthorizedAccessException(UserErrorMessages.ToManyAttempts);
         }
 
         if (!result.Succeeded)
@@ -48,9 +48,9 @@ public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginUs
             throw new UnauthorizedAccessException();
         }
 
-        var roles = await _userManagerService.GetUserRolesAsync(existingUserWithEmail);
+        var roles = await _userManagerService.GetUserRolesAsync(user);
 
-        var token = _jwtService.GenerateJwtToken(existingUserWithEmail, roles.ToList());
+        var token = _jwtService.GenerateJwtToken(user, roles.ToList());
 
         return new LoginUserResponse { Token = token };
     }

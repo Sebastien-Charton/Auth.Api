@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="ErrorMessages.resx">
+    <EmbeddedResource Update="UserErrorMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
@@ -27,13 +27,17 @@
     <EmbeddedResource Update="Resources.resx">
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="GeneralErrorMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GeneralErrorMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="ErrorMessages.Designer.cs">
+    <Compile Update="UserErrorMessages.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>ErrorMessages.resx</DependentUpon>
+      <DependentUpon>UserErrorMessages.resx</DependentUpon>
     </Compile>
     <Compile Update="HtmlTemplates.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -44,6 +48,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="GeneralErrorMessages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>GeneralErrorMessages.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 

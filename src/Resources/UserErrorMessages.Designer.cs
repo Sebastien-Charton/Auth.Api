@@ -21,14 +21,14 @@ namespace Resource {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ErrorMessages {
+    public class UserErrorMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ErrorMessages() {
+        internal UserErrorMessages() {
         }
         
         /// <summary>
@@ -38,7 +38,7 @@ namespace Resource {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resource.ErrorMessages", typeof(ErrorMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resource.UserErrorMessages", typeof(UserErrorMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -69,11 +69,47 @@ namespace Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email or password is not correct.
+        /// </summary>
+        public static string EmailOrPasswordNotCorrect {
+            get {
+                return ResourceManager.GetString("EmailOrPasswordNotCorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid token.
+        /// </summary>
+        public static string InvalidToken {
+            get {
+                return ResourceManager.GetString("InvalidToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To many tries the account is locked.
         /// </summary>
         public static string ToManyAttempts {
             get {
                 return ResourceManager.GetString("ToManyAttempts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User already exists.
+        /// </summary>
+        public static string UserAlreadyExists {
+            get {
+                return ResourceManager.GetString("UserAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User doesn&apos;t exists.
+        /// </summary>
+        public static string UserDoesNotExists {
+            get {
+                return ResourceManager.GetString("UserDoesNotExists", resourceCulture);
             }
         }
         

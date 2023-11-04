@@ -32,4 +32,16 @@
   <data name="ToManyAttempts" xml:space="preserve">
     <value>To many tries the account is locked</value>
   </data>
+  <data name="UserDoesNotExists" xml:space="preserve">
+    <value>User doesn't exists</value>
+  </data>
+  <data name="UserAlreadyExists" xml:space="preserve">
+    <value>User already exists</value>
+  </data>
+  <data name="InvalidToken" xml:space="preserve">
+    <value>Invalid token</value>
+  </data>
+  <data name="EmailOrPasswordNotCorrect" xml:space="preserve">
+    <value>Email or password is not correct</value>
+  </data>
 </root>

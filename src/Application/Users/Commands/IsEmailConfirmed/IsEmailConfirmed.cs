@@ -18,6 +18,10 @@ public class ValidateEmailCommandHandler : IRequestHandler<IsEmailConfirmedComma
 
     public async Task<bool> Handle(IsEmailConfirmedCommand request, CancellationToken cancellationToken)
     {
+        var user = await _userManagerService.GetUserByIdAsync(request.UserId);
+
+        Guard.Against.NotFound(nameof(user), user);
+
         return await _userManagerService.IsEmailConfirmed(request.UserId);
     }
 }

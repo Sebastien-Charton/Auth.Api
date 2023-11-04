@@ -27,21 +27,40 @@ public class UserManagerService : IUserManagerService
 
     public async Task<string?> GetUserNameAsync(Guid userId)
     {
-        var user = await _userManager.Users.SingleOrDefaultAsync(u => u.Id == userId);
+        var user = await _userManager.FindByIdAsync(userId.ToString());
 
         return user?.UserName;
     }
 
-    public async Task<string?> GetUserByUserNameAsync(string userName)
+    public async Task<bool> IsUserNameExists(string userName)
     {
-        var user = await _userManager.Users.SingleOrDefaultAsync(u => u.UserName == userName);
+        var user = await _userManager.FindByNameAsync(userName);
 
-        return user?.UserName;
+        return user is not null;
+    }
+
+    public async Task<bool> IsUserExists(Guid userId)
+    {
+        var user = await _userManager.FindByIdAsync(userId.ToString());
+
+        return user is not null;
+    }
+
+    public async Task<bool> IsEmailExists(string userName)
+    {
+        var user = await _userManager.FindByNameAsync(userName);
+
+        return user is not null;
     }
 
     public async Task<IApplicationUser?> GetUserByEmailAsync(string email)
     {
-        return await _userManager.Users.SingleOrDefaultAsync(u => u.Email == email);
+        return await _userManager.FindByEmailAsync(email);
+    }
+
+    public async Task<IApplicationUser?> GetUserByIdAsync(Guid id)
+    {
+        return await _userManager.FindByIdAsync(id.ToString());
     }
 
     public async Task<(Result Result, Guid userId)> CreateUserAsync(string userName, string password, string email,
@@ -77,7 +96,7 @@ public class UserManagerService : IUserManagerService
 
     public async Task<Result> DeleteUserAsync(Guid userId)
     {
-        ApplicationUser? user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
+        ApplicationUser? user = await _userManager.FindByIdAsync(userId.ToString());
 
         return user != null ? await DeleteUserAsync(user) : Result.Success();
     }
@@ -95,27 +114,18 @@ public class UserManagerService : IUserManagerService
         return result.ToApplicationResult();
     }
 
-    public async Task<string?> GenerateEmailConfirmation(Guid userId)
+    public async Task<string?> GenerateEmailConfirmationToken(Guid userId)
     {
         var user = await GetUserAsync(userId);
 
         if (user is null)
-        {
             return null;
-        }
 
         return await _userManager.GenerateEmailConfirmationTokenAsync((ApplicationUser)user);
     }
 
-    public async Task<Result> ConfirmEmailAsync(Guid userId, string token)
+    public async Task<Result> ConfirmEmailAsync(IApplicationUser user, string token)
     {
-        var user = await GetUserAsync(userId);
-
-        if (user is null)
-        {
-            return Result.Failure(new List<string> { "User doesn't exists." });
-        }
-
         var result = await _userManager.ConfirmEmailAsync((ApplicationUser)user, token);
 
         return result.ToApplicationResult();

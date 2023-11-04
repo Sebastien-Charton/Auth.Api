@@ -1,12 +1,11 @@
-﻿using Auth.Api.Application.Common.Interfaces.Identity.Services;
-using Auth.Api.Infrastructure.Data;
+﻿using Auth.Api.Infrastructure.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Auth.Api.Application.FunctionalTests;
 
-public class TestingFixture : IAsyncDisposable
+public abstract class TestingFixture : IAsyncDisposable
 {
     private readonly ITestDatabase _database = null!;
     private readonly CustomWebApplicationFactory _factory = null!;
@@ -16,20 +15,29 @@ public class TestingFixture : IAsyncDisposable
     {
         _database = TestDatabaseFactory.CreateAsync().GetAwaiter().GetResult();
 
-        _factory = new CustomWebApplicationFactory(_database.GetConnection());
+        _factory = new CustomWebApplicationFactory(_database.GetConnection(), ConfigureMocks());
 
         _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
 
         ApplicationDbContextInitialiser initialiser =
             _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
 
+        ServiceScope = _factory.Services.CreateScope();
+
         initialiser.SeedAsync().Wait();
     }
+
+    protected IServiceScope ServiceScope { get; }
 
     public async ValueTask DisposeAsync()
     {
         await _database.DisposeAsync();
         await _factory.DisposeAsync();
+    }
+
+    protected virtual ServiceDescriptor[] ConfigureMocks()
+    {
+        return Array.Empty<ServiceDescriptor>();
     }
 
     public async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
@@ -79,16 +87,5 @@ public class TestingFixture : IAsyncDisposable
         ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
         return await context.Set<TEntity>().CountAsync();
-    }
-
-    public async Task<string?> GenerateConfirmationEmail(Guid userId)
-    {
-        using IServiceScope scope = _scopeFactory.CreateScope();
-
-        var context = scope.ServiceProvider.GetRequiredService<IUserManagerService>();
-
-        var token = await context.GenerateEmailConfirmation(userId);
-
-        return token;
     }
 }

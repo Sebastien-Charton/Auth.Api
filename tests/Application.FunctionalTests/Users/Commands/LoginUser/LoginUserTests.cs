@@ -4,7 +4,7 @@ using Shared.Tests;
 
 namespace Auth.Api.Application.FunctionalTests.Users.Commands.LoginUser;
 
-public class LoginUserTests : BaseTestFixture
+public class LoginUserTests : TestingFixture
 {
     [Fact]
     public async Task LoginUser_ShouldReturnToken_WhenUserExists()

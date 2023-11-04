@@ -1,16 +1,23 @@
 ﻿using Auth.Api.Application.Users.Commands.RegisterUser;
 using Auth.Api.Application.Users.Queries.GetUserById;
+using Mailjet.Client;
+using Newtonsoft.Json.Linq;
 using Shared.Tests;
 using ValidationException = Auth.Api.Application.Common.Exceptions.ValidationException;
 
 namespace Auth.Api.Application.FunctionalTests.Users.Commands.RegisterUser;
 
-public class RegisterUserTests : BaseTestFixture
+public class RegisterUserTests : RegisterUserFixtures
 {
     [Fact]
     public async Task RegisterUser_ShouldCreateUser_WhenUserIsValid()
     {
         // Arrange
+
+        MailJetClientMock
+            .Setup(x => x.PostAsync(It.IsAny<MailjetRequest>()))
+            .ReturnsAsync(new MailjetResponse(true, 200, new JObject()));
+
         RegisterUserCommand? registerUserCommand = new Faker<RegisterUserCommand>()
             .RuleFor(x => x.PhoneNumber, f => f.Person.Phone)
             .RuleFor(x => x.Email, f => f.Person.Email)
@@ -27,6 +34,9 @@ public class RegisterUserTests : BaseTestFixture
         var getUserByIdCommand = new GetUserByIdQuery { Id = result };
         await FluentActions.Invoking(() =>
             SendAsync(getUserByIdCommand)).Should().NotThrowAsync();
+
+        MailJetClientMock
+            .Verify(x => x.PostAsync(It.IsAny<MailjetRequest>()), Times.Once);
     }
 
     [Fact]
@@ -52,6 +62,11 @@ public class RegisterUserTests : BaseTestFixture
     public async Task RegisterUser_ShouldReturnValidationException_WhenUserAlreadyExists()
     {
         // Arrange
+
+        MailJetClientMock
+            .Setup(x => x.PostAsync(It.IsAny<MailjetRequest>()))
+            .ReturnsAsync(new MailjetResponse(true, 200, new JObject()));
+
         RegisterUserCommand? registerUserCommand = new Faker<RegisterUserCommand>()
             .RuleFor(x => x.PhoneNumber, f => f.Person.Phone)
             .RuleFor(x => x.Email, f => f.Person.Email)

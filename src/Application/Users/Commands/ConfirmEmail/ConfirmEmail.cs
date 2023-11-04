@@ -1,5 +1,5 @@
 ﻿using Auth.Api.Application.Common.Interfaces.Identity.Services;
-using FluentValidation.Results;
+using Resource;
 
 namespace Auth.Api.Application.Users.Commands.ConfirmEmail;
 
@@ -20,14 +20,22 @@ public class ValidateEmailCommandHandler : IRequestHandler<ConfirmEmailCommand, 
 
     public async Task<bool> Handle(ConfirmEmailCommand request, CancellationToken cancellationToken)
     {
-        var result = await _userManagerService.ConfirmEmailAsync(request.UserId, request.Token);
+        var user = await _userManagerService.GetUserByIdAsync(request.UserId);
 
-        if (!result.Succeeded)
+        Guard.Against.NotFound(nameof(user), user);
+
+        var result = await _userManagerService.ConfirmEmailAsync(user, request.Token);
+
+        if (result.Succeeded)
         {
-            throw new ValidationException(result.Errors.Select(x =>
-                new ValidationFailure(nameof(ConfirmEmailCommand), x)));
+            return true;
         }
 
-        return true;
+        if (result.Errors.Any(x => x.Code == nameof(UserErrorMessages.InvalidToken)))
+        {
+            throw new Exception(UserErrorMessages.InvalidToken);
+        }
+
+        throw new Exception(GeneralErrorMessages.UnkownError);
     }
 }

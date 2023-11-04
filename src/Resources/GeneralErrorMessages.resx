@@ -1,4 +1,12 @@
-﻿<root>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+  <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root"
+              xmlns="">
+    <xsd:element name="root" msdata:IsDataSet="true">
+
+    </xsd:element>
+  </xsd:schema>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
   </resheader>
@@ -15,7 +23,7 @@
       PublicKeyToken=b77a5c561934e089
     </value>
   </resheader>
-  <data name="UserAlreadyExists" xml:space="preserve">
-    <value>L'utilisateur est deja existant</value>
+  <data name="UnkownError" xml:space="preserve">
+    <value>Unknown error</value>
   </data>
 </root>

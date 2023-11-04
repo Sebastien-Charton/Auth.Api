@@ -14,10 +14,12 @@ namespace Auth.Api.Application.FunctionalTests;
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
     private readonly DbConnection _connection;
+    private readonly ServiceDescriptor[] _serviceDescriptors;
 
-    public CustomWebApplicationFactory(DbConnection connection)
+    public CustomWebApplicationFactory(DbConnection connection, ServiceDescriptor[] serviceDescriptors)
     {
         _connection = connection;
+        _serviceDescriptors = serviceDescriptors;
     }
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -40,6 +42,16 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                     options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
                     options.UseNpgsql(_connection);
                 });
+
+            ConfigureTestServices(services);
         });
+    }
+
+    private void ConfigureTestServices(IServiceCollection serviceCollection)
+    {
+        foreach (var mock in _serviceDescriptors)
+        {
+            serviceCollection.Replace(mock);
+        }
     }
 }
