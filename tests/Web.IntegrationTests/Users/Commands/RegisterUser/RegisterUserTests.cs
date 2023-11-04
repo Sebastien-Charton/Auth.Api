@@ -5,7 +5,7 @@ using Mailjet.Client;
 using Newtonsoft.Json.Linq;
 using ValidationException = Auth.Api.Application.Common.Exceptions.ValidationException;
 
-namespace Auth.Api.Application.FunctionalTests.Users.Commands.RegisterUser;
+namespace Auth.Api.Web.IntegrationTests.Users.Commands.RegisterUser;
 
 public class RegisterUserTests : RegisterUserFixtures
 {

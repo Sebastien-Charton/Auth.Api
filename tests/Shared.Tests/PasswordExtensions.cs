@@ -1,7 +1,7 @@
 ﻿using Bogus;
 using Bogus.DataSets;
 
-namespace Shared.Tests;
+namespace Auth.Api.Shared.Tests;
 
 public static class PasswordExtensions
 {

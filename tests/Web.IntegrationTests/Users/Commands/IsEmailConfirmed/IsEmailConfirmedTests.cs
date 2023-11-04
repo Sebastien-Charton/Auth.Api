@@ -5,7 +5,7 @@ using Auth.Api.Application.Users.Commands.RegisterUser;
 using Auth.Api.Shared.Tests;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Auth.Api.Application.FunctionalTests.Users.Commands.IsEmailConfirmed;
+namespace Web.IntegrationTests.Users.Commands.IsEmailConfirmed;
 
 public class IsEmailConfirmedTests : TestingFixture
 {

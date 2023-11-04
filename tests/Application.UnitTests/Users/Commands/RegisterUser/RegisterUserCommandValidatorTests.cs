@@ -1,7 +1,7 @@
 ﻿using Auth.Api.Application.Users.Commands.RegisterUser;
+using Auth.Api.Shared.Tests;
 using Bogus;
 using FluentAssertions;
-using Shared.Tests;
 using Xunit;
 
 namespace Auth.Api.Application.UnitTests.Users.Commands.RegisterUser;

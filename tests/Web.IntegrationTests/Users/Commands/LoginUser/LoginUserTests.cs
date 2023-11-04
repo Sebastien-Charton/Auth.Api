@@ -1,8 +1,9 @@
 ﻿using Auth.Api.Application.Users.Commands.LoginUser;
 using Auth.Api.Application.Users.Commands.RegisterUser;
 using Auth.Api.Shared.Tests;
+using Web.IntegrationTests;
 
-namespace Auth.Api.Application.FunctionalTests.Users.Commands.LoginUser;
+namespace Auth.Api.Web.IntegrationTests.Users.Commands.LoginUser;
 
 public class LoginUserTests : TestingFixture
 {
