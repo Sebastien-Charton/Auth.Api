@@ -34,24 +34,24 @@
     <PackageReference Include="ZymLabs.NSwag.FluentValidation.AspNetCore"/>
   </ItemGroup>
 
-    <ItemGroup>
-      <None Update="config.nswag">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-    </ItemGroup>
+  <ItemGroup>
+    <None Update="config.nswag">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
-    <!-- Auto-generated Open API specification and Angular TypeScript clients -->
-    <PropertyGroup>
-      <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    </PropertyGroup>
+  <!-- Auto-generated Open API specification and Angular TypeScript clients -->
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
 
-    <Target Name="NSwag" AfterTargets="PostBuildEvent" Condition=" '$(Configuration)' == 'Debug' And '$(SkipNSwag)' != 'True' ">
-      <Exec ConsoleToMSBuild="true" ContinueOnError="true" WorkingDirectory="$(ProjectDir)" EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Build" Command="$(NSwagExe_Net70) run config.nswag /variables:Configuration=$(Configuration)">
-        <Output TaskParameter="ExitCode" PropertyName="NSwagExitCode"/>
-        <Output TaskParameter="ConsoleOutput" PropertyName="NSwagOutput"/>
-      </Exec>
+  <Target Name="NSwag" AfterTargets="PostBuildEvent" Condition=" '$(Configuration)' == 'Debug' And '$(SkipNSwag)' != 'True' ">
+    <Exec ConsoleToMSBuild="true" ContinueOnError="true" WorkingDirectory="$(ProjectDir)" EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Build" Command="$(NSwagExe_Net70) run config.nswag /variables:Configuration=$(Configuration)">
+      <Output TaskParameter="ExitCode" PropertyName="NSwagExitCode"/>
+      <Output TaskParameter="ConsoleOutput" PropertyName="NSwagOutput"/>
+    </Exec>
 
-      <Message Text="$(NSwagOutput)" Condition="'$(NSwagExitCode)' == '0'" Importance="low"/>
-      <Error Text="$(NSwagOutput)" Condition="'$(NSwagExitCode)' != '0'"/>
-    </Target>
+    <Message Text="$(NSwagOutput)" Condition="'$(NSwagExitCode)' == '0'" Importance="low"/>
+    <Error Text="$(NSwagOutput)" Condition="'$(NSwagExitCode)' != '0'"/>
+  </Target>
 </Project>
