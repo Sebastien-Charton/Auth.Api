@@ -3,7 +3,7 @@ using NSwag;
 using NSwag.Generation.Processors;
 using NSwag.Generation.Processors.Contexts;
 
-namespace Auth.Api.Web.Infrastructure;
+namespace Auth.Api.Web.Infrastructure.SwaggerFilters;
 
 public class AcceptedLanguageOperationFilter : IOperationProcessor
 {

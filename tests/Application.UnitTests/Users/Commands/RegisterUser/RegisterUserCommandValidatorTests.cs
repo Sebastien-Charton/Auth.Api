@@ -36,7 +36,7 @@ public class RegisterUserCommandValidatorTests
     {
         // Arrange
 
-        var registerUserCommand = new RegisterUserCommand()
+        var registerUserCommand = new RegisterUserCommand
         {
             Email = "", Password = "", UserName = "", PhoneNumber = ""
         };

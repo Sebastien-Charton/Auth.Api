@@ -85,7 +85,9 @@ public class UserManagerService : IUserManagerService
         ApplicationUser? user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
 
         if (user is null)
+        {
             return false;
+        }
 
         ClaimsPrincipal principal = await _userClaimsPrincipalFactory.CreateAsync(user);
 
@@ -119,7 +121,9 @@ public class UserManagerService : IUserManagerService
         var user = await GetUserAsync(userId);
 
         if (user is null)
+        {
             return null;
+        }
 
         return await _userManager.GenerateEmailConfirmationTokenAsync((ApplicationUser)user);
     }

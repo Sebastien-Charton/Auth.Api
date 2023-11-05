@@ -7,6 +7,7 @@ namespace Auth.Api.Web.IntegrationTests;
 
 public abstract class TestingFixture : IAsyncDisposable
 {
+    public static readonly string BaseUri = "http://localhost/api/";
     private readonly ITestDatabase _database = null!;
     private readonly CustomWebApplicationFactory _factory = null!;
     private readonly IServiceScopeFactory _scopeFactory = null!;
@@ -17,6 +18,7 @@ public abstract class TestingFixture : IAsyncDisposable
 
         _factory = new CustomWebApplicationFactory(_database.GetConnection(), ConfigureMocks());
 
+        HttpClient = _factory.CreateClient();
         _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
 
         ApplicationDbContextInitialiser initialiser =
@@ -26,6 +28,8 @@ public abstract class TestingFixture : IAsyncDisposable
 
         initialiser.SeedAsync().Wait();
     }
+
+    public HttpClient HttpClient { get; private set; }
 
     protected IServiceScope ServiceScope { get; }
 

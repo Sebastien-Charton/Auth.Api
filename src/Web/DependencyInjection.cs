@@ -1,5 +1,6 @@
 ﻿using Auth.Api.Application.Common.Interfaces;
 using Auth.Api.Infrastructure.Data;
+using Auth.Api.Web.Infrastructure.SwaggerFilters;
 using Auth.Api.Web.Services;
 using Azure.Identity;
 using Microsoft.AspNetCore.Mvc;

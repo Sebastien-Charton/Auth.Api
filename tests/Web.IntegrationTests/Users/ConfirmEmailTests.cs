@@ -1,13 +1,15 @@
-﻿using Auth.Api.Application.Common.Interfaces.Identity.Services;
+﻿using System.Net;
+using System.Net.Http.Json;
+using Auth.Api.Application.Common.Interfaces.Identity.Services;
 using Auth.Api.Application.Users.Commands.ConfirmEmail;
 using Auth.Api.Application.Users.Commands.RegisterUser;
 using Auth.Api.Shared.Tests;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using Resource;
 
-namespace Auth.Api.Web.IntegrationTests.Users.Commands.ConfirmEmail;
+namespace Auth.Api.Web.IntegrationTests.Users;
 
-public class ConfirmEmailTests : TestingFixture
+public class ConfirmEmailTests : UserEndpointsFixtures
 {
     [Fact]
     public async Task ConfirmationEmail_ShouldConfirmEmail_WhenUserExists()
@@ -20,24 +22,29 @@ public class ConfirmEmailTests : TestingFixture
             .RuleFor(x => x.Password, f => f.Internet.GeneratePassword())
             .Generate();
 
-        var userId = await SendAsync(registerUserCommand);
+        var createUserResult =
+            await HttpClient.PostAsJsonAsync(RegisterUserUri, registerUserCommand);
+
+        var userId = await createUserResult.Content.ReadFromJsonAsync<Guid>();
 
         var userManagerService = ServiceScope.ServiceProvider.GetRequiredService<IUserManagerService>();
 
         var emailConfirmationToken = await userManagerService.GenerateEmailConfirmationToken(userId);
 
-        emailConfirmationToken.Should().NotBeNull();
         emailConfirmationToken.Should().NotBeEmpty();
 
         var confirmEmailCommand = new ConfirmEmailCommand { Token = emailConfirmationToken!, UserId = userId };
 
         // Act
 
-        var emailConfirmationResult = await SendAsync(confirmEmailCommand);
+        var emailConfirmationResult =
+            await HttpClient.PostAsJsonAsync(ConfirmEmailUri, confirmEmailCommand);
+
+        var isConfirmed = await emailConfirmationResult.Content.ReadFromJsonAsync<bool>();
 
         // Assert
 
-        emailConfirmationResult.Should().BeTrue();
+        isConfirmed.Should().BeTrue();
     }
 
     [Fact]
@@ -55,11 +62,12 @@ public class ConfirmEmailTests : TestingFixture
 
         // Act
 
+        var emailConfirmationResult =
+            await HttpClient.PostAsJsonAsync(ConfirmEmailUri, confirmEmailCommand);
+
         // Assert
 
-        await FluentActions
-            .Invoking(() => SendAsync(confirmEmailCommand))
-            .Should().ThrowAsync<NotFoundException>();
+        emailConfirmationResult.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
     [Fact]
@@ -79,10 +87,15 @@ public class ConfirmEmailTests : TestingFixture
 
         // Act
 
+        var emailConfirmationResult =
+            await HttpClient.PostAsJsonAsync(ConfirmEmailUri, confirmEmailCommand);
+
         // Assert
 
-        await FluentActions.Invoking(() =>
-                SendAsync(confirmEmailCommand))
-            .Should().ThrowAsync<Exception>(UserErrorMessages.InvalidToken);
+        emailConfirmationResult.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+        var problemDetails = await emailConfirmationResult.Content.ReadFromJsonAsync<ProblemDetails>();
+
+        problemDetails!.Status.Should().Be(400);
     }
 }
