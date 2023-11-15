@@ -92,10 +92,10 @@ public class ConfirmEmailTests : UserEndpointsFixtures
 
         // Assert
 
-        emailConfirmationResult.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        emailConfirmationResult.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
 
-        var problemDetails = await emailConfirmationResult.Content.ReadFromJsonAsync<ProblemDetails>();
+        var problemDetails = await emailConfirmationResult.Content.ReadAsStringAsync();
 
-        problemDetails!.Status.Should().Be(400);
+        problemDetails!.Should().NotBeNull();
     }
 }

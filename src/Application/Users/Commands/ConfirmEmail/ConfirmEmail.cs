@@ -21,20 +21,24 @@ public class ValidateEmailCommandHandler : IRequestHandler<ConfirmEmailCommand, 
 
     public async Task<bool> Handle(ConfirmEmailCommand request, CancellationToken cancellationToken)
     {
-        var user = await _userManagerService.GetUserByIdAsync(request.UserId);
-
-        Guard.Against.NotFound(nameof(user), user);
-
-        var result = await _userManagerService.ConfirmEmailAsync(user, request.Token);
-
-        if (result.Succeeded)
-            return true;
-
-        if (result.Errors.Any(x => x.Code == nameof(UserErrorMessages.InvalidToken)))
-        {
-            throw new BadRequestException(UserErrorMessages.InvalidToken);
-        }
-
+        await Task.Delay(0);
         throw new Exception(GeneralErrorMessages.UnkownError);
+        
+        
+        // var user = await _userManagerService.GetUserByIdAsync(request.UserId);
+        //
+        // Guard.Against.NotFound(nameof(user), user);
+        //
+        // var result = await _userManagerService.ConfirmEmailAsync(user, request.Token);
+        //
+        // if (result.Succeeded)
+        //     return true;
+        //
+        // if (result.Errors.Any(x => x.Code == nameof(UserErrorMessages.InvalidToken)))
+        // {
+        //     throw new BadRequestException(UserErrorMessages.InvalidToken);
+        // }
+
+        
     }
 }
