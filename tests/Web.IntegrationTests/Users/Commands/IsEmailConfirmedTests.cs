@@ -1,26 +1,24 @@
-﻿using Auth.Api.Application.Common.Interfaces.Identity.Services;
+﻿using System.Net;
+using System.Net.Http.Json;
+using Auth.Api.Application.Common.Interfaces.Identity.Services;
 using Auth.Api.Application.Users.Commands.ConfirmEmail;
 using Auth.Api.Application.Users.Commands.IsEmailConfirmed;
 using Auth.Api.Application.Users.Commands.RegisterUser;
 using Auth.Api.Shared.Tests;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Auth.Api.Web.IntegrationTests.Users.Commands.IsEmailConfirmed;
+namespace Auth.Api.Web.IntegrationTests.Users.Commands;
 
-public class IsEmailConfirmedTests : TestingFixture
+public class IsEmailConfirmedTests : UserEndpointsFixtures
 {
     [Fact]
     public async Task IsEmailConfirmed_ShouldReturnTrue_WhenEmailIsConfirmed()
     {
         // Arrange
-        RegisterUserCommand? registerUserCommand = new Faker<RegisterUserCommand>()
-            .RuleFor(x => x.PhoneNumber, f => f.Person.Phone)
-            .RuleFor(x => x.Email, f => f.Person.Email)
-            .RuleFor(x => x.UserName, f => f.Internet.UserName())
-            .RuleFor(x => x.Password, f => f.Internet.GeneratePassword())
-            .Generate();
+        var registerUserCommand = GenerateRegisterUserCommand();
 
-        var userId = await SendAsync(registerUserCommand);
+        var createUserResponse = await HttpClient.PostAsJsonAsync(RegisterUserUri, registerUserCommand);
+        var userId = await createUserResponse.Content.ReadFromJsonAsync<Guid>();
 
         var userManagerService = ServiceScope.ServiceProvider.GetRequiredService<IUserManagerService>();
 
@@ -30,16 +28,16 @@ public class IsEmailConfirmedTests : TestingFixture
         emailConfirmationToken.Should().NotBeEmpty();
 
         var confirmEmailCommand = new ConfirmEmailCommand { Token = emailConfirmationToken!, UserId = userId };
-        var isEmailConfirmedCommand = new IsEmailConfirmedCommand { UserId = userId };
 
         // Act
 
-        var emailConfirmationResult = await SendAsync(confirmEmailCommand);
-        var isEmailConfirmedResult = await SendAsync(isEmailConfirmedCommand);
+        var emailConfirmationResponse = await HttpClient.PostAsJsonAsync(ConfirmEmailUri, confirmEmailCommand);
+        var emailConfirmationResult = await emailConfirmationResponse.Content.ReadFromJsonAsync<bool>();
 
         // Assert
 
+        emailConfirmationResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
         emailConfirmationResult.Should().BeTrue();
-        isEmailConfirmedResult.Should().BeTrue();
     }
 }

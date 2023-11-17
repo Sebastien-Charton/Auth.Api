@@ -2,6 +2,7 @@
 using Auth.Api.Application.Users.Commands.IsEmailConfirmed;
 using Auth.Api.Application.Users.Commands.LoginUser;
 using Auth.Api.Application.Users.Commands.RegisterUser;
+using Auth.Api.Application.Users.Queries.GetUserById;
 
 namespace Auth.Api.Web.Endpoints;
 
@@ -13,7 +14,9 @@ public class UsersEndpoints : EndpointGroupBase
             .MapPost(RegisterUser, "register")
             .MapPost(LoginUser, "login")
             .MapPost(ConfirmEmail, "confirm-email")
-            .MapGet(IsEmailConfirmed, "is-email-confirmed/{userId}");
+            .MapGet(IsEmailConfirmed, "is-email-confirmed/{userId}")
+            .MapGet(GetUserById, "user/{userId}");
+            
         // .MapIdentityApi<ApplicationUser>();
     }
 
@@ -36,5 +39,11 @@ public class UsersEndpoints : EndpointGroupBase
     {
         var isEmailConfirmedCommand = new IsEmailConfirmedCommand { UserId = userId };
         return await sender.Send(isEmailConfirmedCommand);
+    }
+
+    public async Task<GetUserByIdDto> GetUserById(ISender sender, Guid userId)
+    {
+        var getUserByIdQuery = new GetUserByIdQuery() { Id = userId };
+        return await sender.Send(getUserByIdQuery);
     }
 }

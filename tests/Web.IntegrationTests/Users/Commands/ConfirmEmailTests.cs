@@ -6,8 +6,9 @@ using Auth.Api.Application.Users.Commands.RegisterUser;
 using Auth.Api.Shared.Tests;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Resource;
 
-namespace Auth.Api.Web.IntegrationTests.Users;
+namespace Auth.Api.Web.IntegrationTests.Users.Commands;
 
 public class ConfirmEmailTests : UserEndpointsFixtures
 {
@@ -15,12 +16,7 @@ public class ConfirmEmailTests : UserEndpointsFixtures
     public async Task ConfirmationEmail_ShouldConfirmEmail_WhenUserExists()
     {
         // Arrange
-        RegisterUserCommand? registerUserCommand = new Faker<RegisterUserCommand>()
-            .RuleFor(x => x.PhoneNumber, f => f.Person.Phone)
-            .RuleFor(x => x.Email, f => f.Person.Email)
-            .RuleFor(x => x.UserName, f => f.Internet.UserName())
-            .RuleFor(x => x.Password, f => f.Internet.GeneratePassword())
-            .Generate();
+        var registerUserCommand = GenerateRegisterUserCommand();
 
         var createUserResult =
             await HttpClient.PostAsJsonAsync(RegisterUserUri, registerUserCommand);
@@ -51,13 +47,6 @@ public class ConfirmEmailTests : UserEndpointsFixtures
     public async Task ConfirmationEmail_ShouldThrowError_WhenUserDoesntExists()
     {
         // Arrange
-        RegisterUserCommand? registerUserCommand = new Faker<RegisterUserCommand>()
-            .RuleFor(x => x.PhoneNumber, f => f.Person.Phone)
-            .RuleFor(x => x.Email, f => f.Person.Email)
-            .RuleFor(x => x.UserName, f => f.Internet.UserName())
-            .RuleFor(x => x.Password, f => f.Internet.GeneratePassword())
-            .Generate();
-
         var confirmEmailCommand = new ConfirmEmailCommand { Token = "token", UserId = Guid.NewGuid() };
 
         // Act
@@ -74,12 +63,7 @@ public class ConfirmEmailTests : UserEndpointsFixtures
     public async Task ConfirmationEmail_ShouldNotConfirmEmail_WhenTokenIsInvalid()
     {
         // Arrange
-        RegisterUserCommand? registerUserCommand = new Faker<RegisterUserCommand>()
-            .RuleFor(x => x.PhoneNumber, f => f.Person.Phone)
-            .RuleFor(x => x.Email, f => f.Person.Email)
-            .RuleFor(x => x.UserName, f => f.Internet.UserName())
-            .RuleFor(x => x.Password, f => f.Internet.GeneratePassword())
-            .Generate();
+        var registerUserCommand = GenerateRegisterUserCommand();
 
         var userId = await SendAsync(registerUserCommand);
 
@@ -92,10 +76,11 @@ public class ConfirmEmailTests : UserEndpointsFixtures
 
         // Assert
 
-        emailConfirmationResult.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
+        emailConfirmationResult.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
-        var problemDetails = await emailConfirmationResult.Content.ReadAsStringAsync();
+        var problemDetails = await emailConfirmationResult.Content.ReadFromJsonAsync<ProblemDetails>();
 
         problemDetails!.Should().NotBeNull();
+        problemDetails!.Detail.Should().Be(UserErrorMessages.InvalidToken);
     }
 }

@@ -17,7 +17,8 @@ public class CustomExceptionHandler : IExceptionHandler
             { typeof(NotFoundException), HandleNotFoundException },
             { typeof(UnauthorizedAccessException), HandleUnauthorizedAccessException },
             { typeof(ForbiddenAccessException), HandleForbiddenAccessException },
-            { typeof(BadRequestException), HandleBadRequestException }
+            { typeof(BadRequestException), HandleBadRequestException },
+            { typeof(Exception), HandleException}
         };
     }
 
@@ -31,8 +32,9 @@ public class CustomExceptionHandler : IExceptionHandler
             await _exceptionHandlers[exceptionType].Invoke(httpContext, exception);
             return true;
         }
-
-        return false;
+        
+        await _exceptionHandlers[typeof(Exception)].Invoke(httpContext, exception);
+        return true;
     }
 
     private async Task HandleValidationException(HttpContext httpContext, Exception ex)
@@ -94,7 +96,20 @@ public class CustomExceptionHandler : IExceptionHandler
         {
             Status = StatusCodes.Status400BadRequest,
             Title = "Bad Request",
-            Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1"
+            Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+            Detail = ex.Message
+        });
+    }
+    
+    private async Task HandleException(HttpContext httpContext, Exception ex)
+    {
+        httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
+
+        await httpContext.Response.WriteAsJsonAsync(new ProblemDetails()
+        {
+            Status = StatusCodes.Status500InternalServerError,
+            Type = "https://tools.ietf.org/html/rfc7231#section-6.6.1",
+            Title = "Internal Server Error"
         });
     }
 }

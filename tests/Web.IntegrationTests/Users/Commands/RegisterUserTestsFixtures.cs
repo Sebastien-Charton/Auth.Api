@@ -1,11 +1,12 @@
-﻿using Mailjet.Client;
+﻿using Auth.Api.Infrastructure.Options;
+using Mailjet.Client;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Auth.Api.Web.IntegrationTests.Users.Commands.RegisterUser;
+namespace Auth.Api.Web.IntegrationTests.Users.Commands;
 
-public class RegisterUserFixtures : TestingFixture
+public class RegisterUserTestsFixtures : UserEndpointsFixtures
 {
-    protected RegisterUserFixtures()
+    protected RegisterUserTestsFixtures()
     {
         MailJetClientMock = new Mock<IMailjetClient>();
     }

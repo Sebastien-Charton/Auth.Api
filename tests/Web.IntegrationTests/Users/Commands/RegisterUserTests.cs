@@ -1,13 +1,17 @@
-﻿using Auth.Api.Application.Users.Commands.RegisterUser;
+﻿using System.Net;
+using System.Net.Http.Json;
+using Auth.Api.Application.Users.Commands.RegisterUser;
 using Auth.Api.Application.Users.Queries.GetUserById;
 using Auth.Api.Shared.Tests;
 using Mailjet.Client;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using Resource;
 using ValidationException = Auth.Api.Application.Common.Exceptions.ValidationException;
 
-namespace Auth.Api.Web.IntegrationTests.Users.Commands.RegisterUser;
+namespace Auth.Api.Web.IntegrationTests.Users.Commands;
 
-public class RegisterUserTests : RegisterUserFixtures
+public class RegisterUserTests : RegisterUserTestsFixtures
 {
     [Fact]
     public async Task RegisterUser_ShouldCreateUser_WhenUserIsValid()
@@ -18,22 +22,23 @@ public class RegisterUserTests : RegisterUserFixtures
             .Setup(x => x.PostAsync(It.IsAny<MailjetRequest>()))
             .ReturnsAsync(new MailjetResponse(true, 200, new JObject()));
 
-        RegisterUserCommand? registerUserCommand = new Faker<RegisterUserCommand>()
-            .RuleFor(x => x.PhoneNumber, f => f.Person.Phone)
-            .RuleFor(x => x.Email, f => f.Person.Email)
-            .RuleFor(x => x.UserName, f => f.Internet.UserName())
-            .RuleFor(x => x.Password, f => f.Internet.GeneratePassword())
-            .Generate();
+        var registerUserCommand = GenerateRegisterUserCommand();
 
         // Act
 
-        var result = await SendAsync(registerUserCommand);
-
+        var registerUserResponse = await HttpClient.PostAsJsonAsync(RegisterUserUri, registerUserCommand);
+        var registerUserResult = await registerUserResponse.Content.ReadFromJsonAsync<Guid>();
         // Assert
 
-        var getUserByIdCommand = new GetUserByIdQuery { Id = result };
-        await FluentActions.Invoking(() =>
-            SendAsync(getUserByIdCommand)).Should().NotThrowAsync();
+        registerUserResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var getUserByIdResponse =
+            await HttpClient.GetAsync(GetUserByIdUri + "/" + registerUserResult);
+        var getUserByIdResult = await getUserByIdResponse.Content.ReadFromJsonAsync<GetUserByIdDto>();
+        
+        getUserByIdResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+        getUserByIdResult!.UserName.Should().Be(registerUserCommand.UserName);
+        getUserByIdResult.Email.Should().Be(registerUserCommand.Email);
 
         MailJetClientMock
             .Verify(x => x.PostAsync(It.IsAny<MailjetRequest>()), Times.Once);
@@ -43,19 +48,16 @@ public class RegisterUserTests : RegisterUserFixtures
     public async Task RegisterUser_ShouldReturnValidationException_WhenUserIsInvalid()
     {
         // Arrange
-        RegisterUserCommand? registerUserCommand = new Faker<RegisterUserCommand>()
-            .RuleFor(x => x.PhoneNumber, f => f.Person.Phone)
-            .RuleFor(x => x.Email, f => f.Person.FirstName)
-            .RuleFor(x => x.UserName, f => f.Internet.UserName())
-            .RuleFor(x => x.Password, f => f.Internet.GeneratePassword())
-            .Generate();
+        var registerUserCommand = GenerateRegisterUserCommand();
 
         // Act
-
+        var registerUserResponse = await HttpClient.PostAsJsonAsync(RegisterUserUri, registerUserCommand);
+        var registerUserResult = await registerUserResponse.Content.ReadFromJsonAsync<ValidationProblemDetails>();
+        
         // Assert
+        registerUserResponse.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
-        await FluentActions.Invoking(() =>
-            SendAsync(registerUserCommand)).Should().ThrowAsync<ValidationException>();
+        registerUserResult!.Errors.Count.Should().BeGreaterThan(0);
     }
 
     [Fact]
@@ -67,21 +69,19 @@ public class RegisterUserTests : RegisterUserFixtures
             .Setup(x => x.PostAsync(It.IsAny<MailjetRequest>()))
             .ReturnsAsync(new MailjetResponse(true, 200, new JObject()));
 
-        RegisterUserCommand? registerUserCommand = new Faker<RegisterUserCommand>()
-            .RuleFor(x => x.PhoneNumber, f => f.Person.Phone)
-            .RuleFor(x => x.Email, f => f.Person.Email)
-            .RuleFor(x => x.UserName, f => f.Internet.UserName())
-            .RuleFor(x => x.Password, f => f.Internet.GeneratePassword())
-            .Generate();
+        var registerUserCommand = GenerateRegisterUserCommand();
 
+        await HttpClient.PostAsJsonAsync(RegisterUserUri, registerUserCommand);
+        
         // Act
-
-        Guid result = await SendAsync(registerUserCommand);
-
+        var registerUserResponse = await HttpClient.PostAsJsonAsync(RegisterUserUri, registerUserCommand);
+        var registerUserResult = await registerUserResponse.Content.ReadFromJsonAsync<ValidationProblemDetails>();
+        
         // Assert
+        registerUserResponse.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
-        await FluentActions.Invoking(() =>
-                SendAsync(registerUserCommand)).Should()
-            .ThrowAsync<ValidationException>();
+        registerUserResult!.Errors.Count.Should().BeGreaterThan(0);
+        registerUserResult!.Errors.Should().ContainValue(new []{UserErrorMessages.EmailAlreadyExists});
+        registerUserResult!.Errors.Should().ContainValue(new []{UserErrorMessages.UserNameAlreadyExists});
     }
 }
