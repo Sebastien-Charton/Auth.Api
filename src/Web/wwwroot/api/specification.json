@@ -6,10 +6,10 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/api/EnvironmentEndpoints": {
+    "/api/Environment": {
       "get": {
         "tags": [
-          "EnvironmentEndpoints"
+          "Environment"
         ],
         "operationId": "GetEnvironment",
         "parameters": [
@@ -46,10 +46,10 @@
         }
       }
     },
-    "/api/TodoItemsEndpoints": {
+    "/api/TodoItem": {
       "get": {
         "tags": [
-          "TodoItemsEndpoints"
+          "TodoItem"
         ],
         "operationId": "GetTodoItemsWithPagination",
         "parameters": [
@@ -117,7 +117,7 @@
       },
       "post": {
         "tags": [
-          "TodoItemsEndpoints"
+          "TodoItem"
         ],
         "operationId": "CreateTodoItem",
         "parameters": [
@@ -168,10 +168,10 @@
         }
       }
     },
-    "/api/TodoItemsEndpoints/{id}": {
+    "/api/TodoItem/{id}": {
       "put": {
         "tags": [
-          "TodoItemsEndpoints"
+          "TodoItem"
         ],
         "operationId": "UpdateTodoItem",
         "parameters": [
@@ -225,7 +225,7 @@
       },
       "delete": {
         "tags": [
-          "TodoItemsEndpoints"
+          "TodoItem"
         ],
         "operationId": "DeleteTodoItem",
         "parameters": [
@@ -265,10 +265,10 @@
         }
       }
     },
-    "/api/TodoItemsEndpoints/UpdateDetail/{id}": {
+    "/api/TodoItem/UpdateDetail/{id}": {
       "put": {
         "tags": [
-          "TodoItemsEndpoints"
+          "TodoItem"
         ],
         "operationId": "UpdateTodoItemDetail",
         "parameters": [
@@ -321,10 +321,10 @@
         }
       }
     },
-    "/api/TodoListsEndpoints": {
+    "/api/TodoList": {
       "get": {
         "tags": [
-          "TodoListsEndpoints"
+          "TodoList"
         ],
         "operationId": "GetTodoLists",
         "parameters": [
@@ -362,7 +362,7 @@
       },
       "post": {
         "tags": [
-          "TodoListsEndpoints"
+          "TodoList"
         ],
         "operationId": "CreateTodoList",
         "parameters": [
@@ -413,10 +413,10 @@
         }
       }
     },
-    "/api/TodoListsEndpoints/{id}": {
+    "/api/TodoList/{id}": {
       "put": {
         "tags": [
-          "TodoListsEndpoints"
+          "TodoList"
         ],
         "operationId": "UpdateTodoList",
         "parameters": [
@@ -470,7 +470,7 @@
       },
       "delete": {
         "tags": [
-          "TodoListsEndpoints"
+          "TodoList"
         ],
         "operationId": "DeleteTodoList",
         "parameters": [
@@ -510,10 +510,10 @@
         }
       }
     },
-    "/api/UsersEndpoints/register": {
+    "/api/User/register": {
       "post": {
         "tags": [
-          "UsersEndpoints"
+          "User"
         ],
         "operationId": "RegisterUser",
         "parameters": [
@@ -550,7 +550,7 @@
           "x-position": 1
         },
         "responses": {
-          "200": {
+          "201": {
             "description": "",
             "content": {
               "application/json": {
@@ -560,14 +560,24 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
           }
         }
       }
     },
-    "/api/UsersEndpoints/login": {
+    "/api/User/login": {
       "post": {
         "tags": [
-          "UsersEndpoints"
+          "User"
         ],
         "operationId": "LoginUser",
         "parameters": [
@@ -613,14 +623,24 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
     },
-    "/api/UsersEndpoints/confirm-email": {
+    "/api/User/confirm-email": {
       "post": {
         "tags": [
-          "UsersEndpoints"
+          "User"
         ],
         "operationId": "ConfirmEmail",
         "parameters": [
@@ -666,14 +686,34 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
     },
-    "/api/UsersEndpoints/is-email-confirmed/{userId}": {
+    "/api/User/is-email-confirmed/{userId}": {
       "get": {
         "tags": [
-          "UsersEndpoints"
+          "User"
         ],
         "operationId": "IsEmailConfirmed",
         "parameters": [
@@ -716,14 +756,34 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
     },
-    "/api/UsersEndpoints/user/{userId}": {
+    "/api/User/{userId}": {
       "get": {
         "tags": [
-          "UsersEndpoints"
+          "User"
         ],
         "operationId": "GetUserById",
         "parameters": [
@@ -762,7 +822,27 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetUserByIdDto"
+                  "$ref": "#/components/schemas/GetUserByIdResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -1030,14 +1110,90 @@
           }
         }
       },
+      "ValidationProblemDetails": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/HttpValidationProblemDetails"
+          },
+          {
+            "type": "object",
+            "additionalProperties": {
+              "nullable": true
+            },
+            "properties": {
+              "errors": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "HttpValidationProblemDetails": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ProblemDetails"
+          },
+          {
+            "type": "object",
+            "additionalProperties": {
+              "nullable": true
+            },
+            "properties": {
+              "errors": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "additionalProperties": {
+          "nullable": true
+        },
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
       "RegisterUserCommand": {
         "type": "object",
         "additionalProperties": false,
         "required": [
           "email",
           "password",
-          "userName",
-          "phoneNumber"
+          "userName"
         ],
         "properties": {
           "email": {
@@ -1058,11 +1214,6 @@
             "minLength": 1,
             "pattern": "^[\\w.-]+$",
             "nullable": false
-          },
-          "phoneNumber": {
-            "type": "string",
-            "minLength": 1,
-            "nullable": false
           }
         }
       },
@@ -1078,12 +1229,21 @@
       "LoginUserCommand": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "email",
+          "password"
+        ],
         "properties": {
           "email": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[^@]+@[^@]+$",
+            "nullable": false
           },
           "password": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1,
+            "nullable": false
           }
         }
       },
@@ -1108,7 +1268,7 @@
           }
         }
       },
-      "GetUserByIdDto": {
+      "GetUserByIdResponse": {
         "type": "object",
         "additionalProperties": false,
         "properties": {

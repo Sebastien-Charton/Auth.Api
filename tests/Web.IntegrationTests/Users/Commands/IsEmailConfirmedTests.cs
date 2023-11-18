@@ -2,9 +2,6 @@
 using System.Net.Http.Json;
 using Auth.Api.Application.Common.Interfaces.Identity.Services;
 using Auth.Api.Application.Users.Commands.ConfirmEmail;
-using Auth.Api.Application.Users.Commands.IsEmailConfirmed;
-using Auth.Api.Application.Users.Commands.RegisterUser;
-using Auth.Api.Shared.Tests;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Auth.Api.Web.IntegrationTests.Users.Commands;
@@ -33,11 +30,15 @@ public class IsEmailConfirmedTests : UserEndpointsFixtures
 
         var emailConfirmationResponse = await HttpClient.PostAsJsonAsync(ConfirmEmailUri, confirmEmailCommand);
         var emailConfirmationResult = await emailConfirmationResponse.Content.ReadFromJsonAsync<bool>();
-
+        var isEmailConfirmedResponse = await HttpClient.GetAsync(IsEmailConfirmedUri + "/" + userId);
+        var isEmailConfirmedResult = await isEmailConfirmedResponse.Content.ReadFromJsonAsync<bool>();
         // Assert
 
         emailConfirmationResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
         emailConfirmationResult.Should().BeTrue();
+
+        isEmailConfirmedResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+        isEmailConfirmedResult.Should().BeTrue();
     }
 }

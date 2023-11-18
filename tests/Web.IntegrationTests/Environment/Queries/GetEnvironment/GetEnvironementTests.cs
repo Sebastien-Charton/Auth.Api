@@ -9,7 +9,7 @@ public class GetEnvironementTests : TestingFixture
     public async Task GetEnvironmentTests()
     {
         var result =
-            await HttpClient.GetFromJsonAsync<GetEnvironmentDto>(new Uri("http://localhost/api/EnvironmentEndpoints"),
+            await HttpClient.GetFromJsonAsync<GetEnvironmentDto>(new Uri("http://localhost/api/Environment"),
                 CancellationToken.None);
 
         result.Should().NotBeNull();

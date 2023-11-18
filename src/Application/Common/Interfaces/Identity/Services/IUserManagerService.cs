@@ -12,7 +12,7 @@ public interface IUserManagerService
     Task<bool> AuthorizeAsync(Guid userId, string policyName);
 
     Task<(Result Result, Guid userId)> CreateUserAsync(string userName, string password, string email,
-        string phoneNumber);
+        string? phoneNumber);
 
     Task<Result> DeleteUserAsync(Guid userId);
     Task<List<string>> GetUserRolesAsync(IApplicationUser user);

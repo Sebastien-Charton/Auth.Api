@@ -5,7 +5,7 @@ using Auth.Api.Application.TodoLists.Queries.GetTodos;
 
 namespace Auth.Api.Web.Endpoints;
 
-public class TodoListsEndpoints : EndpointGroupBase
+public class TodoList : EndpointGroupBase
 {
     public override void Map(WebApplication app)
     {

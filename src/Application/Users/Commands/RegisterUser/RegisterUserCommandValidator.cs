@@ -20,8 +20,5 @@ public class RegisterUserCommandValidator : AbstractValidator<RegisterUserComman
             .MinimumLength(3)
             .MaximumLength(64)
             .Matches(@"^[\w.-]+$").WithMessage("UserName must contain only letters or number or . -");
-
-        RuleFor(x => x.PhoneNumber)
-            .NotEmpty();
     }
 }

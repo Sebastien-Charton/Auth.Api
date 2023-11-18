@@ -2,7 +2,7 @@
 
 namespace Auth.Api.Application.Users.Queries.GetUserById;
 
-public class GetUserByIdDto
+public class GetUserByIdResponse
 {
     public Guid Id { get; init; }
 
@@ -13,7 +13,7 @@ public class GetUserByIdDto
     {
         public Mapping()
         {
-            CreateMap<IApplicationUser, GetUserByIdDto>();
+            CreateMap<IApplicationUser, GetUserByIdResponse>();
         }
     }
 }

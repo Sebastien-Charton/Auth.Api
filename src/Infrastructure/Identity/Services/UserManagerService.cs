@@ -48,7 +48,7 @@ public class UserManagerService : IUserManagerService
 
     public async Task<bool> IsEmailExists(string userName)
     {
-        var user = await _userManager.FindByNameAsync(userName);
+        var user = await _userManager.FindByEmailAsync(userName);
 
         return user is not null;
     }
@@ -64,7 +64,7 @@ public class UserManagerService : IUserManagerService
     }
 
     public async Task<(Result Result, Guid userId)> CreateUserAsync(string userName, string password, string email,
-        string phoneNumber)
+        string? phoneNumber)
     {
         ApplicationUser user = new() { UserName = userName, Email = email, PhoneNumber = phoneNumber };
 

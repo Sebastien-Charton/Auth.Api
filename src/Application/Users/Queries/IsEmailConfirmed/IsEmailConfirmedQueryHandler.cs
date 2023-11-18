@@ -1,22 +1,22 @@
 ﻿using Auth.Api.Application.Common.Interfaces.Identity.Services;
 
-namespace Auth.Api.Application.Users.Commands.IsEmailConfirmed;
+namespace Auth.Api.Application.Users.Queries.IsEmailConfirmed;
 
-public record IsEmailConfirmedCommand : IRequest<bool>
+public record IsEmailConfirmedQuery : IRequest<bool>
 {
     public Guid UserId { get; set; }
 }
 
-public class ValidateEmailCommandHandler : IRequestHandler<IsEmailConfirmedCommand, bool>
+public class ValidateEmailQueryHandler : IRequestHandler<IsEmailConfirmedQuery, bool>
 {
     private readonly IUserManagerService _userManagerService;
 
-    public ValidateEmailCommandHandler(IUserManagerService userManagerService)
+    public ValidateEmailQueryHandler(IUserManagerService userManagerService)
     {
         _userManagerService = userManagerService;
     }
 
-    public async Task<bool> Handle(IsEmailConfirmedCommand request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(IsEmailConfirmedQuery request, CancellationToken cancellationToken)
     {
         var user = await _userManagerService.GetUserByIdAsync(request.UserId);
 
