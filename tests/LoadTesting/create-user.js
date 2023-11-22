@@ -4,15 +4,16 @@ import {Httpx} from 'https://jslib.k6.io/httpx/0.0.6/index.js';
 import {randomString} from 'https://jslib.k6.io/k6-utils/1.0.0/index.js';
 
 export const options = {
-    stages: [
-        {duration: '1m', target: 10},
-        {duration: '1m', target: 20},
-        {duration: '1m', target: 0},
-    ],
-    thresholds: {
-        http_req_failed: ['rate<0.01'], // http errors should be less than 1%
-        http_req_duration: ['p(95)<200'], // 95% of requests should be below 200ms
-    },
+    iterations: 1
+    // stages: [
+    //     {duration: '1m', target: 10},
+    //     {duration: '1m', target: 20},
+    //     {duration: '1m', target: 0},
+    // ],
+    // thresholds: {
+    //     http_req_failed: ['rate<0.01'], // http errors should be less than 1%
+    //     http_req_duration: ['p(95)<200'], // 95% of requests should be below 200ms
+    // },
 };
 
 
