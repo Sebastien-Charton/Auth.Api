@@ -1,12 +1,15 @@
 ﻿using System.Reflection;
 using Auth.Api.Application.Common.Behaviours;
+using Auth.Api.Application.Common.Options;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Auth.Api.Application;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services,
+        IConfiguration configuration)
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
@@ -20,6 +23,12 @@ public static class DependencyInjection
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));
         });
+
+        services
+            .AddOptionsWithValidateOnStart<FeatureOptions>()
+            .Configure(sendGridOptions =>
+                configuration.Bind(nameof(FeatureOptions), sendGridOptions))
+            .ValidateOnStart();
 
         return services;
     }

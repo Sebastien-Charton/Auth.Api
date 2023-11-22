@@ -21,7 +21,7 @@ builder.Host.UseSerilog(Serilogger.Configure);
 
 builder.Services.AddKeyVaultIfConfigured(builder.Configuration);
 
-builder.Services.AddApplicationServices();
+builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddWebServices();
 
