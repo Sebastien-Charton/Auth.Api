@@ -82,9 +82,7 @@ app.MapEndpoints();
 
 app.Run();
 
-namespace Auth.Api.Web
+// ReSharper disable once ClassNeverInstantiated.Global
+public partial class Program
 {
-    public class Program
-    {
-    }
 }
