@@ -149,6 +149,38 @@ public class UserManagerService : IUserManagerService
         return result;
     }
 
+    public async Task<Result> UpdateUserAsync(IApplicationUser user)
+    {
+        var result = await _userManager.UpdateAsync((ApplicationUser)user);
+
+        return result.ToApplicationResult();
+    }
+
+    public async Task<string> GenerateResetPasswordTokenAsync(IApplicationUser user)
+    {
+        return await _userManager.GeneratePasswordResetTokenAsync((ApplicationUser)user);
+    }
+
+    public async Task<Result> ResetPasswordAsync(IApplicationUser user, string token, string newPassword)
+    {
+        var result = await _userManager.ResetPasswordAsync((ApplicationUser)user, token, newPassword);
+
+        return result.ToApplicationResult();
+    }
+
+    public async Task<Result> ChangePasswordAsync(IApplicationUser user, string currentPassword, string newPassword)
+    {
+        var result = await _userManager.ChangePasswordAsync((ApplicationUser)user, currentPassword, newPassword);
+        return result.ToApplicationResult();
+    }
+
+    public async Task<Result> RemovePasswordAsync(IApplicationUser user)
+    {
+        var result = await _userManager.RemovePasswordAsync((ApplicationUser)user);
+
+        return result.ToApplicationResult();
+    }
+
     public async Task<IApplicationUser?> GetUserAsync(Guid userId)
     {
         return await _userManager.Users.SingleOrDefaultAsync(u => u.Id == userId);

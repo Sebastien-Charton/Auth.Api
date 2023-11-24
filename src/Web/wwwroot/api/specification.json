@@ -635,7 +635,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
       }
     },
     "/api/User/login": {

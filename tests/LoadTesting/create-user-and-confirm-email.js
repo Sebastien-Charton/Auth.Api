@@ -42,7 +42,7 @@ function createNewUser() {
         //
         // let createUserResponse = http.post(`${baseUrl}register`, JSON.stringify(createUserPayload), options);
         //
-        // expect(createUserResponse.status, 'user registered').to.equal(201);
+        // expect(createUserResult.status, 'user registered').to.equal(201);
         // expect(createUserResponse, 'user registered valid body').to.have.validJsonBody();
 
         var userId = '500b3585-d94a-4d78-8154-8a7477a992a2';

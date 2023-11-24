@@ -25,4 +25,9 @@ public interface IUserManagerService
     Task<bool> IsUserExists(Guid userId);
     Task<bool> IsEmailExists(string email);
     Task<IApplicationUser?> GetUserByIdAsync(Guid id);
+    Task<Result> UpdateUserAsync(IApplicationUser user);
+    Task<string> GenerateResetPasswordTokenAsync(IApplicationUser user);
+    Task<Result> ResetPasswordAsync(IApplicationUser user, string token, string newPassword);
+    Task<Result> ChangePasswordAsync(IApplicationUser user, string currentPassword, string newPassword);
+    Task<Result> RemovePasswordAsync(IApplicationUser user);
 }

@@ -39,7 +39,7 @@ public class User : EndpointGroupBase
         return Results.Created("register", result);
     }
 
-    [AllowAnonymous]
+    [Authorize(Policy = Policies.IsAdministrator)]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(typeof(ValidationProblemDetails), 400)]
     [EndpointDescription("Create a new user with specific roles")]
