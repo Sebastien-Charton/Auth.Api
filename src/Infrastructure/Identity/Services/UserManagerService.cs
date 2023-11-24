@@ -116,7 +116,7 @@ public class UserManagerService : IUserManagerService
         return result.ToApplicationResult();
     }
 
-    public async Task<string?> GenerateEmailConfirmationToken(Guid userId)
+    public async Task<string?> GenerateEmailConfirmationTokenAsync(Guid userId)
     {
         var user = await GetUserAsync(userId);
 
@@ -135,7 +135,7 @@ public class UserManagerService : IUserManagerService
         return result.ToApplicationResult();
     }
 
-    public async Task<bool> IsEmailConfirmed(Guid userId)
+    public async Task<bool> IsEmailConfirmedAsync(Guid userId)
     {
         var user = await GetUserAsync(userId);
 

@@ -77,7 +77,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, G
 
         if (_featureOptions.Value.ActivateSendingOfConfirmationEmails)
         {
-            var token = await _userManagerService.GenerateEmailConfirmationToken(result.userId);
+            var token = await _userManagerService.GenerateEmailConfirmationTokenAsync(result.userId);
 
             var htmlContent = _htmlGenerator.GenerateConfirmationEmail(request.UserName, token!);
 

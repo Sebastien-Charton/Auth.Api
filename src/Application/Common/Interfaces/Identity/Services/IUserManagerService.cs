@@ -18,9 +18,9 @@ public interface IUserManagerService
     Task<List<string>> GetUserRolesAsync(IApplicationUser user);
     Task<Result> AddToRolesAsync(Guid userId, IEnumerable<string> roles);
     Task<IApplicationUser?> GetUserByEmailAsync(string email);
-    Task<string?> GenerateEmailConfirmationToken(Guid userId);
+    Task<string?> GenerateEmailConfirmationTokenAsync(Guid userId);
     Task<Result> ConfirmEmailAsync(IApplicationUser userId, string token);
-    Task<bool> IsEmailConfirmed(Guid userId);
+    Task<bool> IsEmailConfirmedAsync(Guid userId);
     Task<bool> IsUserNameExists(string userName);
     Task<bool> IsUserExists(Guid userId);
     Task<bool> IsEmailExists(string userName);

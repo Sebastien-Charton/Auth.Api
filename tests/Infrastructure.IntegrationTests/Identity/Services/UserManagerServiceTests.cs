@@ -1,5 +1,6 @@
 ﻿using Auth.Api.Application.Common.Interfaces.Identity.Services;
 using Auth.Api.Application.Common.Models;
+using Auth.Api.Domain.Constants;
 using Auth.Api.Shared.Tests;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -236,19 +237,119 @@ public class UserManagerServiceTests : TestingFixture
     public async Task IsInRoleAsync_ShouldReturnTrue_WhenUserIsInRole()
     {
         // Arrange
-        const string role = "Test";
-
         var createUserResponse = await CreateUser();
         var userManagerService = ServiceScope.ServiceProvider.GetRequiredService<IUserManagerService>();
 
-        await userManagerService.AddToRolesAsync(createUserResponse.userId, new[] { role });
+        await userManagerService.AddToRolesAsync(createUserResponse.userId, new[] { Roles.User });
         // Act
 
-        var response = await userManagerService.IsInRoleAsync(createUserResponse.userId, role);
+        var response = await userManagerService.IsInRoleAsync(createUserResponse.userId, Roles.User);
 
         // Assert
 
         response.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task IsInRoleAsync_ShouldReturnFalse_WhenUserIsNotInRole()
+    {
+        // Arrange
+        var createUserResponse = await CreateUser();
+        var userManagerService = ServiceScope.ServiceProvider.GetRequiredService<IUserManagerService>();
+
+        await userManagerService.AddToRolesAsync(createUserResponse.userId, new[] { Roles.User });
+        // Act
+
+        var response = await userManagerService.IsInRoleAsync(createUserResponse.userId, Roles.Administrator);
+
+        // Assert
+
+        response.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task DeleterUserAsync_ShouldReturnSuccess_WhenUserIsDeleted()
+    {
+        // Arrange
+        var createUserResponse = await CreateUser();
+        var userManagerService = ServiceScope.ServiceProvider.GetRequiredService<IUserManagerService>();
+
+        // Act
+
+        var response = await userManagerService.DeleteUserAsync(createUserResponse.userId);
+
+        // Assert
+
+        response.Succeeded.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task GenerateEmailConfirmationTokenAsync_ShouldReturnToken_WhenUserExists()
+    {
+        // Arrange
+        var createUserResponse = await CreateUser();
+        var userManagerService = ServiceScope.ServiceProvider.GetRequiredService<IUserManagerService>();
+
+        // Act
+
+        var response = await userManagerService.GenerateEmailConfirmationTokenAsync(createUserResponse.userId);
+
+        // Assert
+
+        response.Should().NotBeEmpty();
+    }
+
+    [Fact]
+    public async Task ConfirmationEmailAsync_ShouldConfirmEmail_WhenUserExists()
+    {
+        // Arrange
+        var createUserResponse = await CreateUser();
+        var userManagerService = ServiceScope.ServiceProvider.GetRequiredService<IUserManagerService>();
+        var user = await userManagerService.GetUserByIdAsync(createUserResponse.userId);
+        var token = await userManagerService.GenerateEmailConfirmationTokenAsync(createUserResponse.userId);
+
+        // Act
+
+        var response = await userManagerService.ConfirmEmailAsync(user!, token!);
+
+        // Assert
+
+        response.Succeeded.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task IsEmailConfirmedAsync_ShouldReturnTrue_WhenEmailIsConfirmed()
+    {
+        // Arrange
+        var createUserResponse = await CreateUser();
+        var userManagerService = ServiceScope.ServiceProvider.GetRequiredService<IUserManagerService>();
+        var user = await userManagerService.GetUserByIdAsync(createUserResponse.userId);
+        var token = await userManagerService.GenerateEmailConfirmationTokenAsync(createUserResponse.userId);
+        var response = await userManagerService.ConfirmEmailAsync(user!, token!);
+
+        // Act
+
+        var isEmailConfirmedResponse = await userManagerService.IsEmailConfirmedAsync(createUserResponse.userId);
+
+        // Assert
+
+        isEmailConfirmedResponse.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task IsEmailConfirmedAsync_ShouldReturnFalse_WhenEmailIsNotConfirmed()
+    {
+        // Arrange
+        var createUserResponse = await CreateUser();
+        var userManagerService = ServiceScope.ServiceProvider.GetRequiredService<IUserManagerService>();
+
+        // Act
+
+        var isEmailConfirmedResponse = await userManagerService.IsEmailConfirmedAsync(createUserResponse.userId);
+
+        // Assert
+
+        isEmailConfirmedResponse.Should().BeFalse();
     }
 
     private async Task<(string email, string userName, string password, Result result, Guid userId)> CreateUser()

@@ -22,6 +22,6 @@ public class ValidateEmailQueryHandler : IRequestHandler<IsEmailConfirmedQuery, 
 
         Guard.Against.NotFound(nameof(user), user);
 
-        return await _userManagerService.IsEmailConfirmed(request.UserId);
+        return await _userManagerService.IsEmailConfirmedAsync(request.UserId);
     }
 }

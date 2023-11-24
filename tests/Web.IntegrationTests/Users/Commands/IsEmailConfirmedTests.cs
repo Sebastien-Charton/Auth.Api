@@ -19,7 +19,7 @@ public class IsEmailConfirmedTests : UserEndpointsFixtures
 
         var userManagerService = ServiceScope.ServiceProvider.GetRequiredService<IUserManagerService>();
 
-        var emailConfirmationToken = await userManagerService.GenerateEmailConfirmationToken(userId);
+        var emailConfirmationToken = await userManagerService.GenerateEmailConfirmationTokenAsync(userId);
 
         emailConfirmationToken.Should().NotBeNull();
         emailConfirmationToken.Should().NotBeEmpty();

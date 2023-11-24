@@ -2,8 +2,6 @@
 using System.Net.Http.Json;
 using Auth.Api.Application.Common.Interfaces.Identity.Services;
 using Auth.Api.Application.Users.Commands.ConfirmEmail;
-using Auth.Api.Application.Users.Commands.RegisterUser;
-using Auth.Api.Shared.Tests;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Resource;
@@ -25,7 +23,7 @@ public class ConfirmEmailTests : UserEndpointsFixtures
 
         var userManagerService = ServiceScope.ServiceProvider.GetRequiredService<IUserManagerService>();
 
-        var emailConfirmationToken = await userManagerService.GenerateEmailConfirmationToken(userId);
+        var emailConfirmationToken = await userManagerService.GenerateEmailConfirmationTokenAsync(userId);
 
         emailConfirmationToken.Should().NotBeEmpty();
 
