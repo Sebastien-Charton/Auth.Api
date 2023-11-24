@@ -31,6 +31,6 @@ public class
             throw new Exception(GeneralErrorMessages.UnkownError);
         }
 
-        return new GetEmailConfirmationTokenResponse { Token = token };
+        return new GetEmailConfirmationTokenResponse(token);
     }
 }

@@ -2,7 +2,7 @@
 
 public class SendGridOptions
 {
-    public string ApiKey { get; set; } = null!;
-    public string FromEmail { get; set; } = null!;
-    public string FromName { get; set; } = null!;
+    public required string ApiKey { get; set; }
+    public required string FromEmail { get; set; }
+    public required string FromName { get; set; }
 }

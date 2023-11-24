@@ -2,5 +2,10 @@
 
 public class GetEmailConfirmationTokenResponse
 {
-    public string Token { get; set; } = null!;
+    public GetEmailConfirmationTokenResponse(string token)
+    {
+        Token = token;
+    }
+
+    public string Token { get; set; }
 }

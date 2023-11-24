@@ -2,5 +2,10 @@
 
 public class GetEnvironmentDto
 {
-    public string Environment { get; set; } = null!;
+    public GetEnvironmentDto(string environment)
+    {
+        Environment = environment;
+    }
+
+    public string Environment { get; set; }
 }

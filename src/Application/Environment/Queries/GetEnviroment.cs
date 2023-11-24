@@ -10,6 +10,6 @@ public class GetEnvironmentQueryHandler : IRequestHandler<GetEnvironmentQuery, G
     {
         await Task.Delay(1);
         var environment = System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")!;
-        return new GetEnvironmentDto { Environment = environment };
+        return new GetEnvironmentDto(environment);
     }
 }

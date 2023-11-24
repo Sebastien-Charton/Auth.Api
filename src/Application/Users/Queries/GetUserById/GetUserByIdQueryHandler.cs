@@ -24,6 +24,6 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, GetUser
 
         Guard.Against.NotFound(nameof(user), user);
 
-        return new GetUserByIdResponse { UserName = user.UserName!, Email = user.Email!, Id = user.Id };
+        return new GetUserByIdResponse(user.Id, user.Email!, user.UserName!);
     }
 }

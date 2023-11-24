@@ -19,7 +19,11 @@ public class MailJetServiceAgentTests
         var logger = new Mock<ILogger<MailJetServiceAgent>>();
 
         var mailJetResponse = new MailjetResponse(true, 200, new JObject());
-        var mailJetOptions = Microsoft.Extensions.Options.Options.Create(new MailJetOptions());
+        var mailJetOptions =
+            Microsoft.Extensions.Options.Options.Create(new MailJetOptions
+            {
+                ApiKey = "", ApiSecret = "", FromEmail = "", FromName = ""
+            });
 
         mailJetClient
             .Setup(x => x.PostAsync(It.IsAny<MailjetRequest>()))
