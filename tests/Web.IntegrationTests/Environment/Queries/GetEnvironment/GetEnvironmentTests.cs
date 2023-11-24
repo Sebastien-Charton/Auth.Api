@@ -3,10 +3,10 @@ using Auth.Api.Application.Environment.Queries;
 
 namespace Auth.Api.Web.IntegrationTests.Environment.Queries.GetEnvironment;
 
-public class GetEnvironementTests : TestingFixture
+public class GetEnvironmentTests : TestingFixture
 {
     [Fact]
-    public async Task GetEnvironmentTests()
+    public async Task GetEnvironment_ShouldRetrieveEnvironment_WhenEnvIsSetup()
     {
         var result =
             await HttpClient.GetFromJsonAsync<GetEnvironmentDto>(new Uri("http://localhost/api/Environment"),
