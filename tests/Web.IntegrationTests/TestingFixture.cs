@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Headers;
 using Auth.Api.Application.Users.Commands.RegisterUser;
+using Auth.Api.Application.Users.Commands.RegisterUserAdmin;
 using Auth.Api.Infrastructure.Data;
 using Auth.Api.Shared.Tests;
 using MediatR;
@@ -108,6 +109,16 @@ public abstract class TestingFixture : IAsyncDisposable
             .RuleFor(x => x.Email, f => f.Person.Email)
             .RuleFor(x => x.UserName, f => f.Internet.UserName())
             .RuleFor(x => x.Password, f => f.Internet.GeneratePassword())
+            .Generate();
+    }
+
+    protected static RegisterUserAdminCommand GenerateRegisterUserAdminCommand()
+    {
+        return new Faker<RegisterUserAdminCommand>()
+            .RuleFor(x => x.Email, f => f.Person.Email)
+            .RuleFor(x => x.UserName, f => f.Internet.UserName())
+            .RuleFor(x => x.Password, f => f.Internet.GeneratePassword())
+            .RuleFor(x => x.Roles, Array.Empty<string>())
             .Generate();
     }
 }

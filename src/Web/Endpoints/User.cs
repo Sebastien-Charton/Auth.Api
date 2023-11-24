@@ -2,6 +2,7 @@
 using Auth.Api.Application.Users.Commands.EmailConfirmationToken;
 using Auth.Api.Application.Users.Commands.LoginUser;
 using Auth.Api.Application.Users.Commands.RegisterUser;
+using Auth.Api.Application.Users.Commands.RegisterUserAdmin;
 using Auth.Api.Application.Users.Queries.GetUserById;
 using Auth.Api.Application.Users.Queries.IsEmailConfirmed;
 using Auth.Api.Application.Users.Queries.IsEmailExists;
@@ -18,6 +19,7 @@ public class User : EndpointGroupBase
     {
         app.MapGroup(this)
             .MapPost(RegisterUser, "register")
+            .MapPost(RegisterUserAdmin, "register-admin")
             .MapPost(LoginUser, "login")
             .MapPost(ConfirmEmail, "confirm-email")
             .MapGet(IsEmailConfirmed, "is-email-confirmed")
@@ -35,6 +37,16 @@ public class User : EndpointGroupBase
     {
         var result = await sender.Send(registerUserCommand);
         return Results.Created("register", result);
+    }
+
+    [AllowAnonymous]
+    [ProducesResponseType(typeof(Guid), 201)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), 400)]
+    [EndpointDescription("Create a new user with specific roles")]
+    public async Task<IResult> RegisterUserAdmin(ISender sender, RegisterUserAdminCommand registerUserAdmanCommand)
+    {
+        var result = await sender.Send(registerUserAdmanCommand);
+        return Results.Created("register-admin", result);
     }
 
     [AllowAnonymous]
