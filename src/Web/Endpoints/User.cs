@@ -4,6 +4,8 @@ using Auth.Api.Application.Users.Commands.LoginUser;
 using Auth.Api.Application.Users.Commands.RegisterUser;
 using Auth.Api.Application.Users.Queries.GetUserById;
 using Auth.Api.Application.Users.Queries.IsEmailConfirmed;
+using Auth.Api.Application.Users.Queries.IsEmailExists;
+using Auth.Api.Application.Users.Queries.IsUserNameExists;
 using Auth.Api.Domain.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,9 +22,9 @@ public class User : EndpointGroupBase
             .MapPost(ConfirmEmail, "confirm-email")
             .MapGet(IsEmailConfirmed, "is-email-confirmed")
             .MapPost(GetEmailConfirmationToken, "confirmation-email-token")
-            .MapGet(GetUserById, "{userId}");
-
-        // .MapIdentityApi<ApplicationUser>();
+            .MapGet(GetUserById, "{userId}")
+            .MapGet(IsEmailExists, "is-email-exists/{email}")
+            .MapGet(IsUserNameExists, "is-username-exists/{userName}");
     }
 
     [AllowAnonymous]
@@ -83,5 +85,23 @@ public class User : EndpointGroupBase
     {
         var getEmailConfirmationTokenCommand = new GetEmailConfirmationTokenCommand();
         return await sender.Send(getEmailConfirmationTokenCommand);
+    }
+
+    [AllowAnonymous]
+    [ProducesResponseType(typeof(bool), 200)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), 400)]
+    [EndpointDescription("Return if a user already exists with the same email address")]
+    public async Task<bool> IsEmailExists(ISender sender, string email)
+    {
+        return await sender.Send(new IsEmailExistsQuery { Email = email });
+    }
+
+    [AllowAnonymous]
+    [ProducesResponseType(typeof(bool), 200)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), 400)]
+    [EndpointDescription("Return if a user already exists with the same username address")]
+    public async Task<bool> IsUserNameExists(ISender sender, string userName)
+    {
+        return await sender.Send(new IsUserNameExistsQuery { UserName = userName });
     }
 }

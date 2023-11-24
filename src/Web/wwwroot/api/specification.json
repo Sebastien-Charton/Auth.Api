@@ -899,6 +899,124 @@
           }
         ]
       }
+    },
+    "/api/User/is-email-exists/{email}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "IsEmailExists",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "description": "Language preference for the response.",
+            "schema": {
+              "type": "string",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "en-US",
+                "fr-FR"
+              ]
+            },
+            "default": "en-US",
+            "nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/User/is-username-exists/{userName}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "IsUserNameExists",
+        "parameters": [
+          {
+            "name": "userName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "description": "Language preference for the response.",
+            "schema": {
+              "type": "string",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "en-US",
+                "fr-FR"
+              ]
+            },
+            "default": "en-US",
+            "nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {

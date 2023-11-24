@@ -23,6 +23,6 @@ public interface IUserManagerService
     Task<bool> IsEmailConfirmedAsync(Guid userId);
     Task<bool> IsUserNameExists(string userName);
     Task<bool> IsUserExists(Guid userId);
-    Task<bool> IsEmailExists(string userName);
+    Task<bool> IsEmailExists(string email);
     Task<IApplicationUser?> GetUserByIdAsync(Guid id);
 }

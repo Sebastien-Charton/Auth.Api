@@ -46,9 +46,9 @@ public class UserManagerService : IUserManagerService
         return user is not null;
     }
 
-    public async Task<bool> IsEmailExists(string userName)
+    public async Task<bool> IsEmailExists(string email)
     {
-        var user = await _userManager.FindByEmailAsync(userName);
+        var user = await _userManager.FindByEmailAsync(email);
 
         return user is not null;
     }
