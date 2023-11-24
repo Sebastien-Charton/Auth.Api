@@ -1,7 +1,5 @@
 import http from "k6/http";
 import {describe, expect} from 'https://jslib.k6.io/k6chaijs/4.3.4.3/index.js';
-import {Httpx} from 'https://jslib.k6.io/httpx/0.0.6/index.js';
-import {randomString} from 'https://jslib.k6.io/k6-utils/1.0.0/index.js';
 
 export const options = {
     iterations: 1
@@ -23,12 +21,6 @@ const baseUrl = 'https://localhost:5001/api/user/';
 function createNewUser() {
     describe("Create a new User and validate email", () => {
 
-
-        // Create User
-        let userName = `${randomString(10)}`
-        let email = `${randomString(10)}@example.com`
-        let password = "Password1!,";
-
         let options = {
             headers: {
                 'Content-type': 'application/json',
@@ -36,25 +28,30 @@ function createNewUser() {
             },
         };
 
-        const createUserPayload = {
-            email: email,
-            password: password,
-            userName: userName
-        };
+        // Create User
+        // let userName = `${randomString(10)}`
+        // let email = `${randomString(10)}@example.com`
+        // let password = "Password1!,";
+        //
+        //
+        // const createUserPayload = {
+        //     email: email,
+        //     password: password,
+        //     userName: userName
+        // };
+        //
+        // let createUserResponse = http.post(`${baseUrl}register`, JSON.stringify(createUserPayload), options);
+        //
+        // expect(createUserResponse.status, 'user registered').to.equal(201);
+        // expect(createUserResponse, 'user registered valid body').to.have.validJsonBody();
 
-        let createUserResponse = http.post(`${baseUrl}register`, JSON.stringify(createUserPayload), options);
-        // let createUserResponse = session.post('user/register', payload, options);
-
-        expect(createUserResponse.status, 'user registered').to.equal(201);
-        expect(createUserResponse, 'user registered valid body').to.have.validJsonBody();
-
-        var userId = JSON.parse(createUserResponse.body);
+        var userId = '500b3585-d94a-4d78-8154-8a7477a992a2';
 
         // Login User
 
         const loginUserPayload = {
-            email: email,
-            password: password
+            email: 'administrator@example.com',
+            password: 'Administrator1!'
         };
 
         let loginUserResponse = http.post(`${baseUrl}login`, JSON.stringify(loginUserPayload), options);

@@ -47,7 +47,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.IntegrationTests", "tes
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LoadTesting", "LoadTesting", "{0CF54C5D-AC6C-4193-AB8D-9A87EC03B4F1}"
 	ProjectSection(SolutionItems) = preProject
-		tests\LoadTesting\create-user.js = tests\LoadTesting\create-user.js
+		tests\LoadTesting\create-user-and-confirm-email.js = tests\LoadTesting\create-user-and-confirm-email.js
 	EndProjectSection
 EndProject
 Global
