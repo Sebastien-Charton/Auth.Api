@@ -1,4 +1,5 @@
-﻿using Auth.Api.Application.Common.Interfaces;
+﻿using System.Text;
+using Auth.Api.Application.Common.Interfaces;
 using Auth.Api.Application.Common.Interfaces.Identity.Services;
 using Auth.Api.Application.Common.Interfaces.ServiceAgents;
 using Auth.Api.Application.Common.Interfaces.Services;
@@ -12,12 +13,15 @@ using Auth.Api.Infrastructure.ServiceAgents;
 using Auth.Api.Infrastructure.Services;
 using Auth.Api.Infrastructure.Services.HtmlGeneration;
 using Mailjet.Client;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using SendGrid.Extensions.DependencyInjection;
 using IdentityOptions = Auth.Api.Infrastructure.Options.IdentityOptions;
 
@@ -47,15 +51,6 @@ public static class DependencyInjection
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 
         services.AddScoped<ApplicationDbContextInitialiser>();
-
-        services.AddAuthentication()
-            .AddBearerToken(IdentityConstants.BearerScheme, options =>
-            {
-            });
-
-        services.AddAuthorizationBuilder();
-
-        services.AddSingleton(TimeProvider.System);
 
         // Inject options
 
@@ -112,11 +107,10 @@ public static class DependencyInjection
         services.AddScoped<IJwtService, JwtService>();
         services.AddScoped<IMailServiceAgent, MailJetServiceAgent>();
         services.AddScoped<IHtmlGenerator, DotLiquidHtmlGenerator>();
+        services.AddSingleton(TimeProvider.System);
 
         var serviceProvider = services.BuildServiceProvider();
         var mailJetOptions = serviceProvider.GetRequiredService<IOptions<MailJetOptions>>();
-
-        var jwt = serviceProvider.GetRequiredService<IOptions<JwtOptions>>();
 
         services.AddHttpClient<IMailjetClient, MailjetClient>(client =>
         {
@@ -154,8 +148,48 @@ public static class DependencyInjection
             options.User.RequireUniqueEmail = identityOptions.Value.User.RequireUniqueEmail;
         });
 
+        // Authentication
+
+        var jwtOptions = serviceProvider.GetRequiredService<IOptions<JwtOptions>>();
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey =
+                        new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtOptions.Value.SecurityKey)),
+                    ValidIssuer = jwtOptions.Value.Issuer,
+                    ValidAudience = jwtOptions.Value.Audience
+                };
+            });
+
+        services.AddAuthorizationBuilder();
+
+        // Authorization
         services.AddAuthorization(options =>
-            options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
+        {
+            options.AddPolicy(Policies.IsUser, new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .RequireRole(Roles.User)
+                .Build());
+
+            options.AddPolicy(Policies.AllUsers, new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .RequireRole(Roles.User, Roles.Administrator)
+                .Build());
+
+            options.AddPolicy(Policies.IsAdministrator, new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .RequireRole(Roles.Administrator)
+                .Build());
+
+            options
+                .AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator));
+        });
 
         var mailOptions = services.BuildServiceProvider().GetRequiredService<IOptions<SendGridOptions>>();
 

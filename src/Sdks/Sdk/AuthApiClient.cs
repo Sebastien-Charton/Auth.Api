@@ -150,12 +150,21 @@ namespace Clean.Architecture.Sdk
 
         /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<GetUserByIdResponse> GetUserByIdAsync(System.Guid userId, AcceptLanguage15? accept_Language);
+        System.Threading.Tasks.Task<GetEmailConfirmationTokenResponse> GetEmailConfirmationTokenAsync(System.Guid userId, AcceptLanguage15? accept_Language);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<GetUserByIdResponse> GetUserByIdAsync(System.Guid userId, AcceptLanguage15? accept_Language, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<GetEmailConfirmationTokenResponse> GetEmailConfirmationTokenAsync(System.Guid userId, AcceptLanguage15? accept_Language, System.Threading.CancellationToken cancellationToken);
+
+        /// <param name="accept_Language">Language preference for the response.</param>
+        /// <exception cref="RestException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<GetUserByIdResponse> GetUserByIdAsync(System.Guid userId, AcceptLanguage16? accept_Language);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
+        /// <exception cref="RestException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<GetUserByIdResponse> GetUserByIdAsync(System.Guid userId, AcceptLanguage16? accept_Language, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -1403,7 +1412,90 @@ namespace Clean.Architecture.Sdk
 
         /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<GetUserByIdResponse> GetUserByIdAsync(System.Guid userId, AcceptLanguage15? accept_Language)
+        public virtual System.Threading.Tasks.Task<GetEmailConfirmationTokenResponse> GetEmailConfirmationTokenAsync(System.Guid userId, AcceptLanguage15? accept_Language)
+        {
+            return GetEmailConfirmationTokenAsync(userId, accept_Language, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="accept_Language">Language preference for the response.</param>
+        /// <exception cref="RestException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<GetEmailConfirmationTokenResponse> GetEmailConfirmationTokenAsync(System.Guid userId, AcceptLanguage15? accept_Language, System.Threading.CancellationToken cancellationToken)
+        {
+            if (userId == null)
+                throw new System.ArgumentNullException("userId");
+
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append("api/User/confirmation-email-token/{userId}");
+            urlBuilder_.Replace("{userId}", System.Uri.EscapeDataString(ConvertToString(userId, System.Globalization.CultureInfo.InvariantCulture)));
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+
+                    if (accept_Language == null)
+                        throw new System.ArgumentNullException("accept_Language");
+                    request_.Headers.TryAddWithoutValidation("Accept-Language", ConvertToString(accept_Language, System.Globalization.CultureInfo.InvariantCulture));
+                    request_.Content = new System.Net.Http.StringContent(string.Empty, System.Text.Encoding.UTF8, "application/json");
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<GetEmailConfirmationTokenResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new RestException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new RestException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="accept_Language">Language preference for the response.</param>
+        /// <exception cref="RestException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<GetUserByIdResponse> GetUserByIdAsync(System.Guid userId, AcceptLanguage16? accept_Language)
         {
             return GetUserByIdAsync(userId, accept_Language, System.Threading.CancellationToken.None);
         }
@@ -1411,7 +1503,7 @@ namespace Clean.Architecture.Sdk
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<GetUserByIdResponse> GetUserByIdAsync(System.Guid userId, AcceptLanguage15? accept_Language, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<GetUserByIdResponse> GetUserByIdAsync(System.Guid userId, AcceptLanguage16? accept_Language, System.Threading.CancellationToken cancellationToken)
         {
             if (userId == null)
                 throw new System.ArgumentNullException("userId");
@@ -1901,6 +1993,14 @@ namespace Clean.Architecture.Sdk
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class GetEmailConfirmationTokenResponse
+    {
+        [Newtonsoft.Json.JsonProperty("token", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Token { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class GetUserByIdResponse
     {
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -2084,6 +2184,18 @@ namespace Clean.Architecture.Sdk
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public enum AcceptLanguage15
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"en-US")]
+        EnUS = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"fr-FR")]
+        FrFR = 1,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum AcceptLanguage16
     {
 
         [System.Runtime.Serialization.EnumMember(Value = @"en-US")]
