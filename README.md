@@ -82,6 +82,28 @@ cd .\src\Web\
 dotnet test
 ```
 
+## Load testing
+
+LoadTesting is made with the k6 project.
+
+To execute a test:
+
+```bash
+k6 run script.js
+```
+
+To execute a test with debug ( requests and responses without the body ):
+
+```bash
+k6 run --http-debug script.js
+```
+
+To execute a test with full debug ( requests and responses with the body ):
+
+```bash
+k6 run --http-debug="full" script.js
+```
+
 ## Docker Compose
 
 ```sh
