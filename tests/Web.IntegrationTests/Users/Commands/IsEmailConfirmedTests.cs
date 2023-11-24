@@ -2,35 +2,52 @@
 using System.Net.Http.Json;
 using Auth.Api.Application.Common.Interfaces.Identity.Services;
 using Auth.Api.Application.Users.Commands.ConfirmEmail;
+using Auth.Api.Application.Users.Commands.RegisterUser;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Auth.Api.Web.IntegrationTests.Users.Commands;
 
 public class IsEmailConfirmedTests : UserEndpointsFixtures
 {
+    private readonly RegisterUserCommand _registerUserCommand = GenerateRegisterUserCommand();
+
+    public IsEmailConfirmedTests()
+    {
+        var createUserResult = HttpClient
+            .PostAsJsonAsync(RegisterUserUri, _registerUserCommand)
+            .GetAwaiter()
+            .GetResult();
+
+        var userId = createUserResult.Content
+            .ReadFromJsonAsync<Guid>()
+            .GetAwaiter()
+            .GetResult();
+    }
+
     [Fact]
     public async Task IsEmailConfirmed_ShouldReturnTrue_WhenEmailIsConfirmed()
     {
         // Arrange
-        var registerUserCommand = GenerateRegisterUserCommand();
-
-        var createUserResponse = await HttpClient.PostAsJsonAsync(RegisterUserUri, registerUserCommand);
-        var userId = await createUserResponse.Content.ReadFromJsonAsync<Guid>();
-
         var userManagerService = ServiceScope.ServiceProvider.GetRequiredService<IUserManagerService>();
 
-        var emailConfirmationToken = await userManagerService.GenerateEmailConfirmationTokenAsync(userId);
+        var emailConfirmationToken = await userManagerService.GenerateEmailConfirmationTokenAsync(UserId);
 
         emailConfirmationToken.Should().NotBeNull();
         emailConfirmationToken.Should().NotBeEmpty();
 
+        // var loginUserCommand =
+        //     new LoginUserCommand() { Email = _registerUserCommand.Email, Password = _registerUserCommand.Password };
+        // var loginUserResponse = await HttpClient.PostAsJsonAsync(LoginUserUri, loginUserCommand);
+        // var loginUserResult = await loginUserResponse.Content.ReadFromJsonAsync<LoginUserResponse>();
+        //
+        // HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loginUserResult!.Token);
         var confirmEmailCommand = new ConfirmEmailCommand { Token = emailConfirmationToken! };
 
         // Act
 
         var emailConfirmationResponse = await HttpClient.PostAsJsonAsync(ConfirmEmailUri, confirmEmailCommand);
         var emailConfirmationResult = await emailConfirmationResponse.Content.ReadFromJsonAsync<bool>();
-        var isEmailConfirmedResponse = await HttpClient.GetAsync(IsEmailConfirmedUri + "/" + userId);
+        var isEmailConfirmedResponse = await HttpClient.GetAsync(IsEmailConfirmedUri);
         var isEmailConfirmedResult = await isEmailConfirmedResponse.Content.ReadFromJsonAsync<bool>();
         // Assert
 

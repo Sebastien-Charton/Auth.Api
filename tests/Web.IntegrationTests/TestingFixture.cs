@@ -1,4 +1,7 @@
-﻿using Auth.Api.Infrastructure.Data;
+﻿using System.Net.Http.Headers;
+using Auth.Api.Application.Users.Commands.RegisterUser;
+using Auth.Api.Infrastructure.Data;
+using Auth.Api.Shared.Tests;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,10 +10,11 @@ namespace Auth.Api.Web.IntegrationTests;
 
 public abstract class TestingFixture : IAsyncDisposable
 {
-    public static readonly string BaseUri = "http://localhost/api/";
+    protected static readonly string BaseUri = "http://localhost/api/";
     private readonly ITestDatabase _database = null!;
     private readonly CustomWebApplicationFactory _factory = null!;
     private readonly IServiceScopeFactory _scopeFactory = null!;
+    protected readonly Guid UserId;
 
     public TestingFixture()
     {
@@ -18,13 +22,18 @@ public abstract class TestingFixture : IAsyncDisposable
 
         _factory = new CustomWebApplicationFactory(_database.GetConnection(), ConfigureMocks());
 
-        HttpClient = _factory.CreateClient();
         _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
 
         ApplicationDbContextInitialiser initialiser =
             _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
 
         ServiceScope = _factory.Services.CreateScope();
+
+        UserId = _factory.DefaultUserId;
+
+        // Instantiate http client and mock Auth
+        HttpClient = _factory.CreateClient();
+        HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Test");
 
         initialiser.SeedAsync().Wait();
     }
@@ -91,5 +100,14 @@ public abstract class TestingFixture : IAsyncDisposable
         ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
         return await context.Set<TEntity>().CountAsync();
+    }
+
+    protected static RegisterUserCommand GenerateRegisterUserCommand()
+    {
+        return new Faker<RegisterUserCommand>()
+            .RuleFor(x => x.Email, f => f.Person.Email)
+            .RuleFor(x => x.UserName, f => f.Internet.UserName())
+            .RuleFor(x => x.Password, f => f.Internet.GeneratePassword())
+            .Generate();
     }
 }

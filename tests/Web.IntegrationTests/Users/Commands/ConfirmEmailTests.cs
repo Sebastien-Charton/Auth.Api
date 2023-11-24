@@ -14,16 +14,9 @@ public class ConfirmEmailTests : UserEndpointsFixtures
     public async Task ConfirmationEmail_ShouldConfirmEmail_WhenUserExists()
     {
         // Arrange
-        var registerUserCommand = GenerateRegisterUserCommand();
-
-        var createUserResult =
-            await HttpClient.PostAsJsonAsync(RegisterUserUri, registerUserCommand);
-
-        var userId = await createUserResult.Content.ReadFromJsonAsync<Guid>();
-
         var userManagerService = ServiceScope.ServiceProvider.GetRequiredService<IUserManagerService>();
 
-        var emailConfirmationToken = await userManagerService.GenerateEmailConfirmationTokenAsync(userId);
+        var emailConfirmationToken = await userManagerService.GenerateEmailConfirmationTokenAsync(UserId);
 
         emailConfirmationToken.Should().NotBeEmpty();
 
@@ -39,22 +32,6 @@ public class ConfirmEmailTests : UserEndpointsFixtures
         // Assert
 
         isConfirmed.Should().BeTrue();
-    }
-
-    [Fact]
-    public async Task ConfirmationEmail_ShouldThrowError_WhenUserDoesntExists()
-    {
-        // Arrange
-        var confirmEmailCommand = new ConfirmEmailCommand { Token = "token" };
-
-        // Act
-
-        var emailConfirmationResult =
-            await HttpClient.PostAsJsonAsync(ConfirmEmailUri, confirmEmailCommand);
-
-        // Assert
-
-        emailConfirmationResult.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
     [Fact]
