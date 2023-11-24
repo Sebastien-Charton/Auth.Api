@@ -1,5 +1,4 @@
 ﻿using Auth.Api.Application.Common.Exceptions;
-using Auth.Api.Application.Common.Interfaces;
 using Auth.Api.Application.Common.Interfaces.Identity.Services;
 using Resource;
 
@@ -13,18 +12,16 @@ public record ConfirmEmailCommand : IRequest<bool>
 
 public class ValidateEmailCommandHandler : IRequestHandler<ConfirmEmailCommand, bool>
 {
-    private readonly IUser _user;
     private readonly IUserManagerService _userManagerService;
 
-    public ValidateEmailCommandHandler(IUserManagerService userManagerService, IUser user)
+    public ValidateEmailCommandHandler(IUserManagerService userManagerService)
     {
         _userManagerService = userManagerService;
-        _user = user;
     }
 
     public async Task<bool> Handle(ConfirmEmailCommand request, CancellationToken cancellationToken)
     {
-        var user = await _userManagerService.GetUserByIdAsync(_user.GetId());
+        var user = await _userManagerService.GetUserByIdAsync(request.UserId);
 
         Guard.Against.NotFound(nameof(user), user);
 

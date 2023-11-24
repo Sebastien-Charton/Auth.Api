@@ -12,17 +12,8 @@ public class CurrentUser : IUser
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public Guid GetId()
-    {
-        var isGuidParsed = Guid.TryParse(
-            _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier),
-            out Guid result);
-
-        if (!isGuidParsed || result == Guid.Empty)
-        {
-            throw new UnauthorizedAccessException();
-        }
-
-        return result;
-    }
+    public Guid? Id => Guid.TryParse(_httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier),
+        out Guid result)
+        ? result
+        : null;
 }
