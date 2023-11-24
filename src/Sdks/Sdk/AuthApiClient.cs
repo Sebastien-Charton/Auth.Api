@@ -141,21 +141,21 @@ namespace Clean.Architecture.Sdk
 
         /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<bool> IsEmailConfirmedAsync(System.Guid userId, AcceptLanguage14? accept_Language);
+        System.Threading.Tasks.Task<bool> IsEmailConfirmedAsync(AcceptLanguage14? accept_Language);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<bool> IsEmailConfirmedAsync(System.Guid userId, AcceptLanguage14? accept_Language, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<bool> IsEmailConfirmedAsync(AcceptLanguage14? accept_Language, System.Threading.CancellationToken cancellationToken);
 
         /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<GetEmailConfirmationTokenResponse> GetEmailConfirmationTokenAsync(System.Guid userId, AcceptLanguage15? accept_Language);
+        System.Threading.Tasks.Task<GetEmailConfirmationTokenResponse> GetEmailConfirmationTokenAsync(AcceptLanguage15? accept_Language);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<GetEmailConfirmationTokenResponse> GetEmailConfirmationTokenAsync(System.Guid userId, AcceptLanguage15? accept_Language, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<GetEmailConfirmationTokenResponse> GetEmailConfirmationTokenAsync(AcceptLanguage15? accept_Language, System.Threading.CancellationToken cancellationToken);
 
         /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
@@ -1310,22 +1310,18 @@ namespace Clean.Architecture.Sdk
 
         /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<bool> IsEmailConfirmedAsync(System.Guid userId, AcceptLanguage14? accept_Language)
+        public virtual System.Threading.Tasks.Task<bool> IsEmailConfirmedAsync(AcceptLanguage14? accept_Language)
         {
-            return IsEmailConfirmedAsync(userId, accept_Language, System.Threading.CancellationToken.None);
+            return IsEmailConfirmedAsync(accept_Language, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<bool> IsEmailConfirmedAsync(System.Guid userId, AcceptLanguage14? accept_Language, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<bool> IsEmailConfirmedAsync(AcceptLanguage14? accept_Language, System.Threading.CancellationToken cancellationToken)
         {
-            if (userId == null)
-                throw new System.ArgumentNullException("userId");
-
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/User/is-email-confirmed/{userId}");
-            urlBuilder_.Replace("{userId}", System.Uri.EscapeDataString(ConvertToString(userId, System.Globalization.CultureInfo.InvariantCulture)));
+            urlBuilder_.Append("api/User/is-email-confirmed");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1412,22 +1408,18 @@ namespace Clean.Architecture.Sdk
 
         /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<GetEmailConfirmationTokenResponse> GetEmailConfirmationTokenAsync(System.Guid userId, AcceptLanguage15? accept_Language)
+        public virtual System.Threading.Tasks.Task<GetEmailConfirmationTokenResponse> GetEmailConfirmationTokenAsync(AcceptLanguage15? accept_Language)
         {
-            return GetEmailConfirmationTokenAsync(userId, accept_Language, System.Threading.CancellationToken.None);
+            return GetEmailConfirmationTokenAsync(accept_Language, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="accept_Language">Language preference for the response.</param>
         /// <exception cref="RestException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<GetEmailConfirmationTokenResponse> GetEmailConfirmationTokenAsync(System.Guid userId, AcceptLanguage15? accept_Language, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<GetEmailConfirmationTokenResponse> GetEmailConfirmationTokenAsync(AcceptLanguage15? accept_Language, System.Threading.CancellationToken cancellationToken)
         {
-            if (userId == null)
-                throw new System.ArgumentNullException("userId");
-
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/User/confirmation-email-token/{userId}");
-            urlBuilder_.Replace("{userId}", System.Uri.EscapeDataString(ConvertToString(userId, System.Globalization.CultureInfo.InvariantCulture)));
+            urlBuilder_.Append("api/User/confirmation-email-token");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1982,10 +1974,6 @@ namespace Clean.Architecture.Sdk
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class ConfirmEmailCommand
     {
-        [Newtonsoft.Json.JsonProperty("userId", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public System.Guid UserId { get; set; }
-
         [Newtonsoft.Json.JsonProperty("token", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public string Token { get; set; }

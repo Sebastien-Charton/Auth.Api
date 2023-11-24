@@ -715,23 +715,13 @@
         ]
       }
     },
-    "/api/User/is-email-confirmed/{userId}": {
+    "/api/User/is-email-confirmed": {
       "get": {
         "tags": [
           "User"
         ],
         "operationId": "IsEmailConfirmed",
         "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "guid"
-            },
-            "x-position": 1
-          },
           {
             "name": "Accept-Language",
             "in": "header",
@@ -790,23 +780,13 @@
         ]
       }
     },
-    "/api/User/confirmation-email-token/{userId}": {
+    "/api/User/confirmation-email-token": {
       "post": {
         "tags": [
           "User"
         ],
         "operationId": "GetEmailConfirmationToken",
         "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "guid"
-            },
-            "x-position": 1
-          },
           {
             "name": "Accept-Language",
             "in": "header",
@@ -1321,16 +1301,9 @@
         "type": "object",
         "additionalProperties": false,
         "required": [
-          "userId",
           "token"
         ],
         "properties": {
-          "userId": {
-            "type": "string",
-            "format": "guid",
-            "minLength": 1,
-            "nullable": false
-          },
           "token": {
             "type": "string",
             "minLength": 1,

@@ -18,8 +18,8 @@ public class User : EndpointGroupBase
             .MapPost(RegisterUser, "register")
             .MapPost(LoginUser, "login")
             .MapPost(ConfirmEmail, "confirm-email")
-            .MapGet(IsEmailConfirmed, "is-email-confirmed/{userId}")
-            .MapPost(GetEmailConfirmationToken, "confirmation-email-token/{userId}")
+            .MapGet(IsEmailConfirmed, "is-email-confirmed")
+            .MapPost(GetEmailConfirmationToken, "confirmation-email-token")
             .MapGet(GetUserById, "{userId}");
 
         // .MapIdentityApi<ApplicationUser>();
@@ -59,9 +59,9 @@ public class User : EndpointGroupBase
     [ProducesResponseType(typeof(ValidationProblemDetails), 400)]
     [ProducesResponseType(typeof(ProblemDetails), 404)]
     [EndpointDescription("Return if the email is registered or not")]
-    public async Task<bool> IsEmailConfirmed(ISender sender, Guid userId)
+    public async Task<bool> IsEmailConfirmed(ISender sender)
     {
-        var isEmailConfirmedCommand = new IsEmailConfirmedQuery { UserId = userId };
+        var isEmailConfirmedCommand = new IsEmailConfirmedQuery();
         return await sender.Send(isEmailConfirmedCommand);
     }
 
@@ -79,9 +79,9 @@ public class User : EndpointGroupBase
     [Authorize(Policy = Policies.IsAdministrator)]
     [ProducesResponseType(typeof(GetEmailConfirmationTokenResponse), 200)]
     [EndpointDescription("Get a confirmation email token")]
-    public async Task<GetEmailConfirmationTokenResponse> GetEmailConfirmationToken(ISender sender, Guid userId)
+    public async Task<GetEmailConfirmationTokenResponse> GetEmailConfirmationToken(ISender sender)
     {
-        var getEmailConfirmationTokenCommand = new GetEmailConfirmationTokenCommand { UserId = userId };
+        var getEmailConfirmationTokenCommand = new GetEmailConfirmationTokenCommand();
         return await sender.Send(getEmailConfirmationTokenCommand);
     }
 }

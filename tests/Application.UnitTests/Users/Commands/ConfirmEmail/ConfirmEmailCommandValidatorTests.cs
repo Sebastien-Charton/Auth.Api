@@ -13,7 +13,6 @@ public class ConfirmEmailCommandValidatorTests
         // Arrange
 
         var confirmEmailCommand = new Faker<ConfirmEmailCommand>()
-            .RuleFor(x => x.UserId, f => f.Random.Guid())
             .RuleFor(x => x.Token, f => f.Random.Guid().ToString())
             .Generate();
 
@@ -44,6 +43,6 @@ public class ConfirmEmailCommandValidatorTests
         // Assert
 
         result.IsValid.Should().BeFalse();
-        result.Errors.Count.Should().Be(2);
+        result.Errors.Count.Should().Be(1);
     }
 }

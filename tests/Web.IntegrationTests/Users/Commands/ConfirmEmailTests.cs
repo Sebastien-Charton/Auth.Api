@@ -27,7 +27,7 @@ public class ConfirmEmailTests : UserEndpointsFixtures
 
         emailConfirmationToken.Should().NotBeEmpty();
 
-        var confirmEmailCommand = new ConfirmEmailCommand { Token = emailConfirmationToken!, UserId = userId };
+        var confirmEmailCommand = new ConfirmEmailCommand { Token = emailConfirmationToken! };
 
         // Act
 
@@ -45,7 +45,7 @@ public class ConfirmEmailTests : UserEndpointsFixtures
     public async Task ConfirmationEmail_ShouldThrowError_WhenUserDoesntExists()
     {
         // Arrange
-        var confirmEmailCommand = new ConfirmEmailCommand { Token = "token", UserId = Guid.NewGuid() };
+        var confirmEmailCommand = new ConfirmEmailCommand { Token = "token" };
 
         // Act
 
@@ -65,7 +65,7 @@ public class ConfirmEmailTests : UserEndpointsFixtures
 
         var userId = await SendAsync(registerUserCommand);
 
-        var confirmEmailCommand = new ConfirmEmailCommand { Token = "token", UserId = userId };
+        var confirmEmailCommand = new ConfirmEmailCommand { Token = "token" };
 
         // Act
 

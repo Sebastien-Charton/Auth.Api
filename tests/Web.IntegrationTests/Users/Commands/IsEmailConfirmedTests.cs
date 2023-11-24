@@ -24,7 +24,7 @@ public class IsEmailConfirmedTests : UserEndpointsFixtures
         emailConfirmationToken.Should().NotBeNull();
         emailConfirmationToken.Should().NotBeEmpty();
 
-        var confirmEmailCommand = new ConfirmEmailCommand { Token = emailConfirmationToken!, UserId = userId };
+        var confirmEmailCommand = new ConfirmEmailCommand { Token = emailConfirmationToken! };
 
         // Act
 
