@@ -85,7 +85,7 @@ public class ApplicationDbContextInitialiser
 
         // Default users
         ApplicationUser administrator =
-            new() { UserName = "administrator@localhost", Email = "administrator@localhost" };
+            new() { UserName = "administrator@localhost", Email = "administrator@example.com" };
 
         if (!await _userManager.Users.AnyAsync(u => u.UserName != administrator.UserName))
         {
