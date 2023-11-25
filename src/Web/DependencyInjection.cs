@@ -50,7 +50,7 @@ public static class DependencyInjection
             FluentValidationSchemaProcessor fluentValidationSchemaProcessor =
                 sp.CreateScope().ServiceProvider.GetRequiredService<FluentValidationSchemaProcessor>();
 
-            configure.SchemaProcessors.Add(fluentValidationSchemaProcessor);
+            configure.SchemaSettings.SchemaProcessors.Add(fluentValidationSchemaProcessor);
 
             // Add JWT
             configure.AddSecurity("JWT", Enumerable.Empty<string>(),
