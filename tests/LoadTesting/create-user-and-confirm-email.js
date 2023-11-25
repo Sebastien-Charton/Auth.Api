@@ -73,7 +73,7 @@ function createNewUser() {
             }
         };
 
-        let getEmailConfirmationTokenResponse = http.post(`${baseUrl}confirmation-email-token/${userId}`,null, headersWithBearer);
+        let getEmailConfirmationTokenResponse = http.post(`${baseUrl}confirmation-email-token`, null, headersWithBearer);
 
         expect(getEmailConfirmationTokenResponse.status, 'email confirmation').to.equal(200);
         expect(getEmailConfirmationTokenResponse, 'email confirmation valid body').to.have.validJsonBody();
