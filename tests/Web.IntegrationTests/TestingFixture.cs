@@ -39,7 +39,7 @@ public abstract class TestingFixture : IAsyncDisposable
         initialiser.SeedAsync().Wait();
     }
 
-    public HttpClient HttpClient { get; private set; }
+    public HttpClient HttpClient { get; }
 
     protected IServiceScope ServiceScope { get; }
 

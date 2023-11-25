@@ -1,5 +1,4 @@
-﻿using Auth.Api.Infrastructure.Options;
-using Mailjet.Client;
+﻿using Mailjet.Client;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Auth.Api.Web.IntegrationTests.Users.Commands;

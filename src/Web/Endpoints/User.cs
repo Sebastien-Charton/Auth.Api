@@ -86,7 +86,7 @@ public class User : EndpointGroupBase
     [EndpointDescription("Get a user by user Id")]
     public async Task<GetUserByIdResponse> GetUserById(ISender sender, Guid userId)
     {
-        var getUserByIdQuery = new GetUserByIdQuery() { Id = userId };
+        var getUserByIdQuery = new GetUserByIdQuery { Id = userId };
         return await sender.Send(getUserByIdQuery);
     }
 

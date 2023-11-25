@@ -18,7 +18,7 @@ public class CustomExceptionHandler : IExceptionHandler
             { typeof(UnauthorizedAccessException), HandleUnauthorizedAccessException },
             { typeof(ForbiddenAccessException), HandleForbiddenAccessException },
             { typeof(BadRequestException), HandleBadRequestException },
-            { typeof(Exception), HandleException}
+            { typeof(Exception), HandleException }
         };
     }
 
@@ -32,7 +32,7 @@ public class CustomExceptionHandler : IExceptionHandler
             await _exceptionHandlers[exceptionType].Invoke(httpContext, exception);
             return true;
         }
-        
+
         await _exceptionHandlers[typeof(Exception)].Invoke(httpContext, exception);
         return true;
     }
@@ -100,12 +100,12 @@ public class CustomExceptionHandler : IExceptionHandler
             Detail = ex.Message
         });
     }
-    
+
     private async Task HandleException(HttpContext httpContext, Exception ex)
     {
         httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
 
-        await httpContext.Response.WriteAsJsonAsync(new ProblemDetails()
+        await httpContext.Response.WriteAsJsonAsync(new ProblemDetails
         {
             Status = StatusCodes.Status500InternalServerError,
             Type = "https://tools.ietf.org/html/rfc7231#section-6.6.1",

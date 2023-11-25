@@ -1,9 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
 using Auth.Api.Application.Users.Commands.LoginUser;
-using Auth.Api.Application.Users.Commands.RegisterUser;
 using Auth.Api.Shared.Tests;
-using Serilog;
 
 namespace Auth.Api.Web.IntegrationTests.Users.Commands;
 
@@ -88,7 +86,7 @@ public class LoginUserTests : UserEndpointsFixtures
             .RuleFor(x => x.Email, registerUserCommand.Email)
             .RuleFor(x => x.Password, f => f.Internet.GeneratePassword())
             .Generate();
-        
+
         for (int i = 0; i < maxRetry; i++)
         {
             await HttpClient.PostAsJsonAsync(LoginUserUri, loginUserCommandWithWrongPassword);
