@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Auth.Api.Infrastructure.IntegrationTests.Identity.Services.UserManagerTests;
 
+[Collection(nameof(UserManagerTests))]
 public class GetUserByIdAsyncTests : UserManagerTestsFixtures
 {
     [Fact]
