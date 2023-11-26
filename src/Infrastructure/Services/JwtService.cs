@@ -24,7 +24,7 @@ public class JwtService : IJwtService
 
         if (user.Email is not null)
         {
-            claims.Add(new Claim(ClaimTypes.Name, user.Email));
+            claims.Add(new Claim(ClaimTypes.Email, user.Email));
         }
 
         if (user.UserName is not null)

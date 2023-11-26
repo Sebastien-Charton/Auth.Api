@@ -1,10 +1,13 @@
 ﻿using Auth.Api.Application.Users.Commands.ConfirmEmail;
+using Auth.Api.Application.Users.Commands.DeleteUser;
 using Auth.Api.Application.Users.Commands.EmailConfirmationToken;
 using Auth.Api.Application.Users.Commands.LoginUser;
 using Auth.Api.Application.Users.Commands.PasswordResetToken;
 using Auth.Api.Application.Users.Commands.RegisterUser;
 using Auth.Api.Application.Users.Commands.RegisterUserAdmin;
 using Auth.Api.Application.Users.Commands.ResetPassword;
+using Auth.Api.Application.Users.Commands.SendConfirmationEmailToken;
+using Auth.Api.Application.Users.Commands.SendPasswordResetToken;
 using Auth.Api.Application.Users.Commands.UpdatePassword;
 using Auth.Api.Application.Users.Queries.GetUserById;
 using Auth.Api.Application.Users.Queries.IsEmailConfirmed;
@@ -27,12 +30,15 @@ public class User : EndpointGroupBase
             .MapPost(ConfirmEmail, "confirm-email")
             .MapPost(GetEmailConfirmationToken, "confirmation-email-token")
             .MapPost(GetPasswordResetToken, "password-reset-token")
+            .MapPost(SendPasswordResetToken, "send-password-reset-token")
+            .MapPost(SendConfirmationEmailToken, "send-confirmation-email-token")
             .MapPut(UpdatePassword, "update-password")
             .MapPut(ResetPassword, "reset-password")
             .MapGet(IsEmailConfirmed, "is-email-confirmed")
             .MapGet(GetUserById, "{userId}")
             .MapGet(IsEmailExists, "is-email-exists/{email}")
-            .MapGet(IsUserNameExists, "is-username-exists/{userName}");
+            .MapGet(IsUserNameExists, "is-username-exists/{userName}")
+            .MapDelete(DeleteUser, "{userId}");
     }
 
     [AllowAnonymous]
@@ -147,6 +153,36 @@ public class User : EndpointGroupBase
     public async Task<IResult> ResetPassword(ISender sender, ResetPasswordCommand resetPasswordCommand)
     {
         await sender.Send(resetPasswordCommand);
+        return Results.NoContent();
+    }
+
+    [Authorize(Policy = Policies.IsAdministrator)]
+    [ProducesResponseType(204)]
+    [ProducesResponseType(typeof(ProblemDetails), 404)]
+    [EndpointDescription("Delete a user")]
+    public async Task<IResult> DeleteUser(ISender sender, Guid userId)
+    {
+        await sender.Send(new DeleteUserCommand(userId));
+        return Results.NoContent();
+    }
+
+    [Authorize(Policy = Policies.AllUsers)]
+    [ProducesResponseType(204)]
+    [ProducesResponseType(typeof(ProblemDetails), 403)]
+    [EndpointDescription("Send confirmation email token")]
+    public async Task<IResult> SendConfirmationEmailToken(ISender sender)
+    {
+        await sender.Send(new SendConfirmationEmailTokenCommand());
+        return Results.NoContent();
+    }
+
+    [Authorize(Policy = Policies.AllUsers)]
+    [ProducesResponseType(204)]
+    [ProducesResponseType(typeof(ProblemDetails), 403)]
+    [EndpointDescription("Send password reset token")]
+    public async Task<IResult> SendPasswordResetToken(ISender sender)
+    {
+        await sender.Send(new SendPasswordResetTokenCommand());
         return Results.NoContent();
     }
 }
