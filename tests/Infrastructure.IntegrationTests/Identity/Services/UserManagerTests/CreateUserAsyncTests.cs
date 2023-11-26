@@ -14,7 +14,7 @@ public class CreateUserAsyncTests : UserManagerTestsFixtures
 
         var email = new Faker().Person.Email;
         var userName = new Faker().Internet.UserName();
-        var password = new Faker().Internet.GeneratePassword();
+        var password = new Faker().Internet.GenerateCustomPassword();
         var userManagerService = ServiceScope.ServiceProvider.GetRequiredService<IUserManagerService>();
 
         // Act

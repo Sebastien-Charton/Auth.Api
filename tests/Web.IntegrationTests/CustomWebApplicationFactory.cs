@@ -25,6 +25,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     }
 
     public Guid DefaultUserId { get; private set; }
+    public string DefaultUserPassword { get; private set; } = string.Empty;
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -50,7 +51,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
             var userManager = services.BuildServiceProvider().GetRequiredService<IUserManagerService>();
 
             var userName = new Faker().Internet.UserName();
-            var password = new Faker().Internet.GeneratePassword();
+            var password = new Faker().Internet.GenerateCustomPassword();
             var email = new Faker().Internet.Email();
 
             var userCreatedResponse = userManager
@@ -59,7 +60,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 .GetResult();
 
             DefaultUserId = userCreatedResponse.userId;
-
+            DefaultUserPassword = password;
             services.Configure<TestAuthHandlerOptions>(options => options.DefaultUserId = DefaultUserId);
 
             services.AddAuthentication(TestAuthHandler.AuthenticationScheme)

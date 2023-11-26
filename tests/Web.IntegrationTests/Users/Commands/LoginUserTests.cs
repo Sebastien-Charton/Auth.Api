@@ -37,7 +37,7 @@ public class LoginUserTests : UserEndpointsFixtures
         // Arrange
 
         var loginUserCommand = new Faker<LoginUserCommand>()
-            .RuleFor(x => x.Password, f => f.Internet.GeneratePassword())
+            .RuleFor(x => x.Password, f => f.Internet.GenerateCustomPassword())
             .RuleFor(x => x.Email, f => f.Internet.Email())
             .Generate();
 
@@ -59,7 +59,7 @@ public class LoginUserTests : UserEndpointsFixtures
         await HttpClient.PostAsJsonAsync(RegisterUserUri, registerUserCommand);
 
         var loginUserCommand = new Faker<LoginUserCommand>()
-            .RuleFor(x => x.Password, f => f.Internet.GeneratePassword())
+            .RuleFor(x => x.Password, f => f.Internet.GenerateCustomPassword())
             .RuleFor(x => x.Email, registerUserCommand.Email)
             .Generate();
 
@@ -84,7 +84,7 @@ public class LoginUserTests : UserEndpointsFixtures
 
         var loginUserCommandWithWrongPassword = new Faker<LoginUserCommand>()
             .RuleFor(x => x.Email, registerUserCommand.Email)
-            .RuleFor(x => x.Password, f => f.Internet.GeneratePassword())
+            .RuleFor(x => x.Password, f => f.Internet.GenerateCustomPassword())
             .Generate();
 
         for (int i = 0; i < maxRetry; i++)

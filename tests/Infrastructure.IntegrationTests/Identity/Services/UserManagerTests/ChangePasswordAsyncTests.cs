@@ -16,7 +16,7 @@ public class ChangePasswordAsyncTests : UserManagerTestsFixtures
         var createUserResult = await CreateUser();
         var user = await userManagerService.GetUserByIdAsync(createUserResult.userId);
 
-        var newPassword = new Faker().Internet.GeneratePassword();
+        var newPassword = new Faker().Internet.GenerateCustomPassword();
 
         // Act
 

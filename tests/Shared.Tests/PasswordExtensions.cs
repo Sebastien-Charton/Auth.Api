@@ -5,7 +5,7 @@ namespace Auth.Api.Shared.Tests;
 
 public static class PasswordExtensions
 {
-    public static string GeneratePassword(this Internet internet)
+    public static string GenerateCustomPassword(this Internet internet)
     {
         Randomizer? r = internet.Random;
 

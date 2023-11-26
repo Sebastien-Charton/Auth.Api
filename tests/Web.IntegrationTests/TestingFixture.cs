@@ -16,6 +16,7 @@ public abstract class TestingFixture : IAsyncDisposable
     private readonly CustomWebApplicationFactory _factory = null!;
     private readonly IServiceScopeFactory _scopeFactory = null!;
     protected readonly Guid UserId;
+    protected readonly string UserPassword;
 
     public TestingFixture()
     {
@@ -31,6 +32,7 @@ public abstract class TestingFixture : IAsyncDisposable
         ServiceScope = _factory.Services.CreateScope();
 
         UserId = _factory.DefaultUserId;
+        UserPassword = _factory.DefaultUserPassword;
 
         // Instantiate http client and mock Auth
         HttpClient = _factory.CreateClient();
@@ -108,7 +110,7 @@ public abstract class TestingFixture : IAsyncDisposable
         return new Faker<RegisterUserCommand>()
             .RuleFor(x => x.Email, f => f.Person.Email)
             .RuleFor(x => x.UserName, f => f.Internet.UserName())
-            .RuleFor(x => x.Password, f => f.Internet.GeneratePassword())
+            .RuleFor(x => x.Password, f => f.Internet.GenerateCustomPassword())
             .Generate();
     }
 
@@ -117,7 +119,7 @@ public abstract class TestingFixture : IAsyncDisposable
         return new Faker<RegisterUserAdminCommand>()
             .RuleFor(x => x.Email, f => f.Person.Email)
             .RuleFor(x => x.UserName, f => f.Internet.UserName())
-            .RuleFor(x => x.Password, f => f.Internet.GeneratePassword())
+            .RuleFor(x => x.Password, f => f.Internet.GenerateCustomPassword())
             .RuleFor(x => x.Roles, Array.Empty<string>())
             .Generate();
     }

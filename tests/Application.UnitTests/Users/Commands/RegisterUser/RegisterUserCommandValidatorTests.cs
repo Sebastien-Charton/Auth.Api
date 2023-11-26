@@ -16,7 +16,7 @@ public class RegisterUserCommandValidatorTests
         RegisterUserCommand? registerUserCommand = new Faker<RegisterUserCommand>()
             .RuleFor(x => x.Email, f => f.Internet.Email())
             .RuleFor(x => x.UserName, f => f.Internet.UserName())
-            .RuleFor(x => x.Password, f => f.Internet.GeneratePassword())
+            .RuleFor(x => x.Password, f => f.Internet.GenerateCustomPassword())
             .Generate();
 
         var validator = new RegisterUserCommandValidator();
@@ -46,6 +46,6 @@ public class RegisterUserCommandValidatorTests
         // Assert
 
         result.IsValid.Should().BeFalse();
-        result.Errors.Count.Should().Be(10);
+        result.Errors.Count.Should().Be(9);
     }
 }

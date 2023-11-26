@@ -15,7 +15,7 @@ public class GetEmailConfirmationTokenTests : UserEndpointsFixtures
         // Act
 
         var getEmailConfirmationTokenResponse =
-            await HttpClient.PostAsJsonAsync(GetEmailConfirmationToken, getEmailConfirmationTokenCommand);
+            await HttpClient.PostAsJsonAsync(GetEmailConfirmationTokenUri, getEmailConfirmationTokenCommand);
 
         var getEmailConfirmationTokenResult = await getEmailConfirmationTokenResponse.Content
             .ReadFromJsonAsync<GetEmailConfirmationTokenResponse>();

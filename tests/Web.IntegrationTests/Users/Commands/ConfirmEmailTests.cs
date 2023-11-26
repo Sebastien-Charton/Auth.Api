@@ -27,11 +27,9 @@ public class ConfirmEmailTests : UserEndpointsFixtures
         var emailConfirmationResult =
             await HttpClient.PostAsJsonAsync(ConfirmEmailUri, confirmEmailCommand);
 
-        var isConfirmed = await emailConfirmationResult.Content.ReadFromJsonAsync<bool>();
-
         // Assert
 
-        isConfirmed.Should().BeTrue();
+        emailConfirmationResult.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 
     [Fact]

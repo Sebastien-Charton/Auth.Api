@@ -1,4 +1,6 @@
-﻿namespace Auth.Api.Application.Users.Commands.RegisterUser;
+﻿using Auth.Api.Application.Common.Extensions;
+
+namespace Auth.Api.Application.Users.Commands.RegisterUser;
 
 public class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
 {
@@ -9,11 +11,7 @@ public class RegisterUserCommandValidator : AbstractValidator<RegisterUserComman
             .EmailAddress();
 
         RuleFor(x => x.Password)
-            .NotEmpty()
-            .MinimumLength(8)
-            .Matches(@"\d").WithMessage("Password must contain at least one digit.")
-            .Matches(@"\W").WithMessage("Password must contain at least one non-alphanumeric character.")
-            .Matches(@"[A-Z]").WithMessage("Password must contain at least one uppercase letter.");
+            .ShouldBeAPassword();
 
         RuleFor(x => x.UserName)
             .NotEmpty()

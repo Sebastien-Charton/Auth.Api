@@ -11,14 +11,12 @@ public class PasswordResetTokenCommand : IRequest<PasswordResetTokenResponse>
 public class PasswordResetTokenCommandHandler : IRequestHandler<PasswordResetTokenCommand,
     PasswordResetTokenResponse>
 {
-    private readonly IMapper _mapper;
     private readonly IUser _user;
     private readonly IUserManagerService _userManagerService;
 
-    public PasswordResetTokenCommandHandler(IUserManagerService userManagerService, IMapper mapper, IUser user)
+    public PasswordResetTokenCommandHandler(IUserManagerService userManagerService, IUser user)
     {
         _userManagerService = userManagerService;
-        _mapper = mapper;
         _user = user;
     }
 

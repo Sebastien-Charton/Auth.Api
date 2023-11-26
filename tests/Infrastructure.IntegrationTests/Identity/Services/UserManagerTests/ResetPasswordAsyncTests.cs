@@ -19,7 +19,7 @@ public class ResetPasswordAsyncTests : UserManagerTestsFixtures
 
         var resetPasswordToken = await userManagerService.GenerateResetPasswordTokenAsync(user!);
 
-        var newPassword = new Faker().Internet.GeneratePassword();
+        var newPassword = new Faker().Internet.GenerateCustomPassword();
 
         // Act
 

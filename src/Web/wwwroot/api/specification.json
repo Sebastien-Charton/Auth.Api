@@ -737,15 +737,8 @@
           "x-position": 1
         },
         "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
+          "204": {
+            "description": ""
           },
           "400": {
             "description": "",
@@ -921,6 +914,56 @@
                 }
               }
             }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/User/update-password": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "UpdatePassword",
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "description": "Language preference for the response.",
+            "schema": {
+              "type": "string",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "en-US",
+                "fr-FR"
+              ]
+            },
+            "default": "en-US",
+            "nullable": true
+          }
+        ],
+        "requestBody": {
+          "x-name": "updatePasswordCommand",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "204": {
+            "description": ""
           }
         },
         "security": [
@@ -1465,7 +1508,6 @@
         "additionalProperties": false,
         "required": [
           "email",
-          "password",
           "userName"
         ],
         "properties": {
@@ -1572,6 +1614,22 @@
         "properties": {
           "token": {
             "type": "string"
+          }
+        }
+      },
+      "UpdatePasswordCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "newPassword": {
+            "type": "string",
+            "minLength": 8,
+            "pattern": "[A-Z]"
+          },
+          "currentPassword": {
+            "type": "string",
+            "minLength": 8,
+            "pattern": "[A-Z]"
           }
         }
       },

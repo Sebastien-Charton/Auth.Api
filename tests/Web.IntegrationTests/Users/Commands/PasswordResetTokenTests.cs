@@ -8,13 +8,13 @@ namespace Auth.Api.Web.IntegrationTests.Users.Commands;
 public class PasswordResetTokenTests : UserEndpointsFixtures
 {
     [Fact]
-    public async Task GetEmailConfirmationToken_ShouldReturnToken_WhenUserExists()
+    public async Task PasswordResetToken_ShouldReturnToken_WhenUserExists()
     {
         // Arrange
         // Act
 
         var getPasswordResetTokenResponse =
-            await HttpClient.PostAsJsonAsync(GetPasswordResetToken, new PasswordResetTokenCommand());
+            await HttpClient.PostAsJsonAsync(GetPasswordResetTokenUri, new PasswordResetTokenCommand());
 
         var getPasswordResetTokenResult = await getPasswordResetTokenResponse.Content
             .ReadFromJsonAsync<GetEmailConfirmationTokenResponse>();

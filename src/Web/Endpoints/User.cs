@@ -4,6 +4,7 @@ using Auth.Api.Application.Users.Commands.LoginUser;
 using Auth.Api.Application.Users.Commands.PasswordResetToken;
 using Auth.Api.Application.Users.Commands.RegisterUser;
 using Auth.Api.Application.Users.Commands.RegisterUserAdmin;
+using Auth.Api.Application.Users.Commands.UpdatePassword;
 using Auth.Api.Application.Users.Queries.GetUserById;
 using Auth.Api.Application.Users.Queries.IsEmailConfirmed;
 using Auth.Api.Application.Users.Queries.IsEmailExists;
@@ -26,6 +27,7 @@ public class User : EndpointGroupBase
             .MapGet(IsEmailConfirmed, "is-email-confirmed")
             .MapPost(GetEmailConfirmationToken, "confirmation-email-token")
             .MapPost(GetEmailResetToken, "password-reset-token")
+            .MapPost(UpdatePassword, "update-password")
             .MapGet(GetUserById, "{userId}")
             .MapGet(IsEmailExists, "is-email-exists/{email}")
             .MapGet(IsUserNameExists, "is-username-exists/{userName}");
@@ -61,17 +63,18 @@ public class User : EndpointGroupBase
     }
 
     [Authorize(Policy = Policies.AllUsers)]
-    [ProducesResponseType(typeof(bool), 200)]
+    [ProducesResponseType(204)]
     [ProducesResponseType(typeof(ValidationProblemDetails), 400)]
     [ProducesResponseType(typeof(ProblemDetails), 404)]
     [EndpointDescription("Confirm email for a user")]
-    public async Task<bool> ConfirmEmail(ISender sender, ConfirmEmailCommand confirmEmailCommand)
+    public async Task<IResult> ConfirmEmail(ISender sender, ConfirmEmailCommand confirmEmailCommand)
     {
-        return await sender.Send(confirmEmailCommand);
+        await sender.Send(confirmEmailCommand);
+        return Results.NoContent();
     }
 
     [Authorize(Policy = Policies.AllUsers)]
-    [ProducesResponseType(typeof(bool), 200)]
+    [ProducesResponseType(200)]
     [ProducesResponseType(typeof(ValidationProblemDetails), 400)]
     [ProducesResponseType(typeof(ProblemDetails), 404)]
     [EndpointDescription("Return if the email is registered or not")]
@@ -125,5 +128,14 @@ public class User : EndpointGroupBase
     public async Task<PasswordResetTokenResponse> GetEmailResetToken(ISender sender)
     {
         return await sender.Send(new PasswordResetTokenCommand());
+    }
+
+    [Authorize(Policy = Policies.AllUsers)]
+    [ProducesResponseType(204)]
+    [EndpointDescription("Update password")]
+    public async Task<IResult> UpdatePassword(ISender sender, UpdatePasswordCommand updatePasswordCommand)
+    {
+        await sender.Send(updatePasswordCommand);
+        return Results.NoContent();
     }
 }

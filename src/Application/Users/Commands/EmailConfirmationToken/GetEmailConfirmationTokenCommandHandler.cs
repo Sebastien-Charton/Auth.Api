@@ -12,14 +12,12 @@ public class
     GetEmailConfirmationTokenCommandHandler : IRequestHandler<GetEmailConfirmationTokenCommand,
         GetEmailConfirmationTokenResponse>
 {
-    private readonly IMapper _mapper;
     private readonly IUser _user;
     private readonly IUserManagerService _userManagerService;
 
-    public GetEmailConfirmationTokenCommandHandler(IUserManagerService userManagerService, IMapper mapper, IUser user)
+    public GetEmailConfirmationTokenCommandHandler(IUserManagerService userManagerService, IUser user)
     {
         _userManagerService = userManagerService;
-        _mapper = mapper;
         _user = user;
     }
 

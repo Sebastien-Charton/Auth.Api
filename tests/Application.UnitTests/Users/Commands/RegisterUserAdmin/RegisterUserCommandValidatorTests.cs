@@ -17,7 +17,7 @@ public class RegisterUserAdminCommandValidatorTests
         RegisterUserAdminCommand? registerUserCommand = new Faker<RegisterUserAdminCommand>()
             .RuleFor(x => x.Email, f => f.Internet.Email())
             .RuleFor(x => x.UserName, f => f.Internet.UserName())
-            .RuleFor(x => x.Password, f => f.Internet.GeneratePassword())
+            .RuleFor(x => x.Password, f => f.Internet.GenerateCustomPassword())
             .RuleFor(x => x.Roles, Roles.GetRoles)
             .Generate();
 
