@@ -11,8 +11,6 @@ public class PasswordResetTokenTests : UserEndpointsFixtures
     public async Task GetEmailConfirmationToken_ShouldReturnToken_WhenUserExists()
     {
         // Arrange
-        var getEmailConfirmationTokenCommand = new GetEmailConfirmationTokenCommand();
-
         // Act
 
         var getPasswordResetTokenResponse =
