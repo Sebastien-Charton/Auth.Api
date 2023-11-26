@@ -13,4 +13,5 @@ public class UserEndpointsFixtures : TestingFixture
     protected static readonly Uri IsUserNameExistsUri = new(BaseUri + "User/is-username-exists");
     protected static readonly Uri GetPasswordResetTokenUri = new(BaseUri + "User/password-reset-token");
     protected static readonly Uri UpdatePasswordUri = new(BaseUri + "User/update-password");
+    protected static readonly Uri ResetPasswordUri = new(BaseUri + "User/reset-password");
 }

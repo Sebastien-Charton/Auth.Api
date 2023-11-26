@@ -18,7 +18,7 @@ public class UpdatePasswordTests : UserEndpointsFixtures
 
         // Act
 
-        var updatePasswordResponse = await HttpClient.PostAsJsonAsync(UpdatePasswordUri, updatePasswordCommand);
+        var updatePasswordResponse = await HttpClient.PutAsJsonAsync(UpdatePasswordUri, updatePasswordCommand);
 
         // Assert
 
@@ -37,7 +37,7 @@ public class UpdatePasswordTests : UserEndpointsFixtures
 
         // Act
 
-        var updatePasswordResponse = await HttpClient.PostAsJsonAsync(UpdatePasswordUri, updatePasswordCommand);
+        var updatePasswordResponse = await HttpClient.PutAsJsonAsync(UpdatePasswordUri, updatePasswordCommand);
 
         // Assert
 

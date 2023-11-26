@@ -768,6 +768,196 @@
         ]
       }
     },
+    "/api/User/confirmation-email-token": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "GetEmailConfirmationToken",
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "description": "Language preference for the response.",
+            "schema": {
+              "type": "string",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "en-US",
+                "fr-FR"
+              ]
+            },
+            "default": "en-US",
+            "nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetEmailConfirmationTokenResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/User/password-reset-token": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "GetPasswordResetToken",
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "description": "Language preference for the response.",
+            "schema": {
+              "type": "string",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "en-US",
+                "fr-FR"
+              ]
+            },
+            "default": "en-US",
+            "nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PasswordResetTokenResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/User/update-password": {
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "UpdatePassword",
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "description": "Language preference for the response.",
+            "schema": {
+              "type": "string",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "en-US",
+                "fr-FR"
+              ]
+            },
+            "default": "en-US",
+            "nullable": true
+          }
+        ],
+        "requestBody": {
+          "x-name": "updatePasswordCommand",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/User/reset-password": {
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "ResetPassword",
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "description": "Language preference for the response.",
+            "schema": {
+              "type": "string",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "en-US",
+                "fr-FR"
+              ]
+            },
+            "default": "en-US",
+            "nullable": true
+          }
+        ],
+        "requestBody": {
+          "x-name": "resetPasswordCommand",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/User/is-email-confirmed": {
       "get": {
         "tags": [
@@ -824,146 +1014,6 @@
                 }
               }
             }
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
-    },
-    "/api/User/confirmation-email-token": {
-      "post": {
-        "tags": [
-          "User"
-        ],
-        "operationId": "GetEmailConfirmationToken",
-        "parameters": [
-          {
-            "name": "Accept-Language",
-            "in": "header",
-            "required": true,
-            "description": "Language preference for the response.",
-            "schema": {
-              "type": "string",
-              "items": {
-                "type": "string"
-              },
-              "enum": [
-                "en-US",
-                "fr-FR"
-              ]
-            },
-            "default": "en-US",
-            "nullable": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetEmailConfirmationTokenResponse"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
-    },
-    "/api/User/password-reset-token": {
-      "post": {
-        "tags": [
-          "User"
-        ],
-        "operationId": "GetEmailResetToken",
-        "parameters": [
-          {
-            "name": "Accept-Language",
-            "in": "header",
-            "required": true,
-            "description": "Language preference for the response.",
-            "schema": {
-              "type": "string",
-              "items": {
-                "type": "string"
-              },
-              "enum": [
-                "en-US",
-                "fr-FR"
-              ]
-            },
-            "default": "en-US",
-            "nullable": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PasswordResetTokenResponse"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
-    },
-    "/api/User/update-password": {
-      "post": {
-        "tags": [
-          "User"
-        ],
-        "operationId": "UpdatePassword",
-        "parameters": [
-          {
-            "name": "Accept-Language",
-            "in": "header",
-            "required": true,
-            "description": "Language preference for the response.",
-            "schema": {
-              "type": "string",
-              "items": {
-                "type": "string"
-              },
-              "enum": [
-                "en-US",
-                "fr-FR"
-              ]
-            },
-            "default": "en-US",
-            "nullable": true
-          }
-        ],
-        "requestBody": {
-          "x-name": "updatePasswordCommand",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdatePasswordCommand"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "204": {
-            "description": ""
           }
         },
         "security": [
@@ -1630,6 +1680,23 @@
             "type": "string",
             "minLength": 8,
             "pattern": "[A-Z]"
+          }
+        }
+      },
+      "ResetPasswordCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "token"
+        ],
+        "properties": {
+          "newPassword": {
+            "type": "string",
+            "minLength": 8,
+            "pattern": "[A-Z]"
+          },
+          "token": {
+            "type": "string"
           }
         }
       },

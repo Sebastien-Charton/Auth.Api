@@ -4,6 +4,7 @@ using Auth.Api.Application.Users.Commands.LoginUser;
 using Auth.Api.Application.Users.Commands.PasswordResetToken;
 using Auth.Api.Application.Users.Commands.RegisterUser;
 using Auth.Api.Application.Users.Commands.RegisterUserAdmin;
+using Auth.Api.Application.Users.Commands.ResetPassword;
 using Auth.Api.Application.Users.Commands.UpdatePassword;
 using Auth.Api.Application.Users.Queries.GetUserById;
 using Auth.Api.Application.Users.Queries.IsEmailConfirmed;
@@ -24,10 +25,11 @@ public class User : EndpointGroupBase
             .MapPost(RegisterUserAdmin, "register-admin")
             .MapPost(LoginUser, "login")
             .MapPost(ConfirmEmail, "confirm-email")
-            .MapGet(IsEmailConfirmed, "is-email-confirmed")
             .MapPost(GetEmailConfirmationToken, "confirmation-email-token")
-            .MapPost(GetEmailResetToken, "password-reset-token")
-            .MapPost(UpdatePassword, "update-password")
+            .MapPost(GetPasswordResetToken, "password-reset-token")
+            .MapPut(UpdatePassword, "update-password")
+            .MapPut(ResetPassword, "reset-password")
+            .MapGet(IsEmailConfirmed, "is-email-confirmed")
             .MapGet(GetUserById, "{userId}")
             .MapGet(IsEmailExists, "is-email-exists/{email}")
             .MapGet(IsUserNameExists, "is-username-exists/{userName}");
@@ -125,7 +127,7 @@ public class User : EndpointGroupBase
     [Authorize(Policy = Policies.AllUsers)]
     [ProducesResponseType(typeof(PasswordResetTokenResponse), 200)]
     [EndpointDescription("Return a reset password token")]
-    public async Task<PasswordResetTokenResponse> GetEmailResetToken(ISender sender)
+    public async Task<PasswordResetTokenResponse> GetPasswordResetToken(ISender sender)
     {
         return await sender.Send(new PasswordResetTokenCommand());
     }
@@ -136,6 +138,15 @@ public class User : EndpointGroupBase
     public async Task<IResult> UpdatePassword(ISender sender, UpdatePasswordCommand updatePasswordCommand)
     {
         await sender.Send(updatePasswordCommand);
+        return Results.NoContent();
+    }
+
+    [Authorize(Policy = Policies.AllUsers)]
+    [ProducesResponseType(204)]
+    [EndpointDescription("Reset password")]
+    public async Task<IResult> ResetPassword(ISender sender, ResetPasswordCommand resetPasswordCommand)
+    {
+        await sender.Send(resetPasswordCommand);
         return Results.NoContent();
     }
 }
