@@ -9,7 +9,7 @@ using Resource;
 
 namespace Auth.Api.Web.IntegrationTests.Users.Commands;
 
-public class RegisterUserTests : RegisterUserTestsFixtures
+public class RegisterUserTests : UserEndpointsFixtures
 {
     [Fact]
     public async Task RegisterUser_ShouldCreateUser_WhenUserIsValid()

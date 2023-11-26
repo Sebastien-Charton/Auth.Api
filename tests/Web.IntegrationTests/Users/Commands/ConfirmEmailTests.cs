@@ -2,8 +2,10 @@
 using System.Net.Http.Json;
 using Auth.Api.Application.Common.Interfaces.Identity.Services;
 using Auth.Api.Application.Users.Commands.ConfirmEmail;
+using Mailjet.Client;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Linq;
 using Resource;
 
 namespace Auth.Api.Web.IntegrationTests.Users.Commands;
@@ -36,6 +38,11 @@ public class ConfirmEmailTests : UserEndpointsFixtures
     public async Task ConfirmationEmail_ShouldNotConfirmEmail_WhenTokenIsInvalid()
     {
         // Arrange
+        MailJetClientMock
+            .Setup(x => x.PostAsync(It.IsAny<MailjetRequest>()))
+            .ReturnsAsync(new MailjetResponse(true, 200, new JObject()));
+
+
         var registerUserCommand = GenerateRegisterUserCommand();
 
         var userId = await SendAsync(registerUserCommand);

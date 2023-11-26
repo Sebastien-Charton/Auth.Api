@@ -7,7 +7,7 @@ using Auth.Api.Shared.Tests;
 
 namespace Auth.Api.Web.IntegrationTests.Users.Commands;
 
-public class ResetPasswordTests : RegisterUserTestsFixtures
+public class ResetPasswordTests : UserEndpointsFixtures
 {
     [Fact]
     public async Task ResetPassword_ShouldResetPassword_WhenTokenIsValid()

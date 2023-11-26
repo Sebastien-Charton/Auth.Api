@@ -1,4 +1,7 @@
-﻿namespace Auth.Api.Web.IntegrationTests.Users;
+﻿using Mailjet.Client;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace Auth.Api.Web.IntegrationTests.Users;
 
 public class UserEndpointsFixtures : TestingFixture
 {
@@ -14,4 +17,19 @@ public class UserEndpointsFixtures : TestingFixture
     protected static readonly Uri GetPasswordResetTokenUri = new(BaseUri + "User/password-reset-token");
     protected static readonly Uri UpdatePasswordUri = new(BaseUri + "User/update-password");
     protected static readonly Uri ResetPasswordUri = new(BaseUri + "User/reset-password");
+    protected static readonly Uri DeleteUserUri = new(BaseUri + "User");
+    protected static readonly Uri SendEmailConfirmationTokenUri = new(BaseUri + "User/send-confirmation-email-token");
+    protected static readonly Uri SendPasswordResetTokenUri = new(BaseUri + "User/send-password-reset-token");
+
+    protected UserEndpointsFixtures()
+    {
+        MailJetClientMock = new Mock<IMailjetClient>();
+    }
+
+    protected Mock<IMailjetClient> MailJetClientMock { get; }
+
+    protected override ServiceDescriptor[] ConfigureMocks()
+    {
+        return new[] { ServiceDescriptor.Scoped(x => MailJetClientMock.Object) };
+    }
 }
