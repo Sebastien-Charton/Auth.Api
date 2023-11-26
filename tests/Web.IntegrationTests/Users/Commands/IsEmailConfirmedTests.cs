@@ -35,12 +35,6 @@ public class IsEmailConfirmedTests : UserEndpointsFixtures
         emailConfirmationToken.Should().NotBeNull();
         emailConfirmationToken.Should().NotBeEmpty();
 
-        // var loginUserCommand =
-        //     new LoginUserCommand() { Email = _registerUserCommand.Email, Password = _registerUserCommand.Password };
-        // var loginUserResponse = await HttpClient.PostAsJsonAsync(LoginUserUri, loginUserCommand);
-        // var loginUserResult = await loginUserResponse.Content.ReadFromJsonAsync<LoginUserResponse>();
-        //
-        // HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loginUserResult!.Token);
         var confirmEmailCommand = new ConfirmEmailCommand { Token = emailConfirmationToken! };
 
         // Act

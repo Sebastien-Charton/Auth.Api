@@ -11,4 +11,5 @@ public class UserEndpointsFixtures : TestingFixture
     protected static readonly Uri GetEmailConfirmationToken = new(BaseUri + "User/confirmation-email-token");
     protected static readonly Uri IsEmailExistsUri = new(BaseUri + "User/is-email-exists");
     protected static readonly Uri IsUserNameExistsUri = new(BaseUri + "User/is-username-exists");
+    protected static readonly Uri GetPasswordResetToken = new(BaseUri + "User/password-reset-token");
 }

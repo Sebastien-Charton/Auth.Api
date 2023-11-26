@@ -1,6 +1,7 @@
 ﻿using Auth.Api.Application.Users.Commands.ConfirmEmail;
 using Auth.Api.Application.Users.Commands.EmailConfirmationToken;
 using Auth.Api.Application.Users.Commands.LoginUser;
+using Auth.Api.Application.Users.Commands.PasswordResetToken;
 using Auth.Api.Application.Users.Commands.RegisterUser;
 using Auth.Api.Application.Users.Commands.RegisterUserAdmin;
 using Auth.Api.Application.Users.Queries.GetUserById;
@@ -24,6 +25,7 @@ public class User : EndpointGroupBase
             .MapPost(ConfirmEmail, "confirm-email")
             .MapGet(IsEmailConfirmed, "is-email-confirmed")
             .MapPost(GetEmailConfirmationToken, "confirmation-email-token")
+            .MapPost(GetEmailResetToken, "password-reset-token")
             .MapGet(GetUserById, "{userId}")
             .MapGet(IsEmailExists, "is-email-exists/{email}")
             .MapGet(IsUserNameExists, "is-username-exists/{userName}");
@@ -115,5 +117,13 @@ public class User : EndpointGroupBase
     public async Task<bool> IsUserNameExists(ISender sender, string userName)
     {
         return await sender.Send(new IsUserNameExistsQuery { UserName = userName });
+    }
+
+    [Authorize(Policy = Policies.AllUsers)]
+    [ProducesResponseType(typeof(PasswordResetTokenResponse), 200)]
+    [EndpointDescription("Return a reset password token")]
+    public async Task<PasswordResetTokenResponse> GetEmailResetToken(ISender sender)
+    {
+        return await sender.Send(new PasswordResetTokenCommand());
     }
 }

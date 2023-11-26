@@ -885,6 +885,51 @@
         ]
       }
     },
+    "/api/User/password-reset-token": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "GetEmailResetToken",
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "description": "Language preference for the response.",
+            "schema": {
+              "type": "string",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "en-US",
+                "fr-FR"
+              ]
+            },
+            "default": "en-US",
+            "nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PasswordResetTokenResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/User/{userId}": {
       "get": {
         "tags": [
@@ -1513,6 +1558,15 @@
         }
       },
       "GetEmailConfirmationTokenResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "PasswordResetTokenResponse": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
