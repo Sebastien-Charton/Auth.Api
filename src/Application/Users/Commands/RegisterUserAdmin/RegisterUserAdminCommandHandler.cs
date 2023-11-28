@@ -4,7 +4,6 @@ using Auth.Api.Application.Common.Interfaces.ServiceAgents;
 using Auth.Api.Application.Common.Options;
 using Auth.Api.Application.Users.Commands.RegisterUser;
 using FluentValidation.Results;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Resource;
 using ValidationException = Auth.Api.Application.Common.Exceptions.ValidationException;
@@ -23,18 +22,16 @@ public class RegisterUserAdminCommandHandler : IRequestHandler<RegisterUserAdmin
 {
     private readonly IOptions<FeatureOptions> _featureOptions;
     private readonly IHtmlGenerator _htmlGenerator;
-    private readonly ILogger<RegisterUserAdminCommandHandler> _logger;
     private readonly IMailServiceAgent _mailServiceAgent;
     private readonly IUserManagerService _userManagerService;
 
     public RegisterUserAdminCommandHandler(IUserManagerService userManagerService, IMailServiceAgent mailServiceAgent,
-        IHtmlGenerator htmlGenerator, ILogger<RegisterUserAdminCommandHandler> logger,
+        IHtmlGenerator htmlGenerator,
         IOptions<FeatureOptions> featureOptions)
     {
         _userManagerService = userManagerService;
         _mailServiceAgent = mailServiceAgent;
         _htmlGenerator = htmlGenerator;
-        _logger = logger;
         _featureOptions = featureOptions;
     }
 

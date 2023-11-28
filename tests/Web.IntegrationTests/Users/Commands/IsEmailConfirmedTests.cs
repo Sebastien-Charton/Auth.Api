@@ -2,7 +2,6 @@
 using System.Net.Http.Json;
 using Auth.Api.Application.Common.Interfaces.Identity.Services;
 using Auth.Api.Application.Users.Commands.ConfirmEmail;
-using Auth.Api.Application.Users.Commands.RegisterUser;
 using Mailjet.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
@@ -11,8 +10,6 @@ namespace Auth.Api.Web.IntegrationTests.Users.Commands;
 
 public class IsEmailConfirmedTests : UserEndpointsFixtures
 {
-    private readonly RegisterUserCommand _registerUserCommand = GenerateRegisterUserCommand();
-
     public IsEmailConfirmedTests()
     {
         MailJetClientMock

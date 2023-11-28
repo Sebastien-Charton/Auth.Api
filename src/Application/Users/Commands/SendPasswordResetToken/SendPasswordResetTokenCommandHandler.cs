@@ -8,7 +8,7 @@ using Resource;
 
 namespace Auth.Api.Application.Users.Commands.SendPasswordResetToken;
 
-public class SendPasswordResetTokenCommand : IRequest<bool>
+public record SendPasswordResetTokenCommand : IRequest<bool>
 {
 }
 
@@ -41,7 +41,7 @@ public class
 
             var token = await _userManagerService.GenerateResetPasswordTokenAsync(user!);
 
-            var htmlContent = _htmlGenerator.GenerateConfirmationEmail(_user.Email!, token!);
+            var htmlContent = _htmlGenerator.GenerateConfirmationEmail(_user.Email!, token);
 
             await _mailServiceAgent.SendMail(_user.Email!, _user.UserName!,
                 HtmlTemplates.EmailConfirmationTemplateTitle, "", htmlContent);

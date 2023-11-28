@@ -8,7 +8,7 @@ using Resource;
 
 namespace Auth.Api.Application.Users.Commands.SendConfirmationEmailToken;
 
-public class SendConfirmationEmailTokenCommand : IRequest<bool>
+public record SendConfirmationEmailTokenCommand : IRequest<bool>
 {
 }
 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Auth.Api.Infrastructure.Identity.Models;
 
+// ReSharper disable once RedundantTypeDeclarationBody
 public class ApplicationUser : IdentityUser<Guid>, IApplicationUser
 {
 }

@@ -9,13 +9,11 @@ public record GetUserByIdQuery : IRequest<GetUserByIdResponse>
 
 public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, GetUserByIdResponse>
 {
-    private readonly IMapper _mapper;
     private readonly IUserManagerService _userManagerService;
 
-    public GetUserByIdQueryHandler(IUserManagerService userManagerService, IMapper mapper)
+    public GetUserByIdQueryHandler(IUserManagerService userManagerService)
     {
         _userManagerService = userManagerService;
-        _mapper = mapper;
     }
 
     public async Task<GetUserByIdResponse> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)

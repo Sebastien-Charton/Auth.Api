@@ -3,7 +3,7 @@ using Resource;
 
 namespace Auth.Api.Application.Users.Commands.DeleteUser;
 
-public class DeleteUserCommand : IRequest<bool>
+public record DeleteUserCommand : IRequest<bool>
 {
     public DeleteUserCommand(Guid userId)
     {

@@ -43,7 +43,7 @@ public static class DependencyInjection
         {
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
 
-            options.UseNpgsql(connectionString, options =>
+            options.UseNpgsql(connectionString, _ =>
             {
             });
         });

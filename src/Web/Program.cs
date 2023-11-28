@@ -75,7 +75,7 @@ app.MapRazorPages();
 
 app.MapFallbackToFile("index.html");
 
-app.UseExceptionHandler(options => { });
+app.UseExceptionHandler();
 
 app.Map("/", () => Results.Redirect("/api"));
 
@@ -83,6 +83,7 @@ app.MapEndpoints();
 
 app.Run();
 
+// ReSharper disable once RedundantTypeDeclarationBody
 // ReSharper disable once ClassNeverInstantiated.Global
 public partial class Program
 {

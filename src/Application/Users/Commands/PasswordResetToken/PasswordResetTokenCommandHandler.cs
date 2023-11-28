@@ -4,7 +4,7 @@ using Resource;
 
 namespace Auth.Api.Application.Users.Commands.PasswordResetToken;
 
-public class PasswordResetTokenCommand : IRequest<PasswordResetTokenResponse>
+public record PasswordResetTokenCommand : IRequest<PasswordResetTokenResponse>
 {
 }
 
