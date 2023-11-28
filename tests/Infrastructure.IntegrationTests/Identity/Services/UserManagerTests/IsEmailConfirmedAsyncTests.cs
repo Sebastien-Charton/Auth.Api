@@ -12,9 +12,9 @@ public class IsEmailConfirmedAsyncTests : UserManagerTestsFixtures
         // Arrange
         var createUserResult = await CreateUser();
         var userManagerService = ServiceScope.ServiceProvider.GetRequiredService<IUserManagerService>();
-        await userManagerService.GetUserByIdAsync(createUserResult.userId);
-        await userManagerService.GenerateEmailConfirmationTokenAsync(createUserResult.userId);
-
+        var user = await userManagerService.GetUserByIdAsync(createUserResult.userId);
+        var token = await userManagerService.GenerateEmailConfirmationTokenAsync(createUserResult.userId);
+        await userManagerService.ConfirmEmailAsync(user!, token!);
         // Act
 
         var isEmailConfirmedResponse = await userManagerService.IsEmailConfirmedAsync(createUserResult.userId);
