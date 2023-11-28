@@ -75,7 +75,7 @@ app.MapRazorPages();
 
 app.MapFallbackToFile("index.html");
 
-app.UseExceptionHandler();
+app.UseExceptionHandler(options => { });
 
 app.Map("/", () => Results.Redirect("/api"));
 
