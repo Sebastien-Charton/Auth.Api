@@ -17,7 +17,6 @@ public abstract class TestingFixture : IAsyncDisposable
 
         _factory = new CustomWebApplicationFactory(_database.GetConnection(), ConfigureMocks());
 
-        HttpClient = _factory.CreateClient();
         _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
 
         ApplicationDbContextInitialiser initialiser =
@@ -27,8 +26,6 @@ public abstract class TestingFixture : IAsyncDisposable
 
         initialiser.SeedAsync().Wait();
     }
-
-    public HttpClient HttpClient { get; private set; }
 
     protected IServiceScope ServiceScope { get; }
 

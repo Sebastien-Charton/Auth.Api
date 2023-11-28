@@ -87,7 +87,7 @@ public class RegisterUserAdminAdminTests : UserEndpointsFixtures
         registerUserAdminResponse.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
         registerUserAdminResult!.Errors.Count.Should().BeGreaterThan(0);
-        registerUserAdminResult!.Errors.Values.Should().Contain(x =>
+        registerUserAdminResult.Errors.Values.Should().Contain(x =>
             x.Contains(UserErrorMessages.EmailAlreadyExists) || x.Contains(UserErrorMessages.UserNameAlreadyExists));
     }
 }

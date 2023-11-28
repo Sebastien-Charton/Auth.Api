@@ -30,6 +30,6 @@ public class UserEndpointsFixtures : TestingFixture
 
     protected override ServiceDescriptor[] ConfigureMocks()
     {
-        return new[] { ServiceDescriptor.Scoped(x => MailJetClientMock.Object) };
+        return new[] { ServiceDescriptor.Scoped(_ => MailJetClientMock.Object) };
     }
 }

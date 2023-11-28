@@ -32,7 +32,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         System.Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Test");
         var environment = System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
-        IConfigurationRoot configuration = new ConfigurationBuilder()
+        new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile($"appsettings.{environment}.secrets.json", false, true)
             .AddJsonFile($"appsettings.{environment}.json", false, true)
@@ -65,7 +65,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 
             services.AddAuthentication(TestAuthHandler.AuthenticationScheme)
                 .AddScheme<TestAuthHandlerOptions, TestAuthHandler>(TestAuthHandler.AuthenticationScheme,
-                    options => { });
+                    _ => { });
 
             ConfigureTestServices(services);
         });

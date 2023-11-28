@@ -18,16 +18,6 @@ public class IsEmailConfirmedTests : UserEndpointsFixtures
         MailJetClientMock
             .Setup(x => x.PostAsync(It.IsAny<MailjetRequest>()))
             .ReturnsAsync(new MailjetResponse(true, 200, new JObject()));
-
-        var createUserResult = HttpClient
-            .PostAsJsonAsync(RegisterUserUri, _registerUserCommand)
-            .GetAwaiter()
-            .GetResult();
-
-        var userId = createUserResult.Content
-            .ReadFromJsonAsync<Guid>()
-            .GetAwaiter()
-            .GetResult();
     }
 
     [Fact]

@@ -42,11 +42,6 @@ public class ConfirmEmailTests : UserEndpointsFixtures
             .Setup(x => x.PostAsync(It.IsAny<MailjetRequest>()))
             .ReturnsAsync(new MailjetResponse(true, 200, new JObject()));
 
-
-        var registerUserCommand = GenerateRegisterUserCommand();
-
-        var userId = await SendAsync(registerUserCommand);
-
         var confirmEmailCommand = new ConfirmEmailCommand { Token = "token" };
 
         // Act

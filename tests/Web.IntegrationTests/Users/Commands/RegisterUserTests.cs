@@ -79,7 +79,7 @@ public class RegisterUserTests : UserEndpointsFixtures
         registerUserResponse.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
         registerUserResult!.Errors.Count.Should().BeGreaterThan(0);
-        registerUserResult!.Errors.Values.Should().Contain(x =>
+        registerUserResult.Errors.Values.Should().Contain(x =>
             x.Contains(UserErrorMessages.EmailAlreadyExists) || x.Contains(UserErrorMessages.UserNameAlreadyExists));
     }
 }

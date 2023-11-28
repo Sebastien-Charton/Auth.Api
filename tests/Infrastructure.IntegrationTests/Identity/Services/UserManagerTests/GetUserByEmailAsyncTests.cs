@@ -22,8 +22,8 @@ public class GetUserByEmailAsyncTests : UserManagerTestsFixtures
 
         response.Should().NotBeNull();
         response!.UserName.Should().Be(createUserResult.userName);
-        response!.Email.Should().Be(createUserResult.email);
-        response!.Id.Should().Be(createUserResult.userId);
+        response.Email.Should().Be(createUserResult.email);
+        response.Id.Should().Be(createUserResult.userId);
     }
 
     [Fact]

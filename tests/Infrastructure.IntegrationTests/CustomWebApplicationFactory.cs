@@ -27,7 +27,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Test");
         var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
-        IConfigurationRoot configuration = new ConfigurationBuilder()
+        new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile($"appsettings.{environment}.secrets.json", false, true)
             .AddJsonFile($"appsettings.{environment}.json", false, true)

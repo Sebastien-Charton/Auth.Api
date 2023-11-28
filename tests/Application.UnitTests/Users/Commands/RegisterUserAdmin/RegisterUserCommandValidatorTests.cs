@@ -5,7 +5,7 @@ using Bogus;
 using FluentAssertions;
 using Xunit;
 
-namespace Auth.Api.Application.UnitTests.Users.Commands.RegisterUserAdminAdmin;
+namespace Auth.Api.Application.UnitTests.Users.Commands.RegisterUserAdmin;
 
 public class RegisterUserAdminCommandValidatorTests
 {
