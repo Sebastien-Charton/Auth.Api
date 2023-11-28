@@ -31,7 +31,7 @@ public class ConfirmEmailTests : UserEndpointsFixtures
 
         // Assert
 
-        emailConfirmationResult.StatusCode.Should().Be(HttpStatusCode.OK);
+        emailConfirmationResult.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 
     [Fact]
