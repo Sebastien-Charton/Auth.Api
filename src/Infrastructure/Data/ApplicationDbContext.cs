@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using Auth.Api.Application.Common.Interfaces;
-using Auth.Api.Domain.Entities;
 using Auth.Api.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -14,10 +13,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
     }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-
-    public DbSet<TodoList> TodoLists => Set<TodoList>();
-
-    public DbSet<TodoItem> TodoItems => Set<TodoItem>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
