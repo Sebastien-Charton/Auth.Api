@@ -55,7 +55,7 @@ jobs:
           docker run --rm hello-world
       
     - name: Test solution
-      run: dotnet test --no-build --configuration Release --filter "FullyQualifiedName!~AcceptanceTests"
+      run: dotnet test --no-build --configuration Release
 
     - name: Publish website
       if: ${{ inputs.build-artifacts == true }}
