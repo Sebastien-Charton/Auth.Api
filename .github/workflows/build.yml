@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [ main ]
+    branches: [ releases/*.* ]
     paths-ignore:
       - '.scripts/**'
       - .gitignore
@@ -48,6 +48,11 @@ jobs:
     - name: Use the previous version
       run: |
         echo ${{ steps.version.outputs.previous-version }}
+
+    - name: ${{github.ref_name}}
+      env: 
+        RELEASE_VERSION:  ${{github.ref_name}}
+      run: echo $RELEASE_VERSION
   
     # - uses: actions/checkout@v3
     #   name: Checkout code
