@@ -30,18 +30,19 @@ jobs:
         ref: ${{ github.head_ref }}   # checkout the correct branch name
         fetch-depth: 0                # fetch the whole repo history
     
-    # create a step to extract the version from the branch name
+    # step to extract the version from the branch name
     - name: Set version
       id: set_version
       run: |
         echo "version=${GITHUB_REF##*/}" >>$GITHUB_OUTPUT
         echo "::set-output name=version::${GITHUB_REF##*/}"
-        
-    - name: Extract version
-      env:
-        RELEASE_VERSION: ${{ github.ref_name }}
-      id: extract_version
-      run: echo "version=${RELEASE_VERSION##*/}" >>$GITHUB_OUTPUT
+
+    # - name: Extract version
+    #   env:
+    #     RELEASE_VERSION: ${{ github.ref_name }}
+    #   id: extract_version
+    #   run: echo "version=${RELEASE_VERSION##*/}" >>$GITHUB_OUTPUT
+
     - name: Output version
       run: echo ${{ steps.set_version.outputs.version }}
 
@@ -52,6 +53,15 @@ jobs:
 
     - name: Print new build number
       run: echo "Build number is $BUILD_NUMBER"
+
+    - name: Print full version
+      run: echo "Full version is ${{ steps.set_version.outputs.version }}.$BUILD_NUMBER"
+
+    - name: Set full version
+      id: set_full_version
+      run: |
+        echo "full_version=${{ steps.set_version.outputs.version }}.$BUILD_NUMBER" >>$GITHUB_OUTPUT
+        echo "::set-output name=full_version::${{ steps.set_version.outputs.version }}.$BUILD_NUMBER"
 
     # - name: Cache NuGet packages
     #   uses: actions/cache@v3
