@@ -121,4 +121,12 @@ jobs:
     #     path: ./efbundle.zip
     #     if-no-files-found: error
 
+    # Build the project, create an image and push to docker hub
+    - name: Build and push Docker image
+      if: ${{ inputs.build-artifacts == true }}
+      run: |
+        docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/dotnetcoreapp:${{ steps.set_version.outputs.version }} .
+        docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
+        docker push ${{ secrets.DOCKER_HUB_USERNAME }}/dotnetcoreapp:${{ steps.set_version.outputs.version }}
+    
 
