@@ -10,22 +10,6 @@ on:
       - LICENSE
       - README.md
 
-  # workflow_dispatch:
-  #   inputs:
-  #     execute-tests:
-  #       description: 'Build artifacts'
-  #       type: boolean
-  #       required: true
-  #       default: true
-
-          # workflow_call:
-  #   inputs:
-  #     build-artifacts:
-  #       type: boolean
-  #       required: true
-  #       default: true
-    
-
 permissions: write-all
 
 jobs:
