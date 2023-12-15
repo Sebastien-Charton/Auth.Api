@@ -10,13 +10,13 @@ on:
       - LICENSE
       - README.md
 
-  workflow_dispatch:
-    inputs:
-      execute-tests:
-        description: 'Build artifacts'
-        type: boolean
-        required: true
-        default: true
+  # workflow_dispatch:
+  #   inputs:
+  #     execute-tests:
+  #       description: 'Build artifacts'
+  #       type: boolean
+  #       required: true
+  #       default: true
 
           # workflow_call:
   #   inputs:
@@ -31,6 +31,9 @@ permissions: write-all
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      EXECUTE_TESTS: false
+      BUILD_ARTIFACTS: true
 
     steps:
     - name: Checkout Code
@@ -94,10 +97,10 @@ jobs:
     #       docker run --rm hello-world
       
     - name: Echo execute-tests
-      run: echo ${{ inputs.execute-tests }}
+      run: echo $EXECUTE_TESTS
 
     - name: Test solution
-      if: ${{ inputs.execute-tests == true }}
+      if: env.EXECUTE_TESTS
       run: dotnet test --no-build --configuration Release
 
     # - name: Publish website
@@ -135,11 +138,11 @@ jobs:
     #     if-no-files-found: error
 
     - name: Echo build-artifacts
-      run: echo ${{ inputs.build-artifacts }}
+      run: echo $BUILD_ARTIFACTS
 
     # Build the project, create an image and push to docker hub
     - name: Build and push Docker image
-      if: ${{ inputs.build-artifacts == true }}
+      if: env.BUILD_ARTIFACTS 
       run: |
         docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/dotnetcoreapp:${{ steps.set_version.outputs.version }} .
         docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
