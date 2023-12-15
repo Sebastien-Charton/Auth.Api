@@ -121,6 +121,9 @@ jobs:
     #     path: ./efbundle.zip
     #     if-no-files-found: error
 
+    - name: Echo build-artifacts
+      run: echo ${{ inputs.build-artifacts }}
+
     # Build the project, create an image and push to docker hub
     - name: Build and push Docker image
       if: ${{ inputs.build-artifacts == true }}
