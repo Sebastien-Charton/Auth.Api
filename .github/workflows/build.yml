@@ -16,8 +16,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      EXECUTE_TESTS: false
-      BUILD_ARTIFACTS: true
+      EXECUTE_TESTS: true
+      BUILD_AND_PUBLISH_DOCKER_IMAGE: true
 
     steps:
 
@@ -104,7 +104,7 @@ jobs:
     #     if-no-files-found: error
 
     - name: Build and push Docker image
-      if: env.BUILD_ARTIFACTS == 'true'
+      if: env.BUILD_AND_PUBLISH_DOCKER_IMAGE == 'true'
       run: |
         docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/auth-api:${{ steps.set_version.outputs.version }} -t ${{ secrets.DOCKER_HUB_USERNAME }}/auth-api .
         docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
