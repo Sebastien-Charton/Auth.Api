@@ -100,7 +100,7 @@ jobs:
       run: echo $EXECUTE_TESTS
 
     - name: Test solution
-      if: env.EXECUTE_TESTS == true
+      if: env.EXECUTE_TESTS == 'true'
       run: dotnet test --no-build --configuration Release
 
     # - name: Publish website
@@ -142,7 +142,7 @@ jobs:
 
     # Build the project, create an image and push to docker hub
     - name: Build and push Docker image
-      if: env.BUILD_ARTIFACTS == true
+      if: env.BUILD_ARTIFACTS == 'true'
       run: |
         docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/dotnetcoreapp:${{ steps.set_version.outputs.version }} .
         docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
