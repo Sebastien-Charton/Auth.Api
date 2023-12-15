@@ -102,22 +102,6 @@ jobs:
     - name: Test solution
       if: env.EXECUTE_TESTS == 'true'
       run: dotnet test --no-build --configuration Release
-
-    # - name: Publish website
-    #   if: ${{ inputs.build-artifacts == true }}
-    #   run: |
-    #     dotnet publish --configuration Release --runtime win-x86 --self-contained --output ./publish
-    #     cd publish
-    #     zip -r ./publish.zip .
-    #   working-directory: ./src/Web/
-
-    # - name: Upload website artifact (website)
-    #   if: ${{ inputs.build-artifacts == true }}
-    #   uses: actions/upload-artifact@v3
-    #   with:
-    #     name: website
-    #     path: ./src/Web/publish/publish.zip
-    #     if-no-files-found: error
     
     # - name: Create EF Core migrations bundle
     #   if: ${{ inputs.build-artifacts == true }}
