@@ -106,8 +106,8 @@ jobs:
     - name: Build and push Docker image
       if: env.BUILD_ARTIFACTS == 'true'
       run: |
-        docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/dotnetcoreapp:${{ steps.set_version.outputs.version }} .
+        docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/auth-api:${{ steps.set_version.outputs.version }} .
         docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
-        docker push ${{ secrets.DOCKER_HUB_USERNAME }}/dotnetcoreapp:${{ steps.set_version.outputs.version }}
+        docker push ${{ secrets.DOCKER_HUB_USERNAME }}/auth-api:${{ steps.set_version.outputs.version }}
     
 
