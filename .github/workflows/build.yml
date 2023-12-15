@@ -30,6 +30,13 @@ jobs:
         ref: ${{ github.head_ref }}   # checkout the correct branch name
         fetch-depth: 0                # fetch the whole repo history
     
+    # create a step to extract the version from the branch name
+    - name: Set version
+      id: set_version
+      run: |
+        echo "version=${GITHUB_REF##*/}" >>$GITHUB_OUTPUT
+        echo "::set-output name=version::${GITHUB_REF##*/}"
+        
     - name: Extract version
       env:
         RELEASE_VERSION: ${{ github.ref_name }}
