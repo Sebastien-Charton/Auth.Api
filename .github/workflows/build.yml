@@ -108,6 +108,6 @@ jobs:
       run: |
         docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/auth-api:${{ steps.set_version.outputs.version }} -t ${{ secrets.DOCKER_HUB_USERNAME }}/auth-api .
         docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
-        docker push ${{ secrets.DOCKER_HUB_USERNAME }}/auth-api:${{ steps.set_version.outputs.version }}
+        docker push --all-tags ${{ secrets.DOCKER_HUB_USERNAME }}/auth-api
     
 
