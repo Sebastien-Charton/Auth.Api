@@ -34,8 +34,8 @@ jobs:
     - name: Set version
       id: set_version
       run: |
-        echo "version=${GITHUB_REF##*/}" >>$GITHUB_OUTPUT
-        echo "::set-output name=version::${GITHUB_REF##*/}"
+        echo "version=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
+        echo "version=${GITHUB_REF##*/}" >> $GITHUB_ENV
 
     # - name: Extract version
     #   env:
@@ -60,8 +60,8 @@ jobs:
     - name: Set full version
       id: set_full_version
       run: |
-        echo "full_version=${{ steps.set_version.outputs.version }}.$BUILD_NUMBER" >>$GITHUB_OUTPUT
-        echo "::set-output name=full_version::${{ steps.set_version.outputs.version }}.$BUILD_NUMBER"
+        echo "full_version=${{ steps.set_version.outputs.version }}.$BUILD_NUMBER" >> $GITHUB_OUTPUT
+        echo "full_version=${{ steps.set_version.outputs.version }}.$BUILD_NUMBER" >> $GITHUB_ENV
 
     # - name: Cache NuGet packages
     #   uses: actions/cache@v3
