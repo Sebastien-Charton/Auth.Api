@@ -1,4 +1,4 @@
-name: Build
+name: Build Auth.API service
 
 on:
   push:
@@ -20,6 +20,7 @@ jobs:
       BUILD_ARTIFACTS: true
 
     steps:
+
     - name: Checkout Code
       uses: actions/checkout@v3
       with:
@@ -40,7 +41,7 @@ jobs:
       with:
         token: ${{secrets.github_token}}
 
-    - name: Print new build number of the current branch
+    - name: Print build number of the current branch
       run: echo "Build number is $BUILD_NUMBER"
 
     - name: Set full version
@@ -69,7 +70,7 @@ jobs:
     - name: Build solution
       run: dotnet build --no-restore --configuration Release
 
-    - name: Intall docker
+    - name: Install docker
       uses: docker-practice/actions-setup-docker@master
     
     # - name: Run Hello World
@@ -80,9 +81,6 @@ jobs:
       
     #       docker run --rm hello-world
       
-    - name: Echo execute-tests
-      run: echo $EXECUTE_TESTS
-
     - name: Test solution
       if: env.EXECUTE_TESTS == 'true'
       run: dotnet test --no-build --configuration Release
@@ -105,10 +103,6 @@ jobs:
     #     path: ./efbundle.zip
     #     if-no-files-found: error
 
-    - name: Echo build-artifacts
-      run: echo $BUILD_ARTIFACTS
-
-    # Build the project, create an image and push to docker hub
     - name: Build and push Docker image
       if: env.BUILD_ARTIFACTS == 'true'
       run: |
