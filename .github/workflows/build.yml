@@ -10,12 +10,21 @@ on:
       - LICENSE
       - README.md
 
-  workflow_call:
+  workflow_dispatch:
     inputs:
-      build-artifacts:
+      execute-tests:
+        description: 'Build artifacts'
         type: boolean
         required: true
         default: true
+
+          # workflow_call:
+  #   inputs:
+  #     build-artifacts:
+  #       type: boolean
+  #       required: true
+  #       default: true
+    
 
 permissions: write-all
 
@@ -84,8 +93,12 @@ jobs:
       
     #       docker run --rm hello-world
       
-    # - name: Test solution
-    #   run: dotnet test --no-build --configuration Release
+    - name: Echo execute-tests
+      run: echo ${{ inputs.execute-tests }}
+
+    - name: Test solution
+      if: ${{ inputs.execute-tests == true }}
+      run: dotnet test --no-build --configuration Release
 
     # - name: Publish website
     #   if: ${{ inputs.build-artifacts == true }}
