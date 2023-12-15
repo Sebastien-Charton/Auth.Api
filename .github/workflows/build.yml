@@ -106,7 +106,7 @@ jobs:
     - name: Build and push Docker image
       if: env.BUILD_ARTIFACTS == 'true'
       run: |
-        docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/auth-api:${{ steps.set_version.outputs.version }} -t ${{ secrets.DOCKER_HUB_USERNAME }}/auth-api:latest .
+        docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/auth-api:${{ steps.set_version.outputs.version }} -t ${{ secrets.DOCKER_HUB_USERNAME }}/auth-api .
         docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
         docker push ${{ secrets.DOCKER_HUB_USERNAME }}/auth-api:${{ steps.set_version.outputs.version }}
     
