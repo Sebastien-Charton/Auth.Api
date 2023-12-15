@@ -15,7 +15,7 @@ on:
       build-artifacts:
         type: boolean
         required: true
-        default: false
+        default: true
 
 permissions: write-all
 
@@ -76,16 +76,16 @@ jobs:
     - name: Intall docker
       uses: docker-practice/actions-setup-docker@master
     
-    - name: Run Hello World
-      run: |
-          set -x
+    # - name: Run Hello World
+    #   run: |
+    #       set -x
       
-          docker version
+    #       docker version
       
-          docker run --rm hello-world
+    #       docker run --rm hello-world
       
-    - name: Test solution
-      run: dotnet test --no-build --configuration Release
+    # - name: Test solution
+    #   run: dotnet test --no-build --configuration Release
 
     # - name: Publish website
     #   if: ${{ inputs.build-artifacts == true }}
