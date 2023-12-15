@@ -52,6 +52,6 @@ public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginUs
 
         var token = _jwtService.GenerateJwtToken(user, roles.ToList());
 
-        return new LoginUserResponse { Token = token };
+        return new LoginUserResponse { Token = token, UserId = user.Id};
     }
 }
