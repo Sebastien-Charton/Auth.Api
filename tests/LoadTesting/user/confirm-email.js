@@ -6,6 +6,8 @@ import { addAuthorizationToHeaders, basicOptions } from "../global-configs.js";
 export function confirmEmail(baseUrl) {
     describe("Create a new User and confirm email", () => {
 
+        // create user
+
         let userName = `${randomString(10)}`
         let email = `${randomString(10)}@example.com`
         let password = "Password1!,";
@@ -35,12 +37,9 @@ export function confirmEmail(baseUrl) {
 
         expect(authToken, `auth token is ${authToken}`).to.be.a('string');
 
-        console.log(`auth token is ${authToken}`);
         // Get email confirmation token
 
         let optionWithAuth = addAuthorizationToHeaders(authToken);
-
-        console.log(`optionWithAuth is ${JSON.stringify(optionWithAuth)}`);
 
         let getEmailConfirmationTokenResponse = http.post(`${baseUrl}user/confirmation-email-token`, null, optionWithAuth);
 

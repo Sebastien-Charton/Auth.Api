@@ -1,6 +1,8 @@
 import { getAuthApiBaseUrl, localEnvName} from "../global-configs.js";
 import { confirmEmail } from "./confirm-email.js";
+import { createNewAdminUser } from "./create-admin-user.js";
 import { createNewUser } from "./create-user.js";
+import { getUserById } from "./get-by-id.js";
 import { loginUser } from "./login-user.js";
 
 export const options = {
@@ -22,4 +24,6 @@ export default function testSuite() {
     confirmEmail(baseUrl);
     createNewUser(baseUrl);
     loginUser(baseUrl);
+    createNewAdminUser(baseUrl);
+    getUserById(baseUrl);
 }
