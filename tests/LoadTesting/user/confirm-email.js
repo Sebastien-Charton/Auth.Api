@@ -1,24 +1,9 @@
 import http from "k6/http";
 import { describe, expect } from 'https://jslib.k6.io/k6chaijs/4.3.4.3/index.js';
 import { randomString } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
-import { addAuthorizationToHeaders, getAuthApiBaseUrl, localEnvName, basicOptions } from "../global-configs.js";
+import { addAuthorizationToHeaders, basicOptions } from "../global-configs.js";
 
-export const options = {
-    iterations: 1
-    // stages: [
-    //     {duration: '1m', target: 10},
-    //     {duration: '1m', target: 20},
-    //     {duration: '1m', target: 0},
-    // ],
-    // thresholds: {
-    //     http_req_failed: ['rate<0.01'], // http errors should be less than 1%
-    //     http_req_duration: ['p(95)<200'], // 95% of requests should be below 200ms
-    // },
-};
-
-const baseUrl = getAuthApiBaseUrl(localEnvName);
-
-function confirmEmail() {
+export function confirmEmail(baseUrl) {
     describe("Create a new User and confirm email", () => {
 
         let userName = `${randomString(10)}`
@@ -75,8 +60,4 @@ function confirmEmail() {
 
         expect(confirmEmailResponse.status, 'confirm email').to.equal(204);
     });
-}
-
-export default function testSuite() {
-    confirmEmail();
 }

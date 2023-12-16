@@ -3,13 +3,7 @@ import { describe, expect } from 'https://jslib.k6.io/k6chaijs/4.3.4.3/index.js'
 import { randomString } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
 import { basicOptions, getAuthApiBaseUrl, localEnvName } from '../global-configs.js';
 
-export const options = {
-    iterations: 1
-};
-
-const baseUrl = getAuthApiBaseUrl(localEnvName);
-
-function loginUser() {
+export function loginUser(baseUrl) {
     describe("Login user", () => {
         let userName = `${randomString(10)}`
         let email = `${randomString(10)}@example.com`
@@ -38,6 +32,3 @@ function loginUser() {
     });
 }
 
-export default function testSuite() {
-    loginUser();
-}
