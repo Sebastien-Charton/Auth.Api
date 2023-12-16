@@ -103,7 +103,7 @@ public class User : EndpointGroupBase
         return await sender.Send(getUserByIdQuery);
     }
 
-    [Authorize(Policy = Policies.IsAdministrator)]
+    [Authorize(Policy = Policies.AllUsers)]
     [ProducesResponseType(typeof(GetEmailConfirmationTokenResponse), 200)]
     [EndpointDescription("Get a confirmation email token")]
     public async Task<GetEmailConfirmationTokenResponse> GetEmailConfirmationToken(ISender sender)
