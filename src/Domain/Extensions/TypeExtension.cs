@@ -2,7 +2,7 @@
 
 namespace Auth.Api.Domain.Extensions;
 
-public static class TypeUtilities
+public static class TypeExtension
 {
     public static T[] GetAllPublicConstantValues<T>(this Type type)
     {

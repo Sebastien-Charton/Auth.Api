@@ -1,22 +1,5 @@
 version: '3.4'
 
 services:
-  authdatabase:
-    image: postgres
-  
-  cache:
-    image: redis:alpine
-
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
-
-  kibana:
-    image: docker.elastic.co/kibana/kibana:7.9.2
-
-  portainer:
-    image: portainer/portainer-ce
-
-volumes:
-  postgres_data_auth_database:
-  elasticsearch-data:
-  portainer_data:
+  authapi:
+    image: "sebastiencharton/authapi:latest" 

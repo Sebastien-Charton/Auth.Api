@@ -19,5 +19,7 @@ RUN dotnet publish "src/Web/Web.csproj" -c Release -o /app/publish /p:UseAppHost
 
 FROM base AS final
 WORKDIR /app
+ENV ASPNETCORE_ENVIRONMENT=Development
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Auth.Api.dll"]
+ENTRYPOINT ["dotnet", "Auth.Api.Web.dll"]
+

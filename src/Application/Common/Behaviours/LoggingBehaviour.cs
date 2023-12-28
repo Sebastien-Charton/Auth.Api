@@ -18,18 +18,12 @@ public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where T
         _userManagerService = userManagerService;
     }
 
-    public async Task Process(TRequest request, CancellationToken cancellationToken)
+    public Task Process(TRequest request, CancellationToken cancellationToken)
     {
         string requestName = typeof(TRequest).Name;
-        Guid? userId = _user.Id ?? null;
-        string? userName = string.Empty;
-
-        if (userId.HasValue)
-        {
-            userName = await _userManagerService.GetUserNameAsync(userId.Value);
-        }
-
+        
         _logger.LogInformation("CleanArchitecture Request: {Name} {@UserId} {@UserName} {@Request}",
-            requestName, userId, userName, request);
+            requestName, _user.Id, _user.UserName, request);
+        return Task.CompletedTask;
     }
 }
