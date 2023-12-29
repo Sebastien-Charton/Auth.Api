@@ -5,6 +5,8 @@ services:
     container_name: authapi
     build:
       context: .
+      args:
+        - ASPNETCORE_ENVIRONMENT=Development
     restart: always
     ports:
       - "5200:8080"
