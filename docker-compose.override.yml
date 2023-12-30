@@ -6,7 +6,7 @@ services:
     build:
       context: .
       args:
-        - ASPNETCORE_ENVIRONMENT=Development
+        - ASPNETCORE_ENVIRONMENT=Container
     restart: always
     ports:
       - "5200:8080"
