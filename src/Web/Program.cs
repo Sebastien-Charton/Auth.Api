@@ -41,6 +41,17 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.SupportedUICultures = supportedCultures;
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", corsPolicyBuilder =>
+        corsPolicyBuilder
+            .AllowAnyMethod()
+            .WithOrigins(builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()!)
+            .AllowAnyHeader()
+            .AllowCredentials()
+    );
+});
+
 WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -65,6 +76,8 @@ app.UseSwaggerUi(settings =>
     settings.Path = "/api";
     settings.DocumentPath = "/api/specification.json";
 });
+
+app.UseCors("CorsPolicy");
 
 app.MapControllerRoute(
     "default",
