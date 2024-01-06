@@ -1,13 +1,13 @@
 ﻿using Auth.Api.Application.Common.Interfaces.Identity.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Auth.Api.Infrastructure.IntegrationTests.Identity.Services.UserManagerTests;
+namespace Auth.Api.Infrastructure.IntegrationTests.Identity.Services.UserManagerTests.User;
 
 [Collection(nameof(UserManagerTests))]
-public class IsUserNameExistsAsyncTests : UserManagerTestsFixtures
+public class IsUserExistsAsyncTests : UserManagerTestsFixtures
 {
     [Fact]
-    public async Task IsUserNameExistsAsync_ShouldReturnTrue_WhenUserExists()
+    public async Task IsUserExistsAsync_ShouldReturnTrue_WhenUserExists()
     {
         // Arrange
 
@@ -16,7 +16,7 @@ public class IsUserNameExistsAsyncTests : UserManagerTestsFixtures
 
         // Act
 
-        var response = await userManagerService.IsUserNameExists(createUserResult.userName);
+        var response = await userManagerService.IsUserExists(createUserResult.userId);
 
         // Assert
 
@@ -24,7 +24,7 @@ public class IsUserNameExistsAsyncTests : UserManagerTestsFixtures
     }
 
     [Fact]
-    public async Task IsUserNameExistsAsync_ShouldReturnFalse_WhenUserDoesntExists()
+    public async Task IsUserExistsAsync_ShouldReturnFalse_WhenUserDoesntExists()
     {
         // Arrange
 
@@ -32,7 +32,7 @@ public class IsUserNameExistsAsyncTests : UserManagerTestsFixtures
 
         // Act
 
-        var response = await userManagerService.IsUserNameExists("randomUserName");
+        var response = await userManagerService.IsUserExists(Guid.NewGuid());
 
         // Assert
 

@@ -2,7 +2,7 @@
 using Auth.Api.Shared.Tests;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Auth.Api.Infrastructure.IntegrationTests.Identity.Services.UserManagerTests;
+namespace Auth.Api.Infrastructure.IntegrationTests.Identity.Services.UserManagerTests.User;
 
 [Collection(nameof(UserManagerTests))]
 public class CreateUserAsyncTests : UserManagerTestsFixtures

@@ -1,7 +1,7 @@
 ﻿using Auth.Api.Application.Common.Interfaces.Identity.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Auth.Api.Infrastructure.IntegrationTests.Identity.Services.UserManagerTests;
+namespace Auth.Api.Infrastructure.IntegrationTests.Identity.Services.UserManagerTests.Email;
 
 [Collection(nameof(UserManagerTests))]
 public class IsEmailExistsAsyncTests : UserManagerTestsFixtures

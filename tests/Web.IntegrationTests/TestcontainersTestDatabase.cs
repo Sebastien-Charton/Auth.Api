@@ -16,6 +16,7 @@ public class TestcontainersTestDatabase : ITestDatabase
     {
         _container = new PostgreSqlBuilder()
             .WithAutoRemove(true)
+            .WithCleanUp(true)
             .Build();
     }
 

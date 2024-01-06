@@ -1,27 +1,27 @@
 ﻿using Auth.Api.Application.Common.Interfaces.Identity.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Auth.Api.Infrastructure.IntegrationTests.Identity.Services.UserManagerTests;
+namespace Auth.Api.Infrastructure.IntegrationTests.Identity.Services.UserManagerTests.Password;
 
 [Collection(nameof(UserManagerTests))]
-public class RemovePasswordAsyncTests : UserManagerTestsFixtures
+public class GenerateResetPasswordTokenAsyncTests : UserManagerTestsFixtures
 {
     [Fact]
-    public async Task RemovePasswordAsync_ShouldRemovePassword_WhenUserExists()
+    public async Task GenerateResetPasswordTokenAsync_ShouldGetResetPasswordToken_WhenUserIsValid()
     {
         // Arrange
 
         var userManagerService = ServiceScope.ServiceProvider.GetRequiredService<IUserManagerService>();
         var createUserResult = await CreateUser();
+
         var user = await userManagerService.GetUserByIdAsync(createUserResult.userId);
 
         // Act
 
-        var removePasswordResult =
-            await userManagerService.RemovePasswordAsync(user!);
+        var response = await userManagerService.GenerateResetPasswordTokenAsync(user!);
 
         // Assert
 
-        removePasswordResult.Succeeded.Should().BeTrue();
+        response.Should().NotBeEmpty();
     }
 }

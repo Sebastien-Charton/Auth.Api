@@ -2,29 +2,31 @@
 using Auth.Api.Shared.Tests;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Auth.Api.Infrastructure.IntegrationTests.Identity.Services.UserManagerTests;
+namespace Auth.Api.Infrastructure.IntegrationTests.Identity.Services.UserManagerTests.Password;
 
 [Collection(nameof(UserManagerTests))]
-public class ChangePasswordAsyncTests : UserManagerTestsFixtures
+public class ResetPasswordAsyncTests : UserManagerTestsFixtures
 {
     [Fact]
-    public async Task ChangePasswordAsync_ShouldUpdatePassword_WhenPasswordIsValid()
+    public async Task ResetPasswordAsync_ShouldResetToken_WhenTokenIsValid()
     {
         // Arrange
 
         var userManagerService = ServiceScope.ServiceProvider.GetRequiredService<IUserManagerService>();
         var createUserResult = await CreateUser();
+
         var user = await userManagerService.GetUserByIdAsync(createUserResult.userId);
+
+        var resetPasswordToken = await userManagerService.GenerateResetPasswordTokenAsync(user!);
 
         var newPassword = new Faker().Internet.GenerateCustomPassword();
 
         // Act
 
-        var changePasswordResult =
-            await userManagerService.ChangePasswordAsync(user!, createUserResult.password, newPassword);
+        var resetPasswordResult = await userManagerService.ResetPasswordAsync(user!, resetPasswordToken, newPassword);
 
         // Assert
 
-        changePasswordResult.Succeeded.Should().BeTrue();
+        resetPasswordResult.Succeeded.Should().BeTrue();
     }
 }
