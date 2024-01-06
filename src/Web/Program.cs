@@ -2,6 +2,7 @@ using System.Globalization;
 using Auth.Api.Application;
 using Auth.Api.Infrastructure;
 using Auth.Api.Infrastructure.Data;
+using Auth.Api.Infrastructure.Extensions;
 using Auth.Api.Web;
 using Auth.Api.Web.Infrastructure.Logging;
 using Microsoft.AspNetCore.Localization;
@@ -55,7 +56,7 @@ builder.Services.AddCors(options =>
 WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsContainer() || app.Environment.IsLocal())
 {
     await app.InitialiseDatabaseAsync();
 }
