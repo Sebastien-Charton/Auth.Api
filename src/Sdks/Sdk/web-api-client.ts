@@ -13,7 +13,7 @@ import { Observable, throwError as _observableThrow, of as _observableOf } from 
 import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 
-export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
+export const AUTH_API_URL = new InjectionToken<string>('AUTH_API_URL');
 
 export interface IEnvironmentClient {
     /**
@@ -30,7 +30,7 @@ export class EnvironmentClient implements IEnvironmentClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(AUTH_API_URL) baseUrl?: string) {
         this.http = http;
         this.baseUrl = baseUrl ?? "https://";
     }
@@ -159,7 +159,7 @@ export class UserClient implements IUserClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(AUTH_API_URL) baseUrl?: string) {
         this.http = http;
         this.baseUrl = baseUrl ?? "https://";
     }

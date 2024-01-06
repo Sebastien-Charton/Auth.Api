@@ -197,7 +197,7 @@
               "convertConstructorInterfaceData": false,
               "importRequiredTypes": true,
               "useGetBaseUrlMethod": false,
-              "baseUrlTokenName": "API_BASE_URL",
+              "baseUrlTokenName": "AUTH_API_URL",
               "queryNullValue": "",
               "useAbortSignal": false,
               "inlineNamedDictionaries": false,
