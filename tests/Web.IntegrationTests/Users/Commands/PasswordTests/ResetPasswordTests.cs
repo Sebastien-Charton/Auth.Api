@@ -5,7 +5,7 @@ using Auth.Api.Application.Users.Commands.PasswordResetToken;
 using Auth.Api.Application.Users.Commands.ResetPassword;
 using Auth.Api.Shared.Tests;
 
-namespace Auth.Api.Web.IntegrationTests.Users.Commands;
+namespace Auth.Api.Web.IntegrationTests.Users.Commands.PasswordTests;
 
 public class ResetPasswordTests : UserEndpointsFixtures
 {

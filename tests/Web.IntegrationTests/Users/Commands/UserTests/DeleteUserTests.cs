@@ -4,7 +4,7 @@ using Auth.Api.Domain.Constants;
 using Mailjet.Client;
 using Newtonsoft.Json.Linq;
 
-namespace Auth.Api.Web.IntegrationTests.Users.Commands;
+namespace Auth.Api.Web.IntegrationTests.Users.Commands.UserTests;
 
 public class DeleteUserTests : UserEndpointsFixtures
 {

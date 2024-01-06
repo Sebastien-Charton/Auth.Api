@@ -6,7 +6,7 @@ using Mailjet.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 
-namespace Auth.Api.Web.IntegrationTests.Users.Commands;
+namespace Auth.Api.Web.IntegrationTests.Users.Commands.EmailTests;
 
 public class IsEmailConfirmedTests : UserEndpointsFixtures
 {

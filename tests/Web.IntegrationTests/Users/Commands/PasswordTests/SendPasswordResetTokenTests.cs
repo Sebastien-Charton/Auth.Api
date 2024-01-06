@@ -4,7 +4,7 @@ using Auth.Api.Application.Users.Commands.SendPasswordResetToken;
 using Mailjet.Client;
 using Newtonsoft.Json.Linq;
 
-namespace Auth.Api.Web.IntegrationTests.Users.Commands;
+namespace Auth.Api.Web.IntegrationTests.Users.Commands.PasswordTests;
 
 public class SendPasswordResetTokenTests : UserEndpointsFixtures
 {

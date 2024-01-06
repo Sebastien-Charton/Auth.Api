@@ -3,7 +3,7 @@ using System.Net.Http.Json;
 using Auth.Api.Application.Users.Commands.EmailConfirmationToken;
 using Auth.Api.Application.Users.Commands.PasswordResetToken;
 
-namespace Auth.Api.Web.IntegrationTests.Users.Commands;
+namespace Auth.Api.Web.IntegrationTests.Users.Commands.PasswordTests;
 
 public class PasswordResetTokenTests : UserEndpointsFixtures
 {

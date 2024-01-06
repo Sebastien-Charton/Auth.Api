@@ -4,7 +4,7 @@ using Auth.Api.Application.Users.Commands.SendConfirmationEmailToken;
 using Mailjet.Client;
 using Newtonsoft.Json.Linq;
 
-namespace Auth.Api.Web.IntegrationTests.Users.Commands;
+namespace Auth.Api.Web.IntegrationTests.Users.Commands.EmailTests;
 
 public class SendEmailConfirmationTokenTests : UserEndpointsFixtures
 {

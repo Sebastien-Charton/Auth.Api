@@ -3,7 +3,7 @@ using System.Net.Http.Json;
 using Auth.Api.Application.Users.Commands.LoginUser;
 using Auth.Api.Shared.Tests;
 
-namespace Auth.Api.Web.IntegrationTests.Users.Commands;
+namespace Auth.Api.Web.IntegrationTests.Users.Commands.UserTests;
 
 public class LoginUserTests : UserEndpointsFixtures
 {

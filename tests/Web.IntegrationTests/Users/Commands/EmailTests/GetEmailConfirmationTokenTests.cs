@@ -2,7 +2,7 @@
 using System.Net.Http.Json;
 using Auth.Api.Application.Users.Commands.EmailConfirmationToken;
 
-namespace Auth.Api.Web.IntegrationTests.Users.Commands;
+namespace Auth.Api.Web.IntegrationTests.Users.Commands.EmailTests;
 
 public class GetEmailConfirmationTokenTests : UserEndpointsFixtures
 {
