@@ -2,7 +2,7 @@
 using Auth.Api.Domain.Constants;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Auth.Api.Infrastructure.IntegrationTests.Identity.Services.UserManagerTests.User;
+namespace Auth.Api.Infrastructure.IntegrationTests.Identity.Services.UserManagerTests.QueryUser;
 
 [Collection(nameof(UserManagerTests))]
 public class IsInRoleAsyncTests : UserManagerTestsFixtures

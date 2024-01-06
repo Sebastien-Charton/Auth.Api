@@ -1,13 +1,13 @@
 ﻿using Auth.Api.Application.Common.Interfaces.Identity.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Auth.Api.Infrastructure.IntegrationTests.Identity.Services.UserManagerTests.User;
+namespace Auth.Api.Infrastructure.IntegrationTests.Identity.Services.UserManagerTests.QueryUser;
 
 [Collection(nameof(UserManagerTests))]
-public class GetUserByEmailAsyncTests : UserManagerTestsFixtures
+public class GetUserByIdAsyncTests : UserManagerTestsFixtures
 {
     [Fact]
-    public async Task GetUserByEmailAsync_ShouldReturnUser_WhenUserExists()
+    public async Task GetUserByIdAsync_ShouldReturnUser_WhenUserExists()
     {
         // Arrange
 
@@ -16,7 +16,7 @@ public class GetUserByEmailAsyncTests : UserManagerTestsFixtures
 
         // Act
 
-        var response = await userManagerService.GetUserByEmailAsync(createUserResult.email);
+        var response = await userManagerService.GetUserByIdAsync(createUserResult.userId);
 
         // Assert
 
@@ -27,7 +27,7 @@ public class GetUserByEmailAsyncTests : UserManagerTestsFixtures
     }
 
     [Fact]
-    public async Task GetUserByEmailAsync_ShouldReturnNull_WhenUserDoesntExists()
+    public async Task GetUserByIdAsync_ShouldReturnNull_WhenUserDoesntExists()
     {
         // Arrange
 
@@ -35,7 +35,7 @@ public class GetUserByEmailAsyncTests : UserManagerTestsFixtures
 
         // Act
 
-        var response = await userManagerService.GetUserByEmailAsync("randomUserEmail@example.com");
+        var response = await userManagerService.GetUserByIdAsync(Guid.NewGuid());
 
         // Assert
 
