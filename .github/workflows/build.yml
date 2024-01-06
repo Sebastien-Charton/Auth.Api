@@ -15,6 +15,7 @@ permissions: write-all
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     env:
       EXECUTE_TESTS: true
       BUILD_AND_PUBLISH_DOCKER_IMAGE: true
