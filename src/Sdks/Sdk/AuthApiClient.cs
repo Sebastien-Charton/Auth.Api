@@ -1857,7 +1857,7 @@ namespace Clean.Architecture.Sdk
 
         [Newtonsoft.Json.JsonProperty("userName", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
-        [System.ComponentModel.DataAnnotations.StringLength(64, MinimumLength = 3)]
+        [System.ComponentModel.DataAnnotations.StringLength(20, MinimumLength = 3)]
         [System.ComponentModel.DataAnnotations.RegularExpression(@"^[\w.-]+$")]
         public string UserName { get; set; }
 
@@ -1879,7 +1879,7 @@ namespace Clean.Architecture.Sdk
 
         [Newtonsoft.Json.JsonProperty("userName", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
-        [System.ComponentModel.DataAnnotations.StringLength(64, MinimumLength = 3)]
+        [System.ComponentModel.DataAnnotations.StringLength(20, MinimumLength = 3)]
         [System.ComponentModel.DataAnnotations.RegularExpression(@"^[\w.-]+$")]
         public string UserName { get; set; }
 
@@ -1897,6 +1897,9 @@ namespace Clean.Architecture.Sdk
 
         [Newtonsoft.Json.JsonProperty("userId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid UserId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("refreshToken", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string RefreshToken { get; set; }
 
     }
 

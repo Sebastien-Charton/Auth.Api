@@ -126,7 +126,7 @@ from repository root)
 For example, to add a new migration from the root folder:
 
 ```sh
-dotnet ef migrations add "TodoListRemoved" --project src/Infrastructure --startup-project src/Web --output-dir Data/Migrations
+dotnet ef migrations add "RefreshTokenAdded" --project src/Infrastructure --startup-project src/Web --output-dir Data/Migrations --verbose
 ```
 
 To create a database :

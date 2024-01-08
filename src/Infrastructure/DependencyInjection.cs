@@ -60,7 +60,7 @@ public static class DependencyInjection
             .Validate(x => x.Audience is not null, $"{nameof(JwtOptions.Audience)} is null")
             .Validate(x => x.Issuer is not null, $"{nameof(JwtOptions.Issuer)} is null")
             .Validate(x => x.SecurityKey is not null, $"{nameof(JwtOptions.SecurityKey)} is null")
-            .Validate(x => x.ExpiryInDays > 0, $"{nameof(JwtOptions.ExpiryInDays)} is less than 1")
+            .Validate(x => x.ExpiryInMinutes > 0, $"{nameof(JwtOptions.ExpiryInMinutes)} is less than 1")
             .ValidateOnStart();
 
         services

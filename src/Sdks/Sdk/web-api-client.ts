@@ -1380,6 +1380,7 @@ export interface IRegisterUserAdminCommand {
 export class LoginUserResponse implements ILoginUserResponse {
     token?: string;
     userId?: string;
+    refreshToken?: string;
 
     constructor(data?: ILoginUserResponse) {
         if (data) {
@@ -1394,6 +1395,7 @@ export class LoginUserResponse implements ILoginUserResponse {
         if (_data) {
             this.token = _data["token"];
             this.userId = _data["userId"];
+            this.refreshToken = _data["refreshToken"];
         }
     }
 
@@ -1408,6 +1410,7 @@ export class LoginUserResponse implements ILoginUserResponse {
         data = typeof data === 'object' ? data : {};
         data["token"] = this.token;
         data["userId"] = this.userId;
+        data["refreshToken"] = this.refreshToken;
         return data;
     }
 }
@@ -1415,6 +1418,7 @@ export class LoginUserResponse implements ILoginUserResponse {
 export interface ILoginUserResponse {
     token?: string;
     userId?: string;
+    refreshToken?: string;
 }
 
 export class LoginUserCommand implements ILoginUserCommand {

@@ -1017,7 +1017,7 @@
           },
           "userName": {
             "type": "string",
-            "maxLength": 64,
+            "maxLength": 20,
             "minLength": 3,
             "pattern": "^[\\w.-]+$"
           }
@@ -1044,7 +1044,7 @@
           },
           "userName": {
             "type": "string",
-            "maxLength": 64,
+            "maxLength": 20,
             "minLength": 3,
             "pattern": "^[\\w.-]+$"
           },
@@ -1066,6 +1066,9 @@
           "userId": {
             "type": "string",
             "format": "guid"
+          },
+          "refreshToken": {
+            "type": "string"
           }
         }
       },

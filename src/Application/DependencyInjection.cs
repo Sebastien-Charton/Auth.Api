@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Auth.Api.Application.Common.Behaviours;
 using Auth.Api.Application.Common.Options;
+using Auth.Api.Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -26,8 +27,16 @@ public static class DependencyInjection
 
         services
             .AddOptionsWithValidateOnStart<FeatureOptions>()
-            .Configure(sendGridOptions =>
-                configuration.Bind(nameof(FeatureOptions), sendGridOptions))
+            .Configure(featureOptions =>
+                configuration.Bind(nameof(FeatureOptions), featureOptions))
+            .ValidateOnStart();
+
+        services
+            .AddOptionsWithValidateOnStart<RefreshTokenOptions>()
+            .Configure(refreshTokenOptions =>
+            {
+                configuration.Bind(nameof(RefreshTokenOptions), refreshTokenOptions);
+            })
             .ValidateOnStart();
 
         return services;

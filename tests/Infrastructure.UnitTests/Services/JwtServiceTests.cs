@@ -28,7 +28,7 @@ public class JwtServiceTests
             .RuleFor(x => x.Audience, f => f.Internet.Url())
             .RuleFor(x => x.Issuer, f => f.Internet.Url())
             .RuleFor(x => x.SecurityKey, f => f.Random.String(64))
-            .RuleFor(x => x.ExpiryInDays, f => f.Random.Int(1, 30))
+            .RuleFor(x => x.ExpiryInMinutes, f => f.Random.Int(1, 30))
             .Generate();
 
         var jwtOption = Microsoft.Extensions.Options.Options.Create(jwtConfiguration);
@@ -53,8 +53,33 @@ public class JwtServiceTests
         token.Claims.Should().ContainSingle(x => x.Value == user.Id.ToString());
         token.Claims.Should().ContainSingle(x => x.Value == user.Email);
         token.Claims.Should().ContainSingle(x => x.Value == user.UserName);
-        token.ValidTo.Date.Should().Be(token.ValidFrom.Date.AddDays(jwtConfiguration.ExpiryInDays));
+        token.ValidTo.Date.Should().Be(token.ValidFrom.Date.AddDays(jwtConfiguration.ExpiryInMinutes));
         token.Claims.Should().ContainSingle(x => x.Value == Roles.User);
         token.Claims.Should().ContainSingle(x => x.Value == Roles.Administrator);
+    }
+    
+    [Fact]
+    public void GenerateRefreshToken_ShouldReturnValidToken()
+    {
+        // Arrange
+        var jwtConfiguration = new Faker<JwtOptions>()
+            .RuleFor(x => x.Audience, f => f.Internet.Url())
+            .RuleFor(x => x.Issuer, f => f.Internet.Url())
+            .RuleFor(x => x.SecurityKey, f => f.Random.String(64))
+            .RuleFor(x => x.ExpiryInMinutes, f => f.Random.Int(1, 30))
+            .Generate();
+
+        var jwtOption = Microsoft.Extensions.Options.Options.Create(jwtConfiguration);
+
+        var jwtService = new JwtService(jwtOption);
+
+        // Act
+
+        var result = jwtService.GenerateRefreshToken();
+
+        // Assert
+
+        result.Should().NotBeNull();
+        result.Length.Should().BeGreaterThan(64);
     }
 }

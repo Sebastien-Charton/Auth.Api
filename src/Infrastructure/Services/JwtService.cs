@@ -1,5 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using Auth.Api.Application.Common.Interfaces.Identity.Models;
 using Auth.Api.Application.Common.Interfaces.Services;
@@ -40,7 +41,7 @@ public class JwtService : IJwtService
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Value.SecurityKey));
 
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-        var jwtExpiry = DateTime.Now.AddDays(_jwtOptions.Value.ExpiryInDays);
+        var jwtExpiry = DateTime.Now.AddMinutes(_jwtOptions.Value.ExpiryInMinutes);
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
@@ -53,5 +54,14 @@ public class JwtService : IJwtService
         var tokenHandler = new JwtSecurityTokenHandler();
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+    
+    // generate refresh token
+    public string GenerateRefreshToken()
+    {
+        var randomNumber = new byte[64];
+        using var rng = RandomNumberGenerator.Create();
+        rng.GetBytes(randomNumber);
+        return Convert.ToBase64String(randomNumber);
     }
 }

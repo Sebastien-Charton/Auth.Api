@@ -29,6 +29,7 @@ public class LoginUserTests : UserEndpointsFixtures
 
         loginUserResponse.StatusCode.Should().Be(HttpStatusCode.OK);
         loginUserResult!.Token.Should().NotBeEmpty();
+        loginUserResult.RefreshToken.Should().NotBeEmpty();
     }
 
     [Fact]

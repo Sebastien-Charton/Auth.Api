@@ -98,6 +98,9 @@ app.Run();
 
 // ReSharper disable once RedundantTypeDeclarationBody
 // ReSharper disable once ClassNeverInstantiated.Global
-public partial class Program
+namespace Auth.Api.Web
 {
+    public partial class Program
+    {
+    }
 }

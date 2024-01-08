@@ -8,5 +8,5 @@ public class JwtOptions
 
     public required string Audience { get; set; }
 
-    public required int ExpiryInDays { get; set; }
+    public required int ExpiryInMinutes { get; set; }
 }
