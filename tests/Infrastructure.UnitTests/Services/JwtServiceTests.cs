@@ -53,7 +53,7 @@ public class JwtServiceTests
         token.Claims.Should().ContainSingle(x => x.Value == user.Id.ToString());
         token.Claims.Should().ContainSingle(x => x.Value == user.Email);
         token.Claims.Should().ContainSingle(x => x.Value == user.UserName);
-        token.ValidTo.Date.Should().Be(token.ValidFrom.Date.AddDays(jwtConfiguration.ExpiryInMinutes));
+        token.ValidTo.Should().Be(token.ValidFrom.AddMinutes(jwtConfiguration.ExpiryInMinutes));
         token.Claims.Should().ContainSingle(x => x.Value == Roles.User);
         token.Claims.Should().ContainSingle(x => x.Value == Roles.Administrator);
     }
